@@ -7,6 +7,8 @@ from abc import ABCMeta, abstractproperty, abstractmethod
 class Problem(object):
     __metaclass__ = ABCMeta
 
+    nprocs = None
+
     @abstractproperty
     def name(self):
         pass

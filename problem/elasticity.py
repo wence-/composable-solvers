@@ -145,5 +145,6 @@ class Problem(baseproblem.Problem):
 
     @property
     def datastore_name(self):
+        size = self.nprocs or COMM_WORLD.size
         return "%s_timings_nproc-%d_dimension-%d_size-%d_degree-%d.h5" % \
-            (self.name, COMM_WORLD.size, self.dimension, self.N, self.degree)
+            (self.name, size, self.dimension, self.N, self.degree)

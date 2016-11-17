@@ -24,6 +24,9 @@ parser.add_argument("--help", action="store_true",
 parser.add_argument("--output-directory",
                     help="Where to put plots")
 
+parser.add_argument("--num-processes", default=1, type=int,
+                    help="Number of processes data was created on")
+
 args, _ = parser.parse_known_args()
 
 
@@ -48,6 +51,8 @@ if args.results_directory is None:
 
 module = importlib.import_module("problem.%s" % args.problem)
 problem = module.Problem()
+
+problem.nprocs = args.num_processes
 
 results = os.path.join(os.path.abspath(args.output_directory),
                        problem.datastore_name)
