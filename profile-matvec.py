@@ -39,7 +39,6 @@ args, _ = parser.parse_known_args()
 if args.help:
     help = parser.format_help()
     PETSc.Sys.Print("%s\n" % help)
-    parser.print_help()
 
 
 if args.problem is None:

@@ -9,6 +9,9 @@ from . import baseproblem
 
 
 class Problem(baseproblem.Problem):
+
+    name = "Poisson"
+
     def __init__(self):
         super(Problem, self).__init__()
         args, _ = self.argparser.parse_known_args()
@@ -93,6 +96,6 @@ class Problem(baseproblem.Problem):
 
     @property
     def datastore_name(self):
-        return "poisson_timings_nproc-%d_dimension-%d_size-%d_degree-%d.h5" % \
-            (self.u.comm.size, self.dimension, self.N, self.degree)
+        return "%s_timings_nproc-%d_dimension-%d_size-%d_degree-%d.h5" % \
+            (self.name, COMM_WORLD.size, self.dimension, self.N, self.degree)
             

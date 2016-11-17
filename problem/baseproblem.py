@@ -8,6 +8,10 @@ class Problem(object):
     __metaclass__ = ABCMeta
 
     @abstractproperty
+    def name(self):
+        pass
+
+    @abstractproperty
     def function_space(self):
         pass
 

@@ -8,6 +8,9 @@ from . import baseproblem
 
 
 class Problem(baseproblem.Problem):
+
+    name = "Navier-Stokes"
+
     def __init__(self):
         super(Problem, self).__init__()
         args, _ = self.argparser.parse_known_args()
@@ -110,3 +113,8 @@ class Problem(baseproblem.Problem):
         u.rename("Velocity")
         p.rename("Pressure")
         return (u, p)
+
+    @property
+    def datastore_name(self):
+        return "%s_timings_nproc-%d_dimension-%d_size-%d_degree-%d.h5" % \
+            (self.name, COMM_WORLD.size, self.dimension, self.N, self.degree)

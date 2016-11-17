@@ -8,6 +8,9 @@ from . import baseproblem
 
 
 class Problem(baseproblem.Problem):
+
+    name = "Rayleigh-Benard"
+
     def __init__(self):
         super(Problem, self).__init__()
         args, _ = self.argparser.parse_known_args()
@@ -100,3 +103,8 @@ class Problem(baseproblem.Problem):
         p.rename("Pressure")
         T.rename("Temperature")
         return (u, p, T)
+
+    @property
+    def datastore_name(self):
+        return "%s_timings_nproc-%d_dimension-%d_size-%d_degree-%d.h5" % \
+            (self.name, COMM_WORLD.size, self.dimension, self.N, self.degree)

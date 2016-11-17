@@ -10,6 +10,9 @@ parameters["pyop2_options"]["block_sparsity"] = False
 
 
 class Problem(baseproblem.Problem):
+
+    name = "Elasticity"
+
     def __init__(self):
         super(Problem, self).__init__()
         args, _ = self.argparser.parse_known_args()
@@ -139,3 +142,8 @@ class Problem(baseproblem.Problem):
                           name="stress")
         stress.interpolate(self.sigma(self.u))
         return (self.u, stress)
+
+    @property
+    def datastore_name(self):
+        return "%s_timings_nproc-%d_dimension-%d_size-%d_degree-%d.h5" % \
+            (self.name, COMM_WORLD.size, self.dimension, self.N, self.degree)
