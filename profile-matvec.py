@@ -97,7 +97,7 @@ def merge_dicts(a, b, datatype):
     result = defaultdict(partial(defaultdict, dict))
     for ka in a:
         for k_ in a[ka]:
-            result[ka][k_].update(a[ka][k])
+            result[ka][k_].update(a[ka][k_])
             for k, v in b[ka][k_].items():
                 result[ka][k_][k] += v
     return result
