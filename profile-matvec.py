@@ -161,8 +161,9 @@ def plot():
     from matplotlib import pyplot
 
     output = os.path.join(os.path.abspath(args.results_directory),
-                          "%s_dimension-%d-matvec-time.pdf" % (problem.name,
-                                                               problem.dimension))
+                          "%s_nprocs-%d_dimension-%d-matvec-time.pdf"
+                          % (problem.name, args.num_processes,
+                             problem.dimension))
     if os.path.exists(output) and not args.overwrite:
         PETSc.Sys.Print("Not overwriting existing output '%s'\n" % output)
         PETSc.Sys.Print("If you meant to, try with --overwrite\n")
@@ -246,7 +247,7 @@ def plot():
                         loc=9,
                         bbox_to_anchor=(0.5, 1.1),
                         bbox_transform=fig.transFigure,
-                        ncol=3,
+                        ncol=2,
                         handlelength=4,
                         fontsize=10,
                         numpoints=1,
