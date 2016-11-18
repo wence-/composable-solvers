@@ -30,7 +30,7 @@ parser.add_argument("--overwrite", action="store_true", default=False,
 parser.add_argument("--help", action="store_true",
                     help="Show help")
 
-parser.add_argument("--num-matvecs", action="store", default=100,
+parser.add_argument("--num-matvecs", action="store", default=40,
                     type=int, help="Number of MatVecs to perform")
 
 parser.add_argument("--plot-data", action="store_true",
