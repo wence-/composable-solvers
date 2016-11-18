@@ -26,16 +26,9 @@ class Problem(baseproblem.Problem):
 
     @cached_property
     def function_space(self):
-        if self.dimension == 2:
-            mesh = UnitSquareMesh(self.N, self.N)
-        elif self.dimension == 3:
-            mesh = UnitCubeMesh(self.N, self.N, self.N)
-        else:
-            raise ValueError("Invalid dimension, %d", self.dimension)
-
-        V = VectorFunctionSpace(mesh, "CG", self.degree+1)
-        P = FunctionSpace(mesh, "CG", self.degree)
-        T = FunctionSpace(mesh, "CG", self.degree)
+        V = VectorFunctionSpace(self.mesh, "CG", self.degree+1)
+        P = FunctionSpace(self.mesh, "CG", self.degree)
+        T = FunctionSpace(self.mesh, "CG", self.degree)
         return V*P*T
 
     @cached_property

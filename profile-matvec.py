@@ -21,6 +21,9 @@ parser.add_argument("--problem", choices=["poisson",
                                           "rayleigh_benard"],
                     help="Which problem to profile")
 
+parser.add_argument("--autorefine", action="store_true", default=False,
+                    help="Refine meshes to give approximately fixed number of dofs?")
+
 parser.add_argument("--results-directory",
                     help="Where to put the results")
 
@@ -61,6 +64,8 @@ if args.results_directory is None:
 
 module = importlib.import_module("problem.%s" % args.problem)
 problem = module.Problem()
+
+problem.autorefine = args.autorefine
 
 result_fmt = "%s_nprocs-%s_size-%s_dimension-%s_degree-%s.h5"
 

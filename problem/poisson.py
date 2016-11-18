@@ -37,7 +37,7 @@ class Problem(baseproblem.Problem):
                             help="Number of cells in each spatial direction",
                             type=int)
 
-        parser.add_argument("--dimension", action="store", default=2, choices=[1, 2, 3],
+        parser.add_argument("--dimension", action="store", default=2, choices=[2, 3],
                             help="Spatial dimension of problem",
                             type=int)
 
@@ -53,16 +53,7 @@ class Problem(baseproblem.Problem):
 
     @cached_property
     def function_space(self):
-        if self.dimension == 1:
-            mesh = UnitIntervalMesh(self.N)
-        elif self.dimension == 2:
-            mesh = UnitSquareMesh(self.N, self.N)
-        elif self.dimension == 3:
-            mesh = UnitCubeMesh(self.N, self.N, self.N)
-        else:
-            raise ValueError("Invalid dimension, %d", self.dimension)
-
-        return FunctionSpace(mesh, "CG", self.degree)
+        return FunctionSpace(self.mesh, "CG", self.degree)
 
     @cached_property
     def u(self):
