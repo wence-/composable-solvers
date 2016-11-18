@@ -100,8 +100,8 @@ def collect():
             info = mat.petscmat.getInfo()
         elif typ == "nest":
             info = reduce(lambda x, y: dict((k, x[k] + y[k]) for k in x),
-                          map(lambda x: x.petscmat.getInfo(),
-                              mat.mat))
+                          map(lambda x: x.handle.getInfo(),
+                              mat.M))
 
         info["rows"] = mat.petscmat.getSize()[0]
         info["cols"] = mat.petscmat.getSize()[1]
