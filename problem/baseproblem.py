@@ -65,7 +65,3 @@ class Problem(object):
     @abstractproperty
     def output_fields(self):
         pass
-
-    @abstractproperty
-    def datastore_name(self):
-        pass

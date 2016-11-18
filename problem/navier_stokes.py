@@ -113,9 +113,3 @@ class Problem(baseproblem.Problem):
         u.rename("Velocity")
         p.rename("Pressure")
         return (u, p)
-
-    @property
-    def datastore_name(self):
-        size = self.nprocs or COMM_WORLD.size
-        return "%s_timings_nproc-%d_dimension-%d_size-%d_degree-%d.h5" % \
-            (self.name, size, self.dimension, self.N, self.degree)

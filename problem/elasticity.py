@@ -142,9 +142,3 @@ class Problem(baseproblem.Problem):
                           name="stress")
         stress.interpolate(self.sigma(self.u))
         return (self.u, stress)
-
-    @property
-    def datastore_name(self):
-        size = self.nprocs or COMM_WORLD.size
-        return "%s_timings_nproc-%d_dimension-%d_size-%d_degree-%d.h5" % \
-            (self.name, size, self.dimension, self.N, self.degree)
