@@ -182,18 +182,25 @@ def plot():
 
     num_mv = datastores[0].aij.matmult["count"]
 
+    types = datastores[0].info.keys()
     degree = np.asarray(map(lambda s: s.info.aij.degree, datastores), dtype=int)
     rows = np.asarray(map(lambda s: s.info.aij.rows, datastores))
-    aij_mem = np.asarray(map(lambda s: s.info.aij.memory, datastores))
-    matfree_mem = np.asarray(map(lambda s: s.info.matfree.memory, datastores))
-    aij_assemble_flops = np.asarray(map(lambda s: s.aij.assemble.flops, datastores))
-    aij_matmult_flops = np.asarray(map(lambda s: s.aij.matmult.flops, datastores))
-    matfree_assemble_flops = np.asarray(map(lambda s: s.matfree.assemble.flops, datastores))
-    matfree_matmult_flops = np.asarray(map(lambda s: s.matfree.matmult.flops, datastores))
-    aij_assemble_time = np.asarray(map(lambda s: s.aij.assemble.time, datastores))
-    aij_matmult_time = np.asarray(map(lambda s: s.aij.matmult.time, datastores))
-    matfree_matmult_time = np.asarray(map(lambda s: s.matfree.matmult.time, datastores))
 
+    mem = {}
+    assemble_flops = {}
+    matmult_flops = {}
+    assemble_time = {}
+    matmult_time = {}
+    for typ in types:
+        mem[typ] = np.asarray(map(lambda s: s.info[typ].memory, datastores))
+        assemble_flops[typ] = np.asarray(map(lambda s: s[typ].assemble.flops,
+                                             datastores))
+        matmult_flops[typ] = np.asarray(map(lambda s: s[typ].matmult.flops,
+                                            datastores))
+        assemble_time[typ] = np.asarray(map(lambda s: s[typ].assemble.time,
+                                            datastores))
+        matmult_time[typ] = np.asarray(map(lambda s: s[typ].matmult.time,
+                                           datastores))
     fig = pyplot.figure(figsize=(9, 5))
     left = fig.add_subplot(111)
 
@@ -203,17 +210,33 @@ def plot():
 
     left.set_ylabel("Time/dof (ms)")
     colours = ['#30a2da', '#fc4f30', '#e5ae38', '#6d904f', '#8b8b8b']
+    markers = ["o", "D", "^", "v", "p"]
 
-    left.plot(degree, aij_assemble_time*1e3 / rows,
+    cit = iter(colours)
+    mit = iter(markers)
+    left.plot(degree, assemble_time["aij"]*1e3 / rows,
               linewidth=2, label="Assemble AIJ matrix",
-              marker="o",
-              color=colours[0])
-    left.plot(degree, aij_matmult_time*1e3 / (rows * num_mv),
-              linewidth=2, label="Apply AIJ matvec",
-              marker="D", color=colours[1])
-    left.plot(degree, matfree_matmult_time*1e3 / (rows * num_mv),
-              linewidth=2, label="Apply matrix-free matvec",
-              marker="^", color=colours[2])
+              marker=next(mit),
+              color=next(cit))
+    if "nest" in types:
+        left.plot(degree, assemble_time["nest"]*1e3 / rows,
+                  linewidth=2, label="Assemble nest matrix",
+                  marker=next(mit),
+                  color=next(cit))
+    left.plot(degree, matmult_time["aij"]*1e3 / (rows * num_mv),
+              linewidth=2, label="AIJ MatVec",
+              marker=next(mit),
+              color=next(cit))
+    if "nest" in types:
+        left.plot(degree, matmult_time["nest"]*1e3 / (rows * num_mv),
+                  linewidth=2, label="Nest MatVec",
+                  marker=next(mit),
+                  color=next(cit))
+
+    left.plot(degree, matmult_time["matfree"]*1e3 / (rows * num_mv),
+              linewidth=2, label="Matrix-free MatVec",
+              marker=next(mit),
+              color=next(cit))
 
     left.semilogy()
     left.set_xticks(degree)
@@ -221,15 +244,23 @@ def plot():
     left.xaxis.set_ticks_position("bottom")
     right.xaxis.set_ticks_position("bottom")
 
-    right.plot(degree, aij_mem / rows,
+    it = iter(colours)
+    mit = iter(markers)
+    right.plot(degree, mem["aij"] / rows,
                linestyle="dashed",
-               marker="o",
-               linewidth=2, label="AIJ memory", color=colours[0])
+               marker=next(mit),
+               linewidth=2, label="AIJ memory", color=next(it))
 
-    right.plot(degree, matfree_mem / rows,
+    if "nest" in types:
+        right.plot(degree, mem["nest"] / rows,
+                   linestyle="dashed",
+                   marker=next(mit),
+                   linewidth=2, label="Nest memory", color=next(it))
+
+    right.plot(degree, mem["matfree"] / rows,
                linestyle="dashed",
-               marker="D",
-               linewidth=2, label="Matrix-free memory", color=colours[1])
+               marker=next(mit),
+               linewidth=2, label="Matrix-free memory", color=next(it))
 
     right.set_ylabel("Bytes/dof")
 
