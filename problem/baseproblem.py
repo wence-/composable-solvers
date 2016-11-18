@@ -15,17 +15,17 @@ class Problem(object):
             mesh = UnitSquareMesh(self.N, self.N)
             # Refinements to give approximately same number of dofs
             # irrespective of degree
-            refinements = {1: 5,
-                           2: 4,
+            refinements = {1: 4,
+                           2: 3,
                            3: 3,
-                           4: 3,
+                           4: 2,
                            5: 2,
                            6: 2,
                            7: 1,
                            8: 0}[self.degree]
         elif self.dimension == 3:
             mesh = UnitCubeMesh(self.N, self.N, self.N)
-            refinements = {1: 3,
+            refinements = {1: 4,
                            2: 3,
                            3: 2,
                            4: 2,

@@ -6,8 +6,6 @@ from firedrake.utils import cached_property
 
 from . import baseproblem
 
-parameters["pyop2_options"]["block_sparsity"] = False
-
 
 class Problem(baseproblem.Problem):
 
