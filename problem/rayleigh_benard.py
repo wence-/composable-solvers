@@ -25,6 +25,36 @@ class Problem(baseproblem.Problem):
         self.Pr = Constant(args.Pr)
 
     @cached_property
+    def argparser(self):
+        parser = ArgumentParser(description="""Set options for driven-cavity Navier-Stokes.  Uses Taylor-Hood elements""",
+                                add_help=False)
+
+        parser.add_argument("--degree", action="store", default=1,
+                            help="Polynomial degree of the pressure space",
+                            type=int)
+
+        parser.add_argument("--size", action="store",  default=10,
+                            help="Number of cells in each spatial direction",
+                            type=int)
+
+        parser.add_argument("--dimension", action="store", default=2, choices=[2, 3],
+                            help="Spatial dimension of problem",
+                            type=int)
+
+        parser.add_argument("--Ra", action="store", default=200,
+                            help="Rayleigh number",
+                            type=float)
+
+        parser.add_argument("--Pr", action="store", default=6.8,
+                            help="Prandtl number",
+                            type=float)
+
+        parser.add_argument("--help", action="store_true",
+                            help="Show help")
+
+        return parser
+
+    @cached_property
     def function_space(self):
         V = VectorFunctionSpace(self.mesh, "CG", self.degree+1)
         P = FunctionSpace(self.mesh, "CG", self.degree)
