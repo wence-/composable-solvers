@@ -56,10 +56,6 @@ class Problem(baseproblem.Problem):
         return FunctionSpace(self.mesh, "CG", self.degree)
 
     @cached_property
-    def u(self):
-        return Function(self.function_space, name="solution")
-
-    @cached_property
     def forcing(self):
         V = self.function_space
         if self.random:

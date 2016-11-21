@@ -62,14 +62,10 @@ class Problem(baseproblem.Problem):
         return V*P*T
 
     @cached_property
-    def u(self):
-        return Function(self.function_space, name="solution")
-
-    @cached_property
     def F(self):
         W = self.function_space
 
-        u, p, T = split(self.w)
+        u, p, T = split(self.u)
         v, q, S = TestFunctions(W)
 
         if self.dimension == 2:

@@ -59,10 +59,6 @@ class Problem(baseproblem.Problem):
         return V*P
 
     @cached_property
-    def u(self):
-        return Function(self.function_space, name="solution")
-
-    @cached_property
     def F(self):
         W = self.function_space
 

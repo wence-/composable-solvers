@@ -63,10 +63,6 @@ class Problem(baseproblem.Problem):
         return self.lmbda*(1 - 2*self.nu)/(2*self.nu)
 
     @cached_property
-    def u(self):
-        return Function(self.function_space, name="solution")
-
-    @cached_property
     def forcing(self):
         # Squash under gravity
         if self.dimension == 2:
