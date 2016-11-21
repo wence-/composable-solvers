@@ -23,6 +23,7 @@ class Problem(baseproblem.Problem):
         self.N = args.size
         self.Ra = Constant(args.Ra)
         self.Pr = Constant(args.Pr)
+        self.vertical_temperature = args.vertical_temperature
 
     @cached_property
     def argparser(self):
@@ -48,6 +49,10 @@ class Problem(baseproblem.Problem):
         parser.add_argument("--Pr", action="store", default=6.8,
                             help="Prandtl number",
                             type=float)
+
+        parser.add_argument("--vertical-temperature", action="store_true",
+                            default=False,
+                            help="Apply a vertical temperature gradient?")
 
         parser.add_argument("--help", action="store_true",
                             help="Show help")
@@ -87,14 +92,14 @@ class Problem(baseproblem.Problem):
     @cached_property
     def bcs(self):
         if self.dimension == 2:
-            if self.args.vertical_temperature:
+            if self.vertical_temperature:
                 high_T = 3      # bottom
                 low_T = 4       # top
             else:
                 high_T = 1      # left
                 low_T = 2       # right
         else:
-            if self.args.vertical_temperature:
+            if self.vertical_temperature:
                 high_T = 5      # bottom
                 low_T = 6       # top
             else:
