@@ -11,19 +11,10 @@ class Problem(baseproblem.Problem):
 
     name = "Elasticity"
 
-    def __init__(self):
-        super(Problem, self).__init__()
-        args, _ = self.argparser.parse_known_args()
-        if args.help:
-            import sys
-            self.parser.print_help()
-            sys.exit(0)
-        self.degree = args.degree
-        self.dimension = args.dimension
-        self.N = args.size
-        self.nu = args.nu
-        self.lmbda = args.lmbda
-        self.args = args
+    def __init__(self, N=None, degree=None, dimension=None):
+        super(Problem, self).__init__(N, degree, dimension)
+        self.nu = self.args.nu
+        self.lmbda = self.args.lmbda
 
     @cached_property
     def argparser(self):

@@ -9,6 +9,18 @@ class Problem(object):
 
     autorefine = False
 
+    def __init__(self, N=None, degree=None, dimension=None):
+        super(Problem, self).__init__()
+        args, _ = self.argparser.parse_known_args()
+        if args.help:
+            import sys
+            self.parser.print_help()
+            sys.exit(0)
+        self.degree = degree or args.degree
+        self.dimension = dimension or args.dimension
+        self.N = N or args.size
+        self.args = args
+
     @cached_property
     def mesh(self):
         if self.dimension == 2:

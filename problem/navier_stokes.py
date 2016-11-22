@@ -11,17 +11,9 @@ class Problem(baseproblem.Problem):
 
     name = "Navier-Stokes"
 
-    def __init__(self):
-        super(Problem, self).__init__()
-        args, _ = self.argparser.parse_known_args()
-        if args.help:
-            self.argparser.print_help()
-            import sys
-            sys.exit(0)
-        self.degree = args.degree
-        self.dimension = args.dimension
-        self.N = args.size
-        self.Re = Constant(args.Re)
+    def __init__(self, N=None, degree=None, dimension=None):
+        super(Problem, self).__init__(N, degree, dimension)
+        self.Re = Constant(self.args.Re)
 
     @cached_property
     def argparser(self):

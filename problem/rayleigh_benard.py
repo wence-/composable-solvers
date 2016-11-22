@@ -11,19 +11,11 @@ class Problem(baseproblem.Problem):
 
     name = "Rayleigh-Benard"
 
-    def __init__(self):
-        super(Problem, self).__init__()
-        args, _ = self.argparser.parse_known_args()
-        if args.help:
-            self.argparser.print_help()
-            import sys
-            sys.exit(0)
-        self.degree = args.degree
-        self.dimension = args.dimension
-        self.N = args.size
-        self.Ra = Constant(args.Ra)
-        self.Pr = Constant(args.Pr)
-        self.vertical_temperature = args.vertical_temperature
+    def __init__(self, N=None, degree=None, dimension=None):
+        super(Problem, self).__init__(N, degree, dimension)
+        self.Ra = Constant(self.args.Ra)
+        self.Pr = Constant(self.args.Pr)
+        self.vertical_temperature = self.args.vertical_temperature
 
     @cached_property
     def argparser(self):
