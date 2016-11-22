@@ -5,6 +5,7 @@ import sys
 import h5py
 import numpy
 import xarray
+import pandas
 import matplotlib as mpl
 import math
 from matplotlib import pyplot
@@ -299,3 +300,7 @@ fig.savefig(output, orientation="landscape",
             transparent=True,
             bbox_inches="tight",
             bbox_extra_artists=[legend])
+
+# For factors, we convert from xarray to dataframes using:
+# df = pandas.DataFrame(dataset.loc(...).to_dataframe().to_records())
+# Then we merge along various axes and can plot with seaborn.
