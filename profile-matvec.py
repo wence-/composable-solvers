@@ -2,10 +2,7 @@ from argparse import ArgumentParser
 import importlib
 import os
 import sys
-from collections import defaultdict
-from functools import partial
-import h5py
-
+import pandas
 from firedrake import assemble, COMM_WORLD
 from firedrake.petsc import PETSc
 from mpi4py import MPI
@@ -60,18 +57,17 @@ problem.autorefine = args.autorefine
 
 
 results = os.path.join(os.path.abspath(args.results_directory),
-                       "MatVec-timings_%s.h5" % problem.name)
+                       "MatVec-timings_%s.csv" % problem.name)
 
 J = problem.J
 
 assemble_event = PETSc.Log.Event("AssembleMat")
 matmult_event = PETSc.Log.Event("MatMult")
 
-timings = defaultdict(partial(defaultdict, dict))
 typs = ["aij", "matfree"]
-info = {}
 if len(problem.function_space) > 1:
     typs.append("nest")
+
 
 def mat_info(mat, typ):
     if typ == "matfree":
@@ -84,10 +80,13 @@ def mat_info(mat, typ):
                       map(lambda x: x.handle.getInfo(),
                           mat.M))
 
-    info["rows"] = mat.petscmat.getSize()[0]
-    info["cols"] = mat.petscmat.getSize()[1]
-    info["degree"] = problem.degree
-    return info
+    rows = mat.petscmat.getSize()[0]
+    cols = mat.petscmat.getSize()[1]
+    bytes = info["memory"]
+    return rows, cols, bytes
+
+
+num_cells = problem.comm.allreduce(problem.mesh.cell_set.size, op=MPI.SUM)
 
 for typ in typs:
     # Warmup and allocate
@@ -97,7 +96,6 @@ for typ in typs:
     x, y = Ap.createVecs()
     Ap.mult(x, y)
     stage = PETSc.Log.Stage("%s matrix" % typ)
-    info[typ] = mat_info(A, typ)
     with stage:
         with assemble_event:
             assemble(J, bcs=problem.bcs, mat_type=typ, tensor=A)
@@ -105,64 +103,38 @@ for typ in typs:
             Ap = A.petscmat
         for _ in range(args.num_matvecs):
             Ap.mult(x, y)
-        timings[typ]["matmult"] = matmult_event.getPerfInfo(stage)
-        timings[typ]["assemble"] = assemble_event.getPerfInfo(stage)
 
-def merge_dicts(a, b, datatype):
-    result = defaultdict(partial(defaultdict, dict))
-    for ka in a:
-        for k_ in a[ka]:
-            result[ka][k_].update(a[ka][k_])
-            for k, v in b[ka][k_].items():
-                result[ka][k_][k] += v
-    return result
+        matmult = matmult_event.getPerfInfo()
+        assembly = assemble_event.getPerfInfo()
+        matmult_time = problem.comm.allreduce(matmult["time"], op=MPI.SUM) / (problem.comm.size * args.num_matvecs)
+        matmult_flops = problem.comm.allreduce(matmult["flops"], op=MPI.SUM) / args.num_matvecs
+        assemble_time = problem.comm.allreduce(assembly["time"], op=MPI.SUM) / problem.comm.size
+        assemble_flops = problem.comm.allreduce(assembly["flops"], op=MPI.SUM)
 
-merger = MPI.Op.Create(merge_dicts, commute=True)
-all_data = COMM_WORLD.allreduce(timings, op=merger)
+    rows, cols, bytes = mat_info(A, typ)
 
-for v_ in all_data.values():
-    for v in v_.values():
-        v["count"] /= COMM_WORLD.size
-        v["time"] /= COMM_WORLD.size
+    if COMM_WORLD.rank == 0:
+        if not os.path.exists(os.path.dirname(results)):
+            os.makedirs(os.path.dirname(results))
 
-if COMM_WORLD.rank == 0:
-    if not os.path.exists(os.path.dirname(results)):
-        os.makedirs(os.path.dirname(results))
-    if args.overwrite:
-        mode = "w"
-    else:
-        mode = "a"
-    store = h5py.File(results, mode=mode)
-
-    # Data layout:
-    # Multi-D space, coordinate axes are:
-    # Nprocs, dimension, degree, problem-size, autorefine, matrix-type
-    # At each point, we store (as attributes)
-    #   - bytes, row, cols for the matrix
-    #   - time, flops, call-count for assembly and matmult
-    base_group = "/%d/%d/%d/%d/%s" % (COMM_WORLD.size, problem.dimension,
-                                      problem.degree, problem.N,
-                                      problem.autorefine)
-
-    if base_group not in store:
-        base_group = store.create_group(base_group)
-    else:
-        base_group = store[base_group]
-    for typ in typs:
-        if typ not in base_group:
-            group = base_group.create_group(typ)
+        if args.overwrite:
+            mode = "w"
+            header = True
         else:
-            group = base_group[typ]
-        group.attrs["bytes"] = info[typ]["memory"]
-        group.attrs["rows"] = info[typ]["rows"]
-        group.attrs["cols"] = info[typ]["cols"]
-        for event in ["assemble", "matmult"]:
-            if event not in group:
-                g = group.create_group(event)
-            else:
-                g = group[event]
-            data = all_data[typ][event]
-            g.attrs["time"] = data["time"]
-            g.attrs["flops"] = data["flops"]
-            g.attrs["count"] = data["count"]
-    store.close()
+            mode = "a"
+            header = not os.path.exists(results)
+
+        data = {"rows": rows,
+                "cols": cols,
+                "type": typ,
+                "bytes": bytes,
+                "assemble_time": assemble_time,
+                "assemble_flops": assemble_flops,
+                "matmult_time": matmult_time,
+                "matmult_flops": matmult_flops,
+                "mesh_size": num_cells,
+                "dimension": problem.dimension,
+                "degree": problem.degree,
+                "num_processes": problem.comm.size}
+        df = pandas.DataFrame(data, index=[0])
+        df.to_csv(results, index=False, mode=mode, header=header)

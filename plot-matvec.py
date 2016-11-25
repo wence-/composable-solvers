@@ -2,13 +2,12 @@ from argparse import ArgumentParser
 import importlib
 import os
 import sys
-import h5py
 import numpy
-import xarray
 import pandas
 import matplotlib as mpl
 import math
 from matplotlib import pyplot
+import seaborn
 
 parser = ArgumentParser(description="""Plot matvec profiles""", add_help=False)
 
@@ -64,140 +63,51 @@ module = importlib.import_module("problem.%s" % args.problem)
 problem = module.Problem()
 
 results = os.path.join(os.path.abspath(args.results_directory),
-                       "MatVec-timings_%s.h5" % problem.name)
+                       "MatVec-timings_%s.csv" % problem.name)
 
 if not os.path.exists(results):
     print "Requested results file '%s' does not exist" % results
     sys.exit(1)
 
-store = h5py.File(results, mode="r")
 
-# Get some layout data:
-num_processes = sorted(map(int, store.keys()))
-degrees = set()
-types = set()
-dimensions = set()
-for proc in store.keys():
-    base_group = store[proc]
-    dimensions.update(map(int, base_group.keys()))
-    for dimension in base_group.keys():
-        degrees.update(map(int, base_group[dimension].keys()))
-        for degree in base_group[dimension].keys():
-            group = base_group[dimension][degree]
-            N = {2: args.twod_size,
-                 3: args.threed_size}[int(dimension)]
-            path = "%d/%s" % (N, args.autorefine)
-            if path not in group:
-                print "Data for '%s' not found" % path
-                sys.exit(1)
-            types.update(group[path].keys())
+dataframe = pandas.read_csv(results)
 
-shape = (len(num_processes), len(dimensions), len(degrees), len(types))
-labels = ['num_processes', 'dimension', 'degree', 'type']
-
-dataset = xarray.Dataset(coords={'num_processes': num_processes,
-                                 'dimension': sorted(dimensions),
-                                 'degree': sorted(degrees),
-                                 'type': sorted(types)},
-                         data_vars={'bytes': (labels,
-                                              numpy.full(shape, numpy.nan)),
-                                    'rows': (labels,
-                                             numpy.full(shape, numpy.nan)),
-                                    'cols': (labels,
-                                             numpy.full(shape, numpy.nan)),
-                                    'assemble_time': (labels,
-                                                      numpy.full(shape, numpy.nan)),
-                                    'assemble_flops': (labels,
-                                                       numpy.full(shape, numpy.nan)),
-                                    'assemble_count': (labels,
-                                                       numpy.full(shape, numpy.nan)),
-                                    'matmult_time': (labels,
-                                                     numpy.full(shape, numpy.nan)),
-                                    'matmult_flops': (labels,
-                                                      numpy.full(shape, numpy.nan)),
-                                    'matmult_count': (labels,
-                                                      numpy.full(shape, numpy.nan))})
-
-# Convert data to xarray
-for nproc in store.keys():
-    base_group = store[nproc]
-    for dimension in base_group.keys():
-        group = base_group[dimension]
-        for degree in group.keys():
-            g = group[degree]
-            N = {2: args.twod_size,
-                 3: args.threed_size}[int(dimension)]
-            path = "%d/%s" % (N, args.autorefine)
-            g = g[path]
-            types = g.keys()
-            for typ in types:
-                metadata = g[typ].attrs
-                slice = dict(num_processes=int(nproc),
-                             dimension=int(dimension),
-                             degree=int(degree),
-                             type=typ)
-                dataset.bytes.loc[slice] = metadata["bytes"]
-                dataset.rows.loc[slice] = metadata["rows"]
-                dataset.cols.loc[slice] = metadata["cols"]
-                for event in ["assemble", "matmult"]:
-                    data = g[typ][event].attrs
-                    for v in ["count", "time", "flops"]:
-                        key = "%s_%s" % (event, v)
-                        dataset[key].loc[slice] = data[v]
-
-
-class BetterLogFormatter(mpl.ticker.Formatter):
-
-    def __call__(self, x, pos=None):
-        b = 10
-
-        if x == 0:
-            return "$\\mathdefault{0}$"
-
-        expt = math.log(abs(x), b)
-        dec = mpl.ticker.is_close_to_int(expt)
-
-        sgn = '-' if x < 0 else ''
-        if dec:
-            return "$\\mathdefault{%s%d^{%.2g}}$" % (sgn, b, expt)
-        else:
-            expt = int(expt)
-            mult = x / (b**expt)
-            return "$\\mathdefault{%s%.1g\\times\,%d^{%.2g}}$" % (sgn, mult, b, expt)
-
+seaborn.set(style="ticks")
 
 fig = pyplot.figure(figsize=(9, 5), frameon=False)
 ax = fig.add_subplot(111)
 
 ax.set_xlabel("Polynomial degree")
 
-ax.set_ylabel("Time/dof (ms)")
+ax.set_ylabel("Time/dof [s]")
 
 ax.semilogy()
 
 linestyles = iter(["solid", "dashed"])
-for dim in dataset.coords["dimension"].values:
+colours = ("#000000", "#E69F00", "#56B4E9", "#009E73",
+           "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+for dim in dataframe["dimension"].drop_duplicates():
     linestyle = next(linestyles)
     markers = iter(["o", "s", "^", "D", "v"])
-    colors = iter(['#30a2da', '#fc4f30', '#e5ae38', '#6d904f', '#8b8b8b'])
-    for typ in dataset.coords["type"].values:
-        slice = dict(dimension=dim, num_processes=1,
-                     type=typ)
-        sliced = dataset.loc[slice]
+    colors = iter(colours)
+    for typ in sorted(dataframe["type"].drop_duplicates()):
+        sliced = (dataframe.loc[lambda df: df.type == typ]
+                  .loc[lambda df: df.dimension == dim]
+                  .loc[lambda df: df.num_processes == args.num_processes])
         name = {"aij": "AIJ",
                 "matfree": "matrix-free",
                 "nest": "Nest"}[typ]
         dimstr = {2: "2D",
                   3: "3D"}[dim]
         if typ != "matfree":
-            ax.plot(dataset.degree, (sliced.assemble_time * 1e3) / sliced.rows,
+            ax.plot(sliced.degree, (sliced.assemble_time / sliced.rows),
                     label="Assemble %s [%s]" % (name, dimstr),
                     linewidth=2, linestyle=linestyle,
                     marker=next(markers),
                     color=next(colors),
                     clip_on=False)
 
-        ax.plot(dataset.degree, (sliced.matmult_time * 1e3) / (sliced.matmult_count * sliced.rows),
+        ax.plot(sliced.degree, (sliced.matmult_time / sliced.rows),
                 label="MatMult %s [%s]" % (name, dimstr),
                 linewidth=2, linestyle=linestyle,
                 marker=next(markers),
@@ -216,19 +126,13 @@ legend = fig.legend(handles, labels,
                     numpoints=1,
                     frameon=False)
 
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-
-ax.xaxis.set_ticks_position("bottom")
-ax.yaxis.set_ticks_position("left")
-
-ax.yaxis.set_major_formatter(BetterLogFormatter())
+seaborn.despine(fig)
 
 output = os.path.join(os.path.abspath(args.results_directory),
                       "MatVec-timings_%s.pdf" % problem.name)
 
 if os.path.exists(output) and not args.overwrite:
-    print "Output PDF '%s' already exists, pass --overwrite to overwrite" % results
+    print "Output PDF '%s' already exists, pass --overwrite to overwrite" % output
     sys.exit(1)
 
 fig.savefig(output, orientation="landscape",
@@ -248,20 +152,20 @@ ax.set_ylabel("Bytes/dof")
 ax.semilogy()
 
 linestyles = iter(["solid", "dashed"])
-for dim in dataset.coords["dimension"].values:
+for dim in dataframe["dimension"].drop_duplicates():
     linestyle = next(linestyles)
     markers = iter(["o", "s", "^", "D", "v"])
-    colors = iter(['#30a2da', '#fc4f30', '#e5ae38', '#6d904f', '#8b8b8b'])
-    for typ in dataset.coords["type"].values:
-        slice = dict(dimension=dim, num_processes=1,
-                     type=typ)
-        sliced = dataset.loc[slice]
+    colors = iter(colours)
+    for typ in sorted(dataframe["type"].drop_duplicates()):
+        sliced = (dataframe.loc[lambda df: df.type == typ]
+                  .loc[lambda df: df.dimension == dim]
+                  .loc[lambda df: df.num_processes == args.num_processes])
         name = {"aij": "AIJ",
                 "matfree": "Matrix-free",
                 "nest": "Nest"}[typ]
         dimstr = {2: "2D",
                   3: "3D"}[dim]
-        ax.plot(dataset.degree, (sliced.bytes / sliced.rows),
+        ax.plot(sliced.degree, (sliced.bytes / sliced.rows),
                 label="%s [%s]" % (name, dimstr),
                 linewidth=2, linestyle=linestyle,
                 marker=next(markers),
@@ -280,19 +184,13 @@ legend = fig.legend(handles, labels,
                     numpoints=1,
                     frameon=False)
 
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-
-ax.xaxis.set_ticks_position("bottom")
-ax.yaxis.set_ticks_position("left")
-
-ax.yaxis.set_major_formatter(BetterLogFormatter())
+seaborn.despine(fig)
 
 output = os.path.join(os.path.abspath(args.results_directory),
                       "MatVec-memory_%s.pdf" % problem.name)
 
 if os.path.exists(output) and not args.overwrite:
-    print "Output PDF '%s' already exists, pass --overwrite to overwrite" % results
+    print "Output PDF '%s' already exists, pass --overwrite to overwrite" % output
     sys.exit(1)
 
 fig.savefig(output, orientation="landscape",
@@ -301,6 +199,3 @@ fig.savefig(output, orientation="landscape",
             bbox_inches="tight",
             bbox_extra_artists=[legend])
 
-# For factors, we convert from xarray to dataframes using:
-# df = pandas.DataFrame(dataset.loc(...).to_dataframe().to_records())
-# Then we merge along various axes and can plot with seaborn.
