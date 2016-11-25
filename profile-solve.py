@@ -55,6 +55,8 @@ for name in problem.parameter_names:
     parameters = getattr(problem, name)
     solver = problem.solver(parameters=parameters)
 
+    PETSc.Sys.Print("\nSolving with parameter set '%s'..." % name)
+    PETSc.Sys.Print("Warmup solve")
     problem.u.assign(0)
     with PETSc.Log.Stage("Warmup"):
         try:
@@ -64,6 +66,7 @@ for name in problem.parameter_names:
 
     problem.u.assign(0)
 
+    PETSc.Sys.Print("Timed solve")
     with PETSc.Log.Stage("Warm solve %s" % name):
         try:
             solver.solve()
@@ -115,3 +118,4 @@ for name in problem.parameter_names:
                 df.to_csv(results, index=False, mode=mode, header=header)
         except:
             PETSc.Sys.Print("Unable to solve %s, %s, %s" % (name, problem.N, problem.degree))
+    PETSc.Sys.Print("Solving with parameter set '%s'...done" % name)
