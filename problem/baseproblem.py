@@ -21,6 +21,14 @@ class Problem(object):
         self.N = N or args.size
         self.args = args
 
+    @abstractproperty
+    def parameter_names(self):
+        pass
+
+    @property
+    def comm(self):
+        return self.mesh.comm
+
     @cached_property
     def mesh(self):
         if self.dimension == 2:
@@ -34,7 +42,7 @@ class Problem(object):
                            5: 2,
                            6: 2,
                            7: 1,
-                           8: 0}[self.degree]
+                           8: 0}
         elif self.dimension == 3:
             mesh = UnitCubeMesh(self.N, self.N, self.N)
             refinements = {1: 4,
@@ -42,13 +50,13 @@ class Problem(object):
                            3: 2,
                            4: 2,
                            5: 1,
-                           6: 0}[self.degree]
+                           6: 0}
         else:
             raise ValueError("Invalid dimension, %d", self.dimension)
         if self.autorefine:
             dm = mesh._plex
             from firedrake.mg.impl import filter_exterior_facet_labels
-            for _ in range(refinements):
+            for _ in range(refinements.get(self.degree, 0)):
                 dm.setRefinementUniform(True)
                 dm = dm.refine()
                 dm.removeLabel("interior_facets")
@@ -102,13 +110,14 @@ class Problem(object):
     def appctx(self):
         return None
 
-    def solver(self):
+    def solver(self, parameters=None):
         problem = NonlinearVariationalProblem(self.F, self.u, bcs=self.bcs,
                                               Jp=self.Jp)
         solver = NonlinearVariationalSolver(problem, options_prefix="",
                                             nullspace=self.nullspace,
                                             near_nullspace=self.near_nullspace,
-                                            appctx=self.appctx)
+                                            appctx=self.appctx,
+                                            solver_parameters=parameters)
         return solver
 
     @abstractproperty

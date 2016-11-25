@@ -16,6 +16,56 @@ class Problem(baseproblem.Problem):
         super(Problem, self).__init__(N, degree, dimension)
         self.random = self.args.random
 
+    parameter_names = ("hypre", "mumps", "schwarz", "schwarzmf")
+
+    hypre = {"snes_type": "ksponly",
+             "ksp_type": "cg",
+             "ksp_rtol": 1e-8,
+             "ksp_monitor": True,
+             "pc_type": "hypre",
+             "pc_hypre_type": "boomeramg",
+             "mat_type": "aij"}
+
+    mumps = {"snes_type": "ksponly",
+             "ksp_type": "preonly",
+             "pc_type": "lu",
+             "pc_factor_mat_solver_package": "mumps",
+             "mat_type": "aij"}
+
+    schwarz = {"snes_type": "ksponly",
+               "ksp_type": "cg",
+               "ksp_rtol": 1e-8,
+               "ksp_monitor": True,
+               "mat_type": "matfree",
+               "pc_type": "python",
+               "pc_python_type": "ssc.SSC",
+               "ssc_pc_composite_type": "additive",
+               # Patch config
+               "ssc_sub_0_pc_patch_save_operators": True,
+               "ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
+               "ssc_sub_0_sub_ksp_type": "preonly",
+               "ssc_sub_0_sub_pc_type": "lu",
+               # Low-order config
+               "ssc_sub_1_lo_pc_type": "hypre",
+               "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
+
+    schwarzmf = {"snes_type": "ksponly",
+                 "ksp_type": "cg",
+                 "ksp_rtol": 1e-8,
+                 "ksp_monitor": True,
+                 "mat_type": "matfree",
+                 "pc_type": "python",
+                 "pc_python_type": "ssc.SSC",
+                 "ssc_pc_composite_type": "additive",
+                 # Patch config
+                 "ssc_sub_0_pc_patch_save_operators": False,
+                 "ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
+                 "ssc_sub_0_sub_ksp_type": "preonly",
+                 "ssc_sub_0_sub_pc_type": "lu",
+                 # Low-order config
+                 "ssc_sub_1_lo_pc_type": "hypre",
+                 "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
+
     @cached_property
     def argparser(self):
         parser = ArgumentParser(description="""Set options for Poisson problem""", add_help=False)
