@@ -11,6 +11,63 @@ class Problem(baseproblem.Problem):
 
     name = "Elasticity"
 
+    parameter_names = ("mumps", "hypre", "gamg", "schwarz", "schwarzmf")
+
+    hypre = {"snes_type": "ksponly",
+             "ksp_type": "cg",
+             "ksp_rtol": 1e-8,
+             "ksp_monitor": True,
+             "pc_type": "hypre",
+             "pc_hypre_type": "boomeramg",
+             "mat_type": "baij"}
+
+    gamg = {"snes_type": "ksponly",
+            "ksp_type": "cg",
+            "ksp_rtol": 1e-8,
+            "ksp_monitor": True,
+            "pc_type": "gamg",
+            "mat_type": "aij"}
+
+    mumps = {"snes_type": "ksponly",
+             "ksp_type": "preonly",
+             "pc_type": "lu",
+             "pc_factor_mat_solver_package": "mumps",
+             "mat_type": "baij"}
+
+    schwarz = {"snes_type": "ksponly",
+               "ksp_type": "cg",
+               "ksp_rtol": 1e-8,
+               "ksp_monitor": True,
+               "mat_type": "matfree",
+               "pc_type": "python",
+               "pc_python_type": "ssc.SSC",
+               "ssc_pc_composite_type": "additive",
+               # Patch config
+               "ssc_sub_0_pc_patch_save_operators": True,
+               "ssc_sub_0_pc_patch_sub_mat_type": "seqaij",
+               "ssc_sub_0_sub_ksp_type": "preonly",
+               "ssc_sub_0_sub_pc_type": "lu",
+               # Low-order config
+               "ssc_sub_1_lo_pc_type": "gamg",
+               "ssc_sub_1_lo_mat_type": "aij",}
+
+    schwarzmf = {"snes_type": "ksponly",
+                 "ksp_type": "cg",
+                 "ksp_rtol": 1e-8,
+                 "ksp_monitor": True,
+                 "mat_type": "matfree",
+                 "pc_type": "python",
+                 "pc_python_type": "ssc.SSC",
+                 "ssc_pc_composite_type": "additive",
+                 # Patch config
+                 "ssc_sub_0_pc_patch_save_operators": False,
+                 "ssc_sub_0_pc_patch_sub_mat_type": "seqaij",
+                 "ssc_sub_0_sub_ksp_type": "preonly",
+                 "ssc_sub_0_sub_pc_type": "lu",
+                 # Low-order config
+                 "ssc_sub_1_lo_pc_type": "gamg",
+                 "ssc_sub_1_lo_mat_type": "aij",}
+
     def __init__(self, N=None, degree=None, dimension=None):
         super(Problem, self).__init__(N, degree, dimension)
         self.nu = self.args.nu
