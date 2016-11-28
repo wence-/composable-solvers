@@ -19,7 +19,7 @@ class Problem(baseproblem.Problem):
              "ksp_monitor": True,
              "pc_type": "hypre",
              "pc_hypre_type": "boomeramg",
-             "mat_type": "baij"}
+             "mat_type": "aij"}
 
     gamg = {"snes_type": "ksponly",
             "ksp_type": "cg",

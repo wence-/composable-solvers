@@ -108,11 +108,7 @@ class Problem(baseproblem.Problem):
                    "fieldsplit_0_ssc_sub_0_sub_ksp_type": "preonly",
                    "fieldsplit_0_ssc_sub_0_sub_pc_type": "lu",
                    "fieldsplit_0_ssc_sub_1_lo_pc_type": "hypre",
-                   "fieldsplit_1_inner_ksp_type": "preonly",
-                   "fieldsplit_1_inner_pc_type": "python",
-                   "fieldsplit_1_inner_pc_python_type": "firedrake.AssembledPC",
-                   "fieldsplit_1_inner_assembled_pc_type": "hypre",
-                   "fieldsplit_1_inner_assembled_mat_type": "baij",
+                   "fieldsplit_0_ssc_sub_1_lo_mat_type": "aij",
                    # PCD on pressure block
                    "fieldsplit_1_ksp_type": "gmres",
                    "fieldsplit_1_ksp_monitor": True,
