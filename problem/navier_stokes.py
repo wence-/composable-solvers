@@ -111,7 +111,6 @@ class Problem(baseproblem.Problem):
                    "fieldsplit_0_ssc_sub_1_lo_mat_type": "aij",
                    # PCD on pressure block
                    "fieldsplit_1_ksp_type": "gmres",
-                   "fieldsplit_1_ksp_monitor": True,
                    "fieldsplit_1_ksp_rtol": 1e-2,
                    "fieldsplit_1_pc_type": "python",
                    "fieldsplit_1_pc_python_type": "firedrake.PCDPC",

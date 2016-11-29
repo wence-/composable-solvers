@@ -11,6 +11,183 @@ class Problem(baseproblem.Problem):
 
     name = "Rayleigh-Benard"
 
+    parameter_names = ("mumps", "pcd_lu", "pcd_mg", "pcd_schwarz_everywhere")
+
+    mumps = {"snes_type": "newtonls",
+             "snes_monitor": True,
+             "snes_rtol": 1e-8,
+             "snes_linesearch_type": "basic",
+             "ksp_type": "preonly",
+             "mat_type": "aij",
+             "pc_type": "lu",
+             "pc_factor_mat_solver_package": "mumps"}
+
+    # Zero pivots sometimes occur?
+    pcd_lu = {"snes_type": "newtonls",
+              "snes_monitor": True,
+              "snes_rtol": 1e-8,
+              "snes_linesearch_type": "basic",
+              "mat_type": "matfree",
+              "ksp_type": "fgmres",
+              "ksp_monitor": True,
+              "ksp_gmres_modifiedgramschmidt": True,
+              "pc_type": "fieldsplit",
+              "pc_fieldsplit_type": "multiplicative",
+              "pc_fieldsplit_0_fields": "0,1",
+              "pc_fieldsplit_1_fields": "2",
+              # GMRES on Navier-stokes, with fieldsplit PC.
+              "fieldsplit_0_ksp_type": "gmres",
+              "fieldsplit_0_ksp_gmres_modifiedgramschmidt": True,
+              "fieldsplit_0_ksp_rtol": 1e-2,
+              "fieldsplit_0_pc_type": "fieldsplit",
+              "fieldsplit_0_pc_fieldsplit_type": "schur",
+              "fieldsplit_0_pc_fieldsplit_schur_fact_type": "lower",
+              # LU on velocity block
+              "fieldsplit_0_fieldsplit_0_ksp_type": "preonly",
+              "fieldsplit_0_fieldsplit_0_pc_type": "python",
+              "fieldsplit_0_fieldsplit_0_pc_python_type": "firedrake.AssembledPC",
+              "fieldsplit_0_fieldsplit_0_assembled_pc_type": "lu",
+              "fieldsplit_0_fieldsplit_0_assembled_mat_type": "baij",
+              "fieldsplit_0_fieldsplit_0_assembled_pc_factor_mat_solver_package": "mumps",
+              # PCD on the pressure block
+              "fieldsplit_0_fieldsplit_1_ksp_type": "preonly",
+              "fieldsplit_0_fieldsplit_1_pc_type": "python",
+              "fieldsplit_0_fieldsplit_1_pc_python_type": "firedrake.PCDPC",
+              # Matrix-free Fp application
+              "fieldsplit_0_fieldsplit_1_pcd_Fp_mat_type": "matfree",
+              # lu on assembled mass matrix
+              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "preonly",
+              "fieldsplit_0_fieldsplit_1_pcd_Mp_mat_type": "aij",
+              "fieldsplit_0_fieldsplit_1_pcd_Mp_pc_type": "lu",
+              "fieldsplit_0_fieldsplit_1_pcd_Mp_pc_factor_mat_solver_package": "mumps",
+              # lu on assembled stiffness matrix
+              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "preonly",
+              "fieldsplit_0_fieldsplit_1_pcd_Kp_mat_type": "aij",
+              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "lu",
+              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_factor_mat_solver_package": "mumps",
+              # LU on temperature block
+              "fieldsplit_1_ksp_type": "preonly",
+              "fieldsplit_1_pc_type": "python",
+              "fieldsplit_1_pc_python_type": "firedrake.AssembledPC",
+              "fieldsplit_1_assembled_pc_type": "lu",
+              "fieldsplit_1_assembled_pc_factor_mat_solver_package": "mumps"}
+
+    pcd_mg = {"snes_type": "newtonls",
+              "snes_monitor": True,
+              "snes_rtol": 1e-8,
+              "snes_linesearch_type": "basic",
+              "mat_type": "matfree",
+              "ksp_type": "fgmres",
+              "ksp_monitor": True,
+              "ksp_gmres_modifiedgramschmidt": True,
+              "pc_type": "fieldsplit",
+              "pc_fieldsplit_type": "multiplicative",
+              "pc_fieldsplit_0_fields": "0,1",
+              "pc_fieldsplit_1_fields": "2",
+              # GMRES on Navier-stokes, with fieldsplit PC.
+              "fieldsplit_0_ksp_type": "gmres",
+              "fieldsplit_0_ksp_gmres_modifiedgramschmidt": True,
+              "fieldsplit_0_ksp_rtol": 1e-2,
+              "fieldsplit_0_pc_type": "fieldsplit",
+              "fieldsplit_0_pc_fieldsplit_type": "schur",
+              "fieldsplit_0_pc_fieldsplit_schur_fact_type": "lower",
+              # GAMG on velocity block
+              "fieldsplit_0_fieldsplit_0_ksp_type": "preonly",
+              "fieldsplit_0_fieldsplit_0_pc_type": "python",
+              "fieldsplit_0_fieldsplit_0_pc_python_type": "firedrake.AssembledPC",
+              "fieldsplit_0_fieldsplit_0_assembled_mat_type": "aij",
+              "fieldsplit_0_fieldsplit_0_assembled_pc_type": "gamg",
+              # PCD on the pressure block
+              "fieldsplit_0_fieldsplit_1_ksp_type": "preonly",
+              "fieldsplit_0_fieldsplit_1_pc_type": "python",
+              "fieldsplit_0_fieldsplit_1_pc_python_type": "firedrake.PCDPC",
+              # Matrix-free Fp application
+              "fieldsplit_0_fieldsplit_1_pcd_Fp_mat_type": "matfree",
+              # sor on assembled mass matrix
+              "fieldsplit_0_fieldsplit_1_pcd_Mp_mat_type": "aij",
+              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "cg",
+              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_rtol": 1e-4,
+              "fieldsplit_0_fieldsplit_1_pcd_Mp_pc_type": "sor",
+              # gamg on assembled stiffness matrix
+              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "cg",
+              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_rtol": 1e-4,
+              "fieldsplit_0_fieldsplit_1_pcd_Kp_mat_type": "aij",
+              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "gamg",
+              # gamg on temperature block
+              "fieldsplit_1_ksp_type": "gmres",
+              "fieldsplit_1_ksp_rtol": 1e-2,
+              "fieldsplit_1_pc_type": "python",
+              "fieldsplit_1_pc_python_type": "firedrake.AssembledPC",
+              "fieldsplit_1_assembled_mat_type": "aij",
+              "fieldsplit_1_assembled_pc_type": "gamg"}
+
+    pcd_schwarz_everywhere = {"snes_type": "newtonls",
+                              "snes_monitor": True,
+                              "snes_rtol": 1e-8,
+                              "snes_linesearch_type": "basic",
+                              "mat_type": "matfree",
+                              "ksp_type": "fgmres",
+                              "ksp_monitor": True,
+                              "ksp_gmres_modifiedgramschmidt": True,
+                              "pc_type": "fieldsplit",
+                              "pc_fieldsplit_type": "multiplicative",
+                              "pc_fieldsplit_0_fields": "0,1",
+                              "pc_fieldsplit_1_fields": "2",
+                              # GMRES on Navier-stokes, with fieldsplit PC.
+                              "fieldsplit_0_ksp_type": "gmres",
+                              "fieldsplit_0_ksp_gmres_modifiedgramschmidt": True,
+                              "fieldsplit_0_ksp_rtol": 1e-2,
+                              "fieldsplit_0_pc_type": "fieldsplit",
+                              "fieldsplit_0_pc_fieldsplit_type": "schur",
+                              "fieldsplit_0_pc_fieldsplit_schur_fact_type": "lower",
+                              # Schwarz on velocity block
+                              "fieldsplit_0_fieldsplit_0_ksp_type": "preonly",
+                              "fieldsplit_0_fieldsplit_0_pc_type": "python",
+                              "fieldsplit_0_fieldsplit_0_pc_python_type": "ssc.SSC",
+                              "fieldsplit_0_fieldsplit_0_pc_composite_type": "additive",
+                              "fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_save_operators": True,
+                              "fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
+                              "fieldsplit_0_fieldsplit_0_ssc_sub_0_sub_ksp_type": "preonly",
+                              "fieldsplit_0_fieldsplit_0_ssc_sub_0_sub_pc_type": "lu",
+                              "fieldsplit_0_fieldsplit_0_ssc_sub_1_lo_pc_type": "hypre",
+                              "fieldsplit_0_fieldsplit_0_ssc_sub_1_lo_mat_type": "aij",
+                              # PCD on the pressure block
+                              "fieldsplit_0_fieldsplit_1_ksp_type": "preonly",
+                              "fieldsplit_0_fieldsplit_1_pc_type": "python",
+                              "fieldsplit_0_fieldsplit_1_pc_python_type": "firedrake.PCDPC",
+                              # Matrix-free Fp application
+                              "fieldsplit_0_fieldsplit_1_pcd_Fp_mat_type": "matfree",
+                              # SOR on assembled mass matrix
+                              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "cg",
+                              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_rtol": 1e-4,
+                              "fieldsplit_0_fieldsplit_1_pcd_Mp_pc_type": "sor",
+                              # Schwarz on unassembled stiffness matrix
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "cg",
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_rtol": 1e-4,
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_mat_type": "matfree",
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "python",
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_python_type": "ssc.SSC",
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_composite_type": "additive",
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_sub_0_pc_patch_save_operators": True,
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_sub_0_sub_ksp_type": "preonly",
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_sub_0_sub_pc_type": "lu",
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_sub_1_lo_pc_type": "hypre",
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_sub_1_lo_mat_type": "aij",
+                              # GMRES + Schwarz on the temperature block
+                              "fieldsplit_1_ksp_type": "gmres",
+                              "fieldsplit_1_ksp_rtol": 1e-2,
+                              "fieldsplit_1_ksp_gmres_modifiedgramschmidt": True,
+                              "fieldsplit_1_pc_type": "python",
+                              "fieldsplit_1_pc_python_type": "ssc.SSC",
+                              "fieldsplit_1_pc_composite_type": "additive",
+                              "fieldsplit_1_ssc_sub_0_pc_patch_save_operators": True,
+                              "fieldsplit_1_ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
+                              "fieldsplit_1_ssc_sub_0_sub_ksp_type": "preonly",
+                              "fieldsplit_1_ssc_sub_0_sub_pc_type": "lu",
+                              "fieldsplit_1_ssc_sub_1_lo_pc_type": "hypre",
+                              "fieldsplit_1_ssc_sub_1_lo_mat_type": "aij"}
+
     def __init__(self, N=None, degree=None, dimension=None):
         super(Problem, self).__init__(N, degree, dimension)
         self.Ra = Constant(self.args.Ra)
@@ -60,6 +237,7 @@ class Problem(baseproblem.Problem):
 
     @cached_property
     def F(self):
+        global dx
         W = self.function_space
 
         u, p, T = split(self.u)
@@ -70,6 +248,7 @@ class Problem(baseproblem.Problem):
         else:
             g = Constant((0, 0, -1))
 
+        dx = dx(degree=2*(self.degree))
         F = (
             inner(grad(u), grad(v))*dx
             + inner(dot(grad(u), u), v)*dx
