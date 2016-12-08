@@ -14,7 +14,7 @@ class Problem(object):
         args, _ = self.argparser().parse_known_args()
         if args.help:
             import sys
-            self.parser.print_help()
+            self.argparser().print_help()
             sys.exit(0)
         self.degree = degree or args.degree
         self.dimension = dimension or args.dimension
@@ -27,6 +27,11 @@ class Problem(object):
                      "forcing"]:
             try:
                 delattr(self, attr)
+            except AttributeError:
+                pass
+        if self.autorefine:
+            try:
+                delattr(self, "mesh")
             except AttributeError:
                 pass
         self.degree = degree
