@@ -11,7 +11,7 @@ class Problem(baseproblem.Problem):
 
     name = "Navier-Stokes"
 
-    parameter_names = ("mumps", "pcd_lu", "pcd_mg", "pcd_schwarz")[-1:]
+    parameter_names = ("mumps", "pcd_lu", "pcd_mg", "pcd_schwarz")
 
     mumps = {"snes_type": "newtonls",
              "snes_monitor": True,
@@ -102,7 +102,7 @@ class Problem(baseproblem.Problem):
                    "fieldsplit_0_ksp_type": "preonly",
                    "fieldsplit_0_pc_type": "python",
                    "fieldsplit_0_pc_python_type": "ssc.SSC",
-                   "fieldsplit_0_pc_composite_type": "additive",
+                   "fieldsplit_0_ssc_pc_composite_type": "additive",
                    "fieldsplit_0_ssc_sub_0_pc_patch_save_operators": True,
                    "fieldsplit_0_ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
                    "fieldsplit_0_ssc_sub_0_sub_ksp_type": "preonly",

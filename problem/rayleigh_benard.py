@@ -91,12 +91,12 @@ class Problem(baseproblem.Problem):
               "fieldsplit_0_pc_type": "fieldsplit",
               "fieldsplit_0_pc_fieldsplit_type": "schur",
               "fieldsplit_0_pc_fieldsplit_schur_fact_type": "lower",
-              # GAMG on velocity block
+              # HYPRE on velocity block
               "fieldsplit_0_fieldsplit_0_ksp_type": "preonly",
               "fieldsplit_0_fieldsplit_0_pc_type": "python",
               "fieldsplit_0_fieldsplit_0_pc_python_type": "firedrake.AssembledPC",
               "fieldsplit_0_fieldsplit_0_assembled_mat_type": "aij",
-              "fieldsplit_0_fieldsplit_0_assembled_pc_type": "gamg",
+              "fieldsplit_0_fieldsplit_0_assembled_pc_type": "hypre",
               # PCD on the pressure block
               "fieldsplit_0_fieldsplit_1_ksp_type": "preonly",
               "fieldsplit_0_fieldsplit_1_pc_type": "python",
@@ -105,21 +105,19 @@ class Problem(baseproblem.Problem):
               "fieldsplit_0_fieldsplit_1_pcd_Fp_mat_type": "matfree",
               # sor on assembled mass matrix
               "fieldsplit_0_fieldsplit_1_pcd_Mp_mat_type": "aij",
-              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "cg",
-              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_rtol": 1e-4,
+              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "preonly",
               "fieldsplit_0_fieldsplit_1_pcd_Mp_pc_type": "sor",
-              # gamg on assembled stiffness matrix
-              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "cg",
-              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_rtol": 1e-4,
+              # hypre on assembled stiffness matrix
+              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "preonly",
               "fieldsplit_0_fieldsplit_1_pcd_Kp_mat_type": "aij",
-              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "gamg",
-              # gamg on temperature block
+              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "hypre",
+              # hypre on temperature block
               "fieldsplit_1_ksp_type": "gmres",
-              "fieldsplit_1_ksp_rtol": 1e-2,
+              "fieldsplit_1_ksp_rtol": 1e-4,
               "fieldsplit_1_pc_type": "python",
               "fieldsplit_1_pc_python_type": "firedrake.AssembledPC",
               "fieldsplit_1_assembled_mat_type": "aij",
-              "fieldsplit_1_assembled_pc_type": "gamg"}
+              "fieldsplit_1_assembled_pc_type": "hypre"}
 
     pcd_schwarz_everywhere = {"snes_type": "newtonls",
                               "snes_monitor": True,
@@ -144,7 +142,7 @@ class Problem(baseproblem.Problem):
                               "fieldsplit_0_fieldsplit_0_ksp_type": "preonly",
                               "fieldsplit_0_fieldsplit_0_pc_type": "python",
                               "fieldsplit_0_fieldsplit_0_pc_python_type": "ssc.SSC",
-                              "fieldsplit_0_fieldsplit_0_pc_composite_type": "additive",
+                              "fieldsplit_0_fieldsplit_0_ssc_pc_composite_type": "additive",
                               "fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_save_operators": True,
                               "fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
                               "fieldsplit_0_fieldsplit_0_ssc_sub_0_sub_ksp_type": "preonly",
@@ -158,16 +156,14 @@ class Problem(baseproblem.Problem):
                               # Matrix-free Fp application
                               "fieldsplit_0_fieldsplit_1_pcd_Fp_mat_type": "matfree",
                               # SOR on assembled mass matrix
-                              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "cg",
-                              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_rtol": 1e-4,
+                              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "preonly",
                               "fieldsplit_0_fieldsplit_1_pcd_Mp_pc_type": "sor",
                               # Schwarz on unassembled stiffness matrix
-                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "cg",
-                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_rtol": 1e-4,
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "preonly",
                               "fieldsplit_0_fieldsplit_1_pcd_Kp_mat_type": "matfree",
                               "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "python",
                               "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_python_type": "ssc.SSC",
-                              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_composite_type": "additive",
+                              "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_pc_composite_type": "additive",
                               "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_sub_0_pc_patch_save_operators": True,
                               "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
                               "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_sub_0_sub_ksp_type": "preonly",
@@ -176,11 +172,11 @@ class Problem(baseproblem.Problem):
                               "fieldsplit_0_fieldsplit_1_pcd_Kp_ssc_sub_1_lo_mat_type": "aij",
                               # GMRES + Schwarz on the temperature block
                               "fieldsplit_1_ksp_type": "gmres",
-                              "fieldsplit_1_ksp_rtol": 1e-2,
+                              "fieldsplit_1_ksp_rtol": 1e-4,
                               "fieldsplit_1_ksp_gmres_modifiedgramschmidt": True,
                               "fieldsplit_1_pc_type": "python",
                               "fieldsplit_1_pc_python_type": "ssc.SSC",
-                              "fieldsplit_1_pc_composite_type": "additive",
+                              "fieldsplit_1_ssc_pc_composite_type": "additive",
                               "fieldsplit_1_ssc_sub_0_pc_patch_save_operators": True,
                               "fieldsplit_1_ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
                               "fieldsplit_1_ssc_sub_0_sub_ksp_type": "preonly",
