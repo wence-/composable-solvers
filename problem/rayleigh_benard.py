@@ -194,8 +194,8 @@ class Problem(baseproblem.Problem):
         self.Pr = Constant(self.args.Pr)
         self.vertical_temperature = self.args.vertical_temperature
 
-    @cached_property
-    def argparser(self):
+    @staticmethod
+    def argparser():
         parser = ArgumentParser(description="""Set options for driven-cavity Navier-Stokes.  Uses Taylor-Hood elements""",
                                 add_help=False)
 

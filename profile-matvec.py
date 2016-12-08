@@ -20,7 +20,8 @@ parser.add_argument("--problem", choices=["poisson",
 parser.add_argument("--autorefine", action="store_true", default=False,
                     help="Refine meshes to give approximately fixed number of dofs?")
 
-parser.add_argument("--results-directory",
+parser.add_argument("--output-file", action="store",
+                    default="MatVec-timings.csv",
                     help="Where to put the results")
 
 parser.add_argument("--overwrite", action="store_true", default=False,
@@ -45,28 +46,20 @@ if args.problem is None:
     sys.exit(1)
 
 
-if args.results_directory is None:
-    PETSc.Sys.Print("Must provide results directory\n")
-    sys.exit(1)
-
-
 module = importlib.import_module("problem.%s" % args.problem)
+prob_args, _ = module.Problem.argparser().parse_known_args()
+
+if prob_args.dimension == 2:
+    degrees = range(1, 8)
+elif prob_args.dimension == 3:
+    degrees = range(1, 6)
+else:
+    raise ValueError("Unhandled dimension")
+
 problem = module.Problem()
 
 problem.autorefine = args.autorefine
-
-
-results = os.path.join(os.path.abspath(args.results_directory),
-                       "MatVec-timings_%s.csv" % problem.name)
-
-J = problem.J
-
-assemble_event = PETSc.Log.Event("AssembleMat")
-matmult_event = PETSc.Log.Event("MatMult")
-
-typs = ["aij", "matfree"]
-if len(problem.function_space) > 1:
-    typs.append("nest")
+results = os.path.abspath(args.output_file)
 
 
 def mat_info(mat, typ):
@@ -86,55 +79,69 @@ def mat_info(mat, typ):
     return rows, cols, bytes
 
 
-num_cells = problem.comm.allreduce(problem.mesh.cell_set.size, op=MPI.SUM)
+for degree in degrees:
+    PETSc.Sys.Print("Running degree %d" % degree)
+    problem.reinit(degree)
 
-for typ in typs:
-    # Warmup and allocate
-    A = assemble(J, bcs=problem.bcs, mat_type=typ)
-    A.force_evaluation()
-    Ap = A.petscmat
-    x, y = Ap.createVecs()
-    Ap.mult(x, y)
-    stage = PETSc.Log.Stage("%s matrix" % typ)
-    with stage:
-        with assemble_event:
-            assemble(J, bcs=problem.bcs, mat_type=typ, tensor=A)
-            A.force_evaluation()
-            Ap = A.petscmat
-        for _ in range(args.num_matvecs):
-            Ap.mult(x, y)
+    J = problem.J
 
-        matmult = matmult_event.getPerfInfo()
-        assembly = assemble_event.getPerfInfo()
-        matmult_time = problem.comm.allreduce(matmult["time"], op=MPI.SUM) / (problem.comm.size * args.num_matvecs)
-        matmult_flops = problem.comm.allreduce(matmult["flops"], op=MPI.SUM) / args.num_matvecs
-        assemble_time = problem.comm.allreduce(assembly["time"], op=MPI.SUM) / problem.comm.size
-        assemble_flops = problem.comm.allreduce(assembly["flops"], op=MPI.SUM)
+    assemble_event = PETSc.Log.Event("AssembleMat")
+    matmult_event = PETSc.Log.Event("MatMult")
 
-    rows, cols, bytes = mat_info(A, typ)
+    typs = ["aij", "matfree"]
+    if len(problem.function_space) > 1:
+        typs.append("nest")
 
-    if COMM_WORLD.rank == 0:
-        if not os.path.exists(os.path.dirname(results)):
-            os.makedirs(os.path.dirname(results))
+    num_cells = problem.comm.allreduce(problem.mesh.cell_set.size, op=MPI.SUM)
 
-        if args.overwrite:
-            mode = "w"
-            header = True
-        else:
-            mode = "a"
-            header = not os.path.exists(results)
+    for typ in typs:
+        # Warmup and allocate
+        A = assemble(J, bcs=problem.bcs, mat_type=typ)
+        A.force_evaluation()
+        Ap = A.petscmat
+        x, y = Ap.createVecs()
+        Ap.mult(x, y)
+        stage = PETSc.Log.Stage("P(%d) %s matrix" % (degree, typ))
+        with stage:
+            with assemble_event:
+                assemble(J, bcs=problem.bcs, mat_type=typ, tensor=A)
+                A.force_evaluation()
+                Ap = A.petscmat
+            for _ in range(args.num_matvecs):
+                Ap.mult(x, y)
 
-        data = {"rows": rows,
-                "cols": cols,
-                "type": typ,
-                "bytes": bytes,
-                "assemble_time": assemble_time,
-                "assemble_flops": assemble_flops,
-                "matmult_time": matmult_time,
-                "matmult_flops": matmult_flops,
-                "mesh_size": num_cells,
-                "dimension": problem.dimension,
-                "degree": problem.degree,
-                "num_processes": problem.comm.size}
-        df = pandas.DataFrame(data, index=[0])
-        df.to_csv(results, index=False, mode=mode, header=header)
+            matmult = matmult_event.getPerfInfo()
+            assembly = assemble_event.getPerfInfo()
+            matmult_time = problem.comm.allreduce(matmult["time"], op=MPI.SUM) / (problem.comm.size * args.num_matvecs)
+            matmult_flops = problem.comm.allreduce(matmult["flops"], op=MPI.SUM) / args.num_matvecs
+            assemble_time = problem.comm.allreduce(assembly["time"], op=MPI.SUM) / problem.comm.size
+            assemble_flops = problem.comm.allreduce(assembly["flops"], op=MPI.SUM)
+
+        rows, cols, bytes = mat_info(A, typ)
+
+        if COMM_WORLD.rank == 0:
+            if not os.path.exists(os.path.dirname(results)):
+                os.makedirs(os.path.dirname(results))
+
+            if args.overwrite:
+                mode = "w"
+                header = True
+            else:
+                mode = "a"
+                header = not os.path.exists(results)
+
+            data = {"rows": rows,
+                    "cols": cols,
+                    "type": typ,
+                    "bytes": bytes,
+                    "assemble_time": assemble_time,
+                    "assemble_flops": assemble_flops,
+                    "matmult_time": matmult_time,
+                    "matmult_flops": matmult_flops,
+                    "mesh_size": num_cells,
+                    "dimension": problem.dimension,
+                    "degree": problem.degree,
+                    "num_processes": problem.comm.size,
+                    "problem": problem.name}
+            df = pandas.DataFrame(data, index=[0])
+            df.to_csv(results, index=False, mode=mode, header=header)

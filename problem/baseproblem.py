@@ -11,7 +11,7 @@ class Problem(object):
 
     def __init__(self, N=None, degree=None, dimension=None):
         super(Problem, self).__init__()
-        args, _ = self.argparser.parse_known_args()
+        args, _ = self.argparser().parse_known_args()
         if args.help:
             import sys
             self.parser.print_help()
@@ -20,6 +20,16 @@ class Problem(object):
         self.dimension = dimension or args.dimension
         self.N = N or args.size
         self.args = args
+
+    def reinit(self, degree):
+        for attr in ["function_space", "u", "F", "J", "Jp", "bcs",
+                     "nullspace", "near_nullspace", "output_fields",
+                     "forcing"]:
+            try:
+                delattr(self, attr)
+            except AttributeError:
+                pass
+        self.degree = degree
 
     @abstractproperty
     def parameter_names(self):
@@ -120,8 +130,8 @@ class Problem(object):
                                             solver_parameters=parameters)
         return solver
 
-    @abstractproperty
-    def argparser(self):
+    @abstractmethod
+    def argparser():
         pass
 
     @abstractproperty

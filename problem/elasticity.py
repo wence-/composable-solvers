@@ -73,8 +73,8 @@ class Problem(baseproblem.Problem):
         self.nu = self.args.nu
         self.lmbda = self.args.lmbda
 
-    @cached_property
-    def argparser(self):
+    @staticmethod
+    def argparser():
         parser = ArgumentParser(description="""Set options for Elasticity problem""", add_help=False)
 
         parser.add_argument("--degree", action="store", default=1,

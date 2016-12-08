@@ -123,8 +123,8 @@ class Problem(baseproblem.Problem):
         super(Problem, self).__init__(N, degree, dimension)
         self.Re = Constant(self.args.Re)
 
-    @cached_property
-    def argparser(self):
+    @staticmethod
+    def argparser():
         parser = ArgumentParser(description="""Set options for driven-cavity Navier-Stokes.  Uses Taylor-Hood elements""",
                                 add_help=False)
 

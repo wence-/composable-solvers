@@ -66,8 +66,8 @@ class Problem(baseproblem.Problem):
                  "ssc_sub_1_lo_pc_type": "hypre",
                  "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
 
-    @cached_property
-    def argparser(self):
+    @staticmethod
+    def argparser():
         parser = ArgumentParser(description="""Set options for Poisson problem""", add_help=False)
 
         parser.add_argument("--degree", action="store", default=1,
