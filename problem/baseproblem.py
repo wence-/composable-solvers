@@ -21,7 +21,16 @@ class Problem(object):
         self.N = N or args.size
         self.args = args
 
-    def reinit(self, degree):
+    def reinit(self, degree=None, size=None):
+        if degree is None:
+            degree = self.degree
+        if size is None:
+            size = self.N
+        degree_changed = degree != self.degree
+        mesh_changed = size != self.N or (degree_changed and self.autorefine)
+
+        if not (degree_changed or mesh_changed):
+            return
         for attr in ["function_space", "u", "F", "J", "Jp", "bcs",
                      "nullspace", "near_nullspace", "output_fields",
                      "forcing"]:
@@ -29,12 +38,13 @@ class Problem(object):
                 delattr(self, attr)
             except AttributeError:
                 pass
-        if self.autorefine:
+        if mesh_changed:
             try:
                 delattr(self, "mesh")
             except AttributeError:
                 pass
         self.degree = degree
+        self.N = size
 
     @abstractproperty
     def parameter_names(self):
@@ -46,6 +56,7 @@ class Problem(object):
 
     @cached_property
     def mesh(self):
+        print 'making mesh', self.N, self.degree
         if self.dimension == 2:
             mesh = UnitSquareMesh(self.N, self.N)
             # Refinements to give approximately same number of dofs
@@ -95,6 +106,7 @@ class Problem(object):
 
     @cached_property
     def u(self):
+        print 'making u', self.N, self.degree
         return Function(self.function_space, name="solution")
 
     @abstractproperty

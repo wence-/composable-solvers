@@ -15,10 +15,15 @@ parser.add_argument("--problem", choices=["poisson",
                                           "elasticity",
                                           "navier_stokes",
                                           "rayleigh_benard"],
-                    help="Which problem to profile")
+                    help="Which problem to plot")
 
-parser.add_argument("--results-directory",
+parser.add_argument("--results-file", action="store",
+                    default="MatVec-timings.csv",
                     help="Where the results are")
+
+parser.add_argument("--output-file", action="store",
+                    default="MatVec-timings.pdf",
+                    help="Where to write the output")
 
 parser.add_argument("--overwrite", action="store_true", default=False,
                     help="Overwrite output plot?")
@@ -54,16 +59,10 @@ if args.problem is None:
     sys.exit(1)
 
 
-if args.results_directory is None:
-    print "Must provide results directory"
-    sys.exit(1)
-
-
 module = importlib.import_module("problem.%s" % args.problem)
-problem = module.Problem()
+problem = module.Problem
 
-results = os.path.join(os.path.abspath(args.results_directory),
-                       "MatVec-timings_%s.csv" % problem.name)
+results = args.results_file
 
 if not os.path.exists(results):
     print "Requested results file '%s' does not exist" % results
@@ -71,6 +70,10 @@ if not os.path.exists(results):
 
 
 dataframe = pandas.read_csv(results)
+
+dataframe["assemble_per_dof"] = dataframe.assemble_time/dataframe.rows
+dataframe["matvec_per_dof"] = dataframe.matmult_time/dataframe.rows
+dataframe["bytes_per_dof"] = dataframe.bytes/dataframe.rows
 
 seaborn.set(style="ticks")
 
@@ -81,11 +84,14 @@ ax.set_xlabel("Polynomial degree")
 
 ax.set_ylabel("Time/dof [s]")
 
+ax.set_ylim([dataframe.matvec_per_dof.min()/1.5,
+             dataframe.assemble_per_dof.max()*1.5])
 ax.semilogy()
 
 linestyles = iter(["solid", "dashed"])
 colours = ("#000000", "#E69F00", "#56B4E9", "#009E73",
            "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
 for dim in dataframe["dimension"].drop_duplicates():
     linestyle = next(linestyles)
     markers = iter(["o", "s", "^", "D", "v"])
@@ -94,20 +100,21 @@ for dim in dataframe["dimension"].drop_duplicates():
         sliced = (dataframe.loc[lambda df: df.type == typ]
                   .loc[lambda df: df.dimension == dim]
                   .loc[lambda df: df.num_processes == args.num_processes])
+        sliced = sliced.groupby(["degree"], as_index=False).mean()
         name = {"aij": "AIJ",
                 "matfree": "matrix-free",
                 "nest": "Nest"}[typ]
         dimstr = {2: "2D",
                   3: "3D"}[dim]
         if typ != "matfree":
-            ax.plot(sliced.degree, (sliced.assemble_time / sliced.rows),
+            ax.plot(sliced.degree, sliced.assemble_per_dof,
                     label="Assemble %s [%s]" % (name, dimstr),
                     linewidth=2, linestyle=linestyle,
                     marker=next(markers),
                     color=next(colors),
                     clip_on=False)
 
-        ax.plot(sliced.degree, (sliced.matmult_time / sliced.rows),
+        ax.plot(sliced.degree, sliced.matvec_per_dof,
                 label="MatMult %s [%s]" % (name, dimstr),
                 linewidth=2, linestyle=linestyle,
                 marker=next(markers),
@@ -128,8 +135,7 @@ legend = fig.legend(handles, labels,
 
 seaborn.despine(fig)
 
-output = os.path.join(os.path.abspath(args.results_directory),
-                      "MatVec-timings_%s.pdf" % problem.name)
+output = args.output_file
 
 if os.path.exists(output) and not args.overwrite:
     print "Output PDF '%s' already exists, pass --overwrite to overwrite" % output
@@ -148,7 +154,8 @@ ax.set_xlabel("Polynomial degree")
 
 ax.set_ylabel("Bytes/dof")
 
-
+ax.set_ylim([dataframe.bytes_per_dof.min()/1.5,
+             dataframe.bytes_per_dof.max()*1.5])
 ax.semilogy()
 
 linestyles = iter(["solid", "dashed"])
@@ -160,12 +167,13 @@ for dim in dataframe["dimension"].drop_duplicates():
         sliced = (dataframe.loc[lambda df: df.type == typ]
                   .loc[lambda df: df.dimension == dim]
                   .loc[lambda df: df.num_processes == args.num_processes])
+        sliced = sliced.groupby(["degree"], as_index=False).mean()
         name = {"aij": "AIJ",
                 "matfree": "Matrix-free",
                 "nest": "Nest"}[typ]
         dimstr = {2: "2D",
                   3: "3D"}[dim]
-        ax.plot(sliced.degree, (sliced.bytes / sliced.rows),
+        ax.plot(sliced.degree, sliced.bytes_per_dof,
                 label="%s [%s]" % (name, dimstr),
                 linewidth=2, linestyle=linestyle,
                 marker=next(markers),
@@ -186,7 +194,7 @@ legend = fig.legend(handles, labels,
 
 seaborn.despine(fig)
 
-output = os.path.join(os.path.abspath(args.results_directory),
+output = os.path.join(os.path.abspath(os.path.dirname(output)),
                       "MatVec-memory_%s.pdf" % problem.name)
 
 if os.path.exists(output) and not args.overwrite:

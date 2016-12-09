@@ -81,7 +81,7 @@ def mat_info(mat, typ):
 
 for degree in degrees:
     PETSc.Sys.Print("Running degree %d" % degree)
-    problem.reinit(degree)
+    problem.reinit(degree=degree)
 
     J = problem.J
 
