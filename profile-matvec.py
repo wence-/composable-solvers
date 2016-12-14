@@ -50,9 +50,11 @@ module = importlib.import_module("problem.%s" % args.problem)
 prob_args, _ = module.Problem.argparser().parse_known_args()
 
 if prob_args.dimension == 2:
-    degrees = range(1, 8)
+    degrees = range(1, 5)
+    refinements = (2, 1, 0, 0)
 elif prob_args.dimension == 3:
-    degrees = range(1, 6)
+    degrees = range(1, 4)
+    refinements = (1, 0, 0)
 else:
     raise ValueError("Unhandled dimension")
 
@@ -79,9 +81,10 @@ def mat_info(mat, typ):
     return rows, cols, bytes
 
 
-for degree in degrees:
+
+for degree, refinement in zip(degrees, refinements):
     PETSc.Sys.Print("Running degree %d" % degree)
-    problem.reinit(degree=degree)
+    problem.reinit(degree=degree, refinements=refinement)
 
     J = problem.J
 

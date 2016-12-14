@@ -68,10 +68,13 @@ class Problem(baseproblem.Problem):
                  "ssc_sub_1_lo_pc_type": "gamg",
                  "ssc_sub_1_lo_mat_type": "aij",}
 
-    def __init__(self, N=None, degree=None, dimension=None):
-        super(Problem, self).__init__(N, degree, dimension)
-        self.nu = self.args.nu
-        self.lmbda = self.args.lmbda
+    @property
+    def nu(self):
+        return self.args.nu
+
+    @property
+    def lmbda(self):
+        return self.args.lmbda
 
     @staticmethod
     def argparser():

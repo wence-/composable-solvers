@@ -9,7 +9,7 @@ class Problem(object):
 
     autorefine = False
 
-    def __init__(self, N=None, degree=None, dimension=None):
+    def __init__(self, N=None, degree=None, dimension=None, refinements=None):
         super(Problem, self).__init__()
         args, _ = self.argparser().parse_known_args()
         if args.help:
@@ -20,14 +20,19 @@ class Problem(object):
         self.dimension = dimension or args.dimension
         self.N = N or args.size
         self.args = args
+        self.refinements = refinements
 
-    def reinit(self, degree=None, size=None):
+    def reinit(self, degree=None, size=None, refinements=None):
         if degree is None:
             degree = self.degree
         if size is None:
             size = self.N
+        if refinements is None:
+            refinements = self.refinements
         degree_changed = degree != self.degree
-        mesh_changed = size != self.N or (degree_changed and self.autorefine)
+        mesh_changed = (size != self.N
+                        or (degree_changed and self.autorefine)
+                        or refinements != self.refinements)
 
         if not (degree_changed or mesh_changed):
             return
@@ -56,7 +61,6 @@ class Problem(object):
 
     @cached_property
     def mesh(self):
-        print 'making mesh', self.N, self.degree
         if self.dimension == 2:
             mesh = UnitSquareMesh(self.N, self.N)
             # Refinements to give approximately same number of dofs
@@ -79,10 +83,13 @@ class Problem(object):
                            6: 0}
         else:
             raise ValueError("Invalid dimension, %d", self.dimension)
-        if self.autorefine:
+        if self.autorefine or self.refinements is not None:
             dm = mesh._plex
             from firedrake.mg.impl import filter_exterior_facet_labels
-            for _ in range(refinements.get(self.degree, 0)):
+            refs = self.refinements
+            if self.autorefine:
+                refs = refinements.get(self.degree, 0)
+            for _ in range(refs):
                 dm.setRefinementUniform(True)
                 dm = dm.refine()
                 dm.removeLabel("interior_facets")
@@ -106,7 +113,6 @@ class Problem(object):
 
     @cached_property
     def u(self):
-        print 'making u', self.N, self.degree
         return Function(self.function_space, name="solution")
 
     @abstractproperty

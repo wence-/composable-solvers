@@ -119,9 +119,9 @@ class Problem(baseproblem.Problem):
                    "fieldsplit_1_pcd_Kp_ksp_type": "preonly",
                    "fieldsplit_1_pcd_Kp_pc_type": "hypre"}
 
-    def __init__(self, N=None, degree=None, dimension=None):
-        super(Problem, self).__init__(N, degree, dimension)
-        self.Re = Constant(self.args.Re)
+    @cached_property
+    def Re(self):
+        return Constant(self.args.Re)
 
     @staticmethod
     def argparser():

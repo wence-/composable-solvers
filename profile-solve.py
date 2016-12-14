@@ -6,10 +6,11 @@ import cPickle
 import pandas
 from collections import defaultdict
 
-from firedrake import COMM_WORLD
+from firedrake import COMM_WORLD, parameters
 from firedrake.petsc import PETSc
 from mpi4py import MPI
 
+parameters["pyop2_options"]["lazy_evaluation"] = False
 PETSc.Log.begin()
 
 parser = ArgumentParser(description="""Profile solves""", add_help=False)
@@ -25,6 +26,13 @@ parser.add_argument("--results-file", action="store", default="solve-timings.csv
 
 parser.add_argument("--overwrite", action="store_true", default=False,
                     help="Overwrite existing output?  Default is to append.")
+
+parser.add_argument("--refinements", action="store", default=None,
+                    type=int,
+                    help="How many regular refinements to make to the mesh once it is distributed.")
+
+parser.add_argument("--parameters", default=None, action="store",
+                    help="Select specific parameter set?")
 
 parser.add_argument("--help", action="store_true",
                     help="Show help")
@@ -42,7 +50,15 @@ if args.problem is None:
 
 
 module = importlib.import_module("problem.%s" % args.problem)
-problem = module.Problem()
+problem = module.Problem(refinements=args.refinements)
+
+if args.parameters is not None:
+    if args.parameters not in problem.parameter_names:
+        raise ValueError("Unrecognised parameter '%s', not in %s", args.parameters,
+                         problem.parameter_names)
+    parameter_names = [args.parameters]
+else:
+    parameter_names = problem.parameter_names
 
 results = os.path.abspath(args.results_file)
 
@@ -50,10 +66,9 @@ warm = defaultdict(bool)
 
 def run_solve(problem, degree, size):
     problem.reinit(degree=degree, size=size)
-    for name in problem.parameter_names:
+    for name in parameter_names:
         parameters = getattr(problem, name)
         solver = problem.solver(parameters=parameters)
-
         PETSc.Sys.Print("\nSolving with parameter set '%s'..." % name)
         if not warm[(name, degree)]:
             PETSc.Sys.Print("Warmup solve")
@@ -87,6 +102,7 @@ def run_solve(problem, degree, size):
                 newton_its = solver.snes.getIterationNumber()
                 ksp_its = solver.snes.getLinearSolveIterations()
 
+                num_cells = problem.comm.allreduce(problem.mesh.cell_set.size, op=MPI.SUM)
                 if COMM_WORLD.rank == 0:
                     if not os.path.exists(os.path.dirname(results)):
                         os.makedirs(os.path.dirname(results))
@@ -107,7 +123,8 @@ def run_solve(problem, degree, size):
                             "JacobianEval": jac_time,
                             "FunctionEval": residual_time,
                             "num_processes": problem.comm.size,
-                            "mesh_size": problem.N,
+                            "mesh_size": problem.N * args.refinements,
+                            "num_cells": num_cells,
                             "dimension": problem.dimension,
                             "degree": problem.degree,
                             "solver_parameters": cPickle.dumps(solver.parameters),
@@ -122,17 +139,16 @@ def run_solve(problem, degree, size):
                 PETSc.Sys.Print("Unable to solve %s, %s, %s" % (name, problem.N, problem.degree))
         PETSc.Sys.Print("Solving with parameter set '%s'...done" % name)
 
-
+# Sizes for one node
 if problem.dimension == 2:
     sizes = [16, 32, 64, 128, 256, 512]
-    degrees = range(1, 7)
-elif problem.dimension == 3:
-    sizes = [4, 8, 16, 32, 64]
     degrees = range(1, 5)
+elif problem.dimension == 3:
+    sizes = [8, 16, 32, 64]
+    degrees = range(1, 4)
 else:
     raise ValueError("Unhandled dimension %d", problem.dimension)
 
 for size in sizes:
     for degree in degrees:
         run_solve(problem, degree, size)
-            

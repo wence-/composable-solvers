@@ -12,19 +12,37 @@ class Problem(baseproblem.Problem):
 
     name = "Poisson"
 
-    def __init__(self, N=None, degree=None, dimension=None):
-        super(Problem, self).__init__(N, degree, dimension)
-        self.random = self.args.random
+    @property
+    def random(self):
+        return self.args.random
 
     parameter_names = ("hypre", "mumps", "schwarz", "schwarzmf")
 
-    hypre = {"snes_type": "ksponly",
-             "ksp_type": "cg",
-             "ksp_rtol": 1e-8,
-             "ksp_monitor": True,
-             "pc_type": "hypre",
-             "pc_hypre_type": "boomeramg",
-             "mat_type": "aij"}
+    hypre3d = {"snes_type": "ksponly",
+               "ksp_type": "cg",
+               "ksp_rtol": 1e-8,
+               "ksp_monitor": True,
+               "pc_type": "hypre",
+               "pc_hypre_type": "boomeramg",
+               "pc_hypre_boomeramg_coarsen_type": "HMIS",
+               "pc_hypre_boomeramg_interp_type": "ext+i",
+               "pc_hypre_boomeramg_P_max": 4,
+               "pc_hypre_boomeramg_strong_threshold": 0.25,
+               "mat_type": "aij"}
+
+    hypre2d = {"snes_type": "ksponly",
+               "ksp_type": "cg",
+               "ksp_rtol": 1e-8,
+               "ksp_monitor": True,
+               "pc_type": "hypre",
+               "pc_hypre_type": "boomeramg"}
+
+    @property
+    def hypre(self):
+        if self.dimension == 2:
+            return self.hypre2d
+        else:
+            return self.hypre3d
 
     mumps = {"snes_type": "ksponly",
              "ksp_type": "preonly",
@@ -32,39 +50,46 @@ class Problem(baseproblem.Problem):
              "pc_factor_mat_solver_package": "mumps",
              "mat_type": "aij"}
 
-    schwarz = {"snes_type": "ksponly",
-               "ksp_type": "cg",
-               "ksp_rtol": 1e-8,
-               "ksp_monitor": True,
-               "mat_type": "matfree",
-               "pc_type": "python",
-               "pc_python_type": "ssc.SSC",
-               "ssc_pc_composite_type": "additive",
-               # Patch config
-               "ssc_sub_0_pc_patch_save_operators": True,
-               "ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
-               "ssc_sub_0_sub_ksp_type": "preonly",
-               "ssc_sub_0_sub_pc_type": "lu",
-               # Low-order config
-               "ssc_sub_1_lo_pc_type": "hypre",
-               "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
+    @property
+    def schwarz(self):
+        schwarz = {"snes_type": "ksponly",
+                   "ksp_type": "cg",
+                   "ksp_rtol": 1e-8,
+                   "ksp_monitor": True,
+                   "mat_type": "matfree",
+                   "pc_type": "python",
+                   "pc_python_type": "ssc.SSC",
+                   "ssc_pc_composite_type": "additive",
+                   # Patch config
+                   "ssc_sub_0_pc_patch_save_operators": True,
+                   "ssc_sub_0_pc_patch_sub_mat_type": "seqaij",
+                   "ssc_sub_0_sub_ksp_type": "preonly",
+                   "ssc_sub_0_sub_pc_type": "lu",
+                   "ssc_sub_0_sub_pc_factor_in_place": True,
+                   # Low-order config
+                   "ssc_sub_1_lo_pc_type": "hypre",
+                   "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
+        return schwarz
 
-    schwarzmf = {"snes_type": "ksponly",
-                 "ksp_type": "cg",
-                 "ksp_rtol": 1e-8,
-                 "ksp_monitor": True,
-                 "mat_type": "matfree",
-                 "pc_type": "python",
-                 "pc_python_type": "ssc.SSC",
-                 "ssc_pc_composite_type": "additive",
-                 # Patch config
-                 "ssc_sub_0_pc_patch_save_operators": False,
-                 "ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
-                 "ssc_sub_0_sub_ksp_type": "preonly",
-                 "ssc_sub_0_sub_pc_type": "lu",
-                 # Low-order config
-                 "ssc_sub_1_lo_pc_type": "hypre",
-                 "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
+    @property
+    def schwarzmf(self):
+        schwarzmf = {"snes_type": "ksponly",
+                     "ksp_type": "cg",
+                     "ksp_rtol": 1e-8,
+                     "ksp_monitor": True,
+                     "mat_type": "matfree",
+                     "pc_type": "python",
+                     "pc_python_type": "ssc.SSC",
+                     "ssc_pc_composite_type": "additive",
+                     # Patch config
+                     "ssc_sub_0_pc_patch_save_operators": False,
+                     "ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
+                     "ssc_sub_0_sub_ksp_type": "preonly",
+                     "ssc_sub_0_sub_pc_type": "lu",
+                     # Low-order config
+                     "ssc_sub_1_lo_pc_type": "hypre",
+                     "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
+        return schwarzmf
 
     @staticmethod
     def argparser():

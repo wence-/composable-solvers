@@ -184,11 +184,17 @@ class Problem(baseproblem.Problem):
                               "fieldsplit_1_ssc_sub_1_lo_pc_type": "hypre",
                               "fieldsplit_1_ssc_sub_1_lo_mat_type": "aij"}
 
-    def __init__(self, N=None, degree=None, dimension=None):
-        super(Problem, self).__init__(N, degree, dimension)
-        self.Ra = Constant(self.args.Ra)
-        self.Pr = Constant(self.args.Pr)
-        self.vertical_temperature = self.args.vertical_temperature
+    @cached_property
+    def Ra(self):
+        return Constant(self.args.Ra)
+
+    @cached_property
+    def Pr(self):
+        return Constant(self.args.Pr)
+
+    @property
+    def vertical_temperature(self):
+        return self.args.vertical_temperature
 
     @staticmethod
     def argparser():
