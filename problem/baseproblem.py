@@ -50,6 +50,7 @@ class Problem(object):
                 pass
         self.degree = degree
         self.N = size
+        self.refinements = refinements
 
     @abstractproperty
     def parameter_names(self):

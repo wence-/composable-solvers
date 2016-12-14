@@ -83,7 +83,7 @@ def mat_info(mat, typ):
 
 
 for degree, refinement in zip(degrees, refinements):
-    PETSc.Sys.Print("Running degree %d" % degree)
+    PETSc.Sys.Print("Running degree %d, ref %d" % (degree, refinement))
     problem.reinit(degree=degree, refinements=refinement)
 
     J = problem.J
