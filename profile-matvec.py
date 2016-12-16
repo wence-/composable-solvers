@@ -17,8 +17,8 @@ parser.add_argument("--problem", choices=["poisson",
                                           "rayleigh_benard"],
                     help="Which problem to profile")
 
-parser.add_argument("--autorefine", action="store_true", default=False,
-                    help="Refine meshes to give approximately fixed number of dofs?")
+parser.add_argument("--tensor", action="store_true", default=False,
+                    help="Use tensor-product cells?")
 
 parser.add_argument("--output-file", action="store",
                     default="MatVec-timings.csv",
@@ -49,18 +49,32 @@ if args.problem is None:
 module = importlib.import_module("problem.%s" % args.problem)
 prob_args, _ = module.Problem.argparser().parse_known_args()
 
-if prob_args.dimension == 2:
-    degrees = range(1, 5)
-    refinements = (2, 1, 0, 0)
-elif prob_args.dimension == 3:
-    degrees = range(1, 4)
-    refinements = (1, 0, 0)
-else:
-    raise ValueError("Unhandled dimension")
+if args.problem == "rayleigh_benard":
+    if prob_args.dimension == 2:
+        size = 200
+        degrees = range(1, 5)
+        refinements = (2, 1, 0, 0)
+    elif prob_args.dimension == 3:
+        size = 32
+        degrees = range(1, 4)
+        refinements = (1, 0, 0)
+    else:
+        raise ValueError("Unhandled dimension")
 
-problem = module.Problem()
+if args.problem == "poisson":
+    if prob_args.dimension == 2:
+        size = 200
+        degrees =     (1, 2, 3, 4, 5, 6, 7)
+        refinements = (4, 3, 2, 2, 1, 1, 0)
+    elif prob_args.dimension == 3:
+        size = 22
+        degrees =     (1, 2, 3, 4, 5)
+        refinements = (3, 2, 1, 1, 0)
+    else:
+        raise ValueError("Unhandled dimension")
 
-problem.autorefine = args.autorefine
+problem = module.Problem(quadrilateral=args.tensor)
+problem.N = size
 results = os.path.abspath(args.output_file)
 
 
@@ -145,6 +159,7 @@ for degree, refinement in zip(degrees, refinements):
                     "dimension": problem.dimension,
                     "degree": problem.degree,
                     "num_processes": problem.comm.size,
-                    "problem": problem.name}
+                    "problem": problem.name,
+                    "cell_type": {True: "tensor", False: "simplex"}[args.tensor]}
             df = pandas.DataFrame(data, index=[0])
             df.to_csv(results, index=False, mode=mode, header=header)
