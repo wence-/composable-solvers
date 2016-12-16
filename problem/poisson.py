@@ -26,7 +26,7 @@ class Problem(baseproblem.Problem):
                "pc_hypre_type": "boomeramg",
                "pc_hypre_boomeramg_coarsen_type": "HMIS",
                "pc_hypre_boomeramg_interp_type": "ext+i",
-               "pc_hypre_boomeramg_P_max": 4,
+               "pc_hypre_boomeramg_P_max": 7,
                "pc_hypre_boomeramg_strong_threshold": 0.25,
                "mat_type": "aij"}
 
@@ -65,7 +65,6 @@ class Problem(baseproblem.Problem):
                    "ssc_sub_0_pc_patch_sub_mat_type": "seqaij",
                    "ssc_sub_0_sub_ksp_type": "preonly",
                    "ssc_sub_0_sub_pc_type": "lu",
-                   "ssc_sub_0_sub_pc_factor_in_place": True,
                    # Low-order config
                    "ssc_sub_1_lo_pc_type": "hypre",
                    "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}

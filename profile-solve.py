@@ -27,7 +27,7 @@ parser.add_argument("--results-file", action="store", default="solve-timings.csv
 parser.add_argument("--overwrite", action="store_true", default=False,
                     help="Overwrite existing output?  Default is to append.")
 
-parser.add_argument("--refinements", action="store", default=None,
+parser.add_argument("--refinements", action="store", default=0,
                     type=int,
                     help="How many regular refinements to make to the mesh once it is distributed.")
 
@@ -83,6 +83,8 @@ def run_solve(problem, degree, size):
         problem.u.assign(0)
 
         PETSc.Sys.Print("Timed solve")
+        solver.snes.setConvergenceHistory()
+        solver.snes.ksp.setConvergenceHistory()
         with PETSc.Log.Stage("P(%d, %d) Warm solve %s" % (degree, size, name)):
             try:
                 solver.solve()
@@ -113,9 +115,13 @@ def run_solve(problem, degree, size):
                     else:
                         mode = "a"
                         header = not os.path.exists(results)
-
+                        snes_history, linear_its = solver.snes.getConvergenceHistory()
+                        ksp_history = solver.snes.ksp.getConvergenceHistory()
                     data = {"snes_its": newton_its,
                             "ksp_its": ksp_its,
+                            "snes_history": cPickle.dumps(snes_history),
+                            "linear_its": cPickle.dumps(linear_its),
+                            "ksp_history": cPickle.dumps(ksp_history),
                             "SNESSolve": snes_time,
                             "KSPSolve": ksp_time,
                             "PCSetUp": pcsetup_time,
@@ -123,7 +129,7 @@ def run_solve(problem, degree, size):
                             "JacobianEval": jac_time,
                             "FunctionEval": residual_time,
                             "num_processes": problem.comm.size,
-                            "mesh_size": problem.N * args.refinements,
+                            "mesh_size": problem.N * (2**args.refinements),
                             "num_cells": num_cells,
                             "dimension": problem.dimension,
                             "degree": problem.degree,
@@ -139,15 +145,26 @@ def run_solve(problem, degree, size):
                 PETSc.Sys.Print("Unable to solve %s, %s, %s" % (name, problem.N, problem.degree))
         PETSc.Sys.Print("Solving with parameter set '%s'...done" % name)
 
+
 # Sizes for one node
-if problem.dimension == 2:
-    sizes = [16, 32, 64, 128, 256, 512]
-    degrees = range(1, 5)
-elif problem.dimension == 3:
-    sizes = [8, 16, 32, 64]
-    degrees = range(1, 4)
+if args.problem == "poisson":
+    if problem.dimension == 2:
+        sizes = [16, 32, 64, 128, 256, 512]
+        degrees = range(1, 5)[:1]
+    elif problem.dimension == 3:
+        sizes = [8, 16, 32, 64]
+        degrees = range(1, 4)
+    else:
+        raise ValueError("Unhandled dimension %d", problem.dimension)
+elif args.problem == "rayleigh_benard":
+    if problem.dimension == 2:
+        sizes = [16, 32, 64, 128, 256, 512]
+        degrees = range(1, 3)
+    elif problem.dimension == 3:
+        sizes = [8, 16, 32, 64]
+        degrees = range(1, 3)
 else:
-    raise ValueError("Unhandled dimension %d", problem.dimension)
+    raise ValueError("Unhandled problem %s", args.problem)
 
 for size in sizes:
     for degree in degrees:
