@@ -36,7 +36,7 @@ class Problem(object):
             return
         for attr in ["function_space", "u", "F", "J", "Jp", "bcs",
                      "nullspace", "near_nullspace", "output_fields",
-                     "forcing"]:
+                     "forcing", "appctx"]:
             try:
                 delattr(self, attr)
             except AttributeError:
@@ -110,7 +110,7 @@ class Problem(object):
     def J(self):
         return derivative(self.F, self.u)
 
-    @cached_property
+    @property
     def Jp(self):
         return None
 
@@ -126,7 +126,7 @@ class Problem(object):
     def near_nullspace(self):
         return None
 
-    @cached_property
+    @property
     def appctx(self):
         return None
 
