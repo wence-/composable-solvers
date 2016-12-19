@@ -69,7 +69,7 @@ def run_solve(problem, degree, size):
     for name in parameter_names:
         parameters = getattr(problem, name)
         solver = problem.solver(parameters=parameters)
-        PETSc.Sys.Print("\nSolving with parameter set '%s'..." % name)
+        PETSc.Sys.Print("\nSolving with parameter set %s, %s, %s..." % (name, problem.N, problem.degree))
         if not warm[(name, degree)]:
             PETSc.Sys.Print("Warmup solve")
             problem.u.assign(0)
@@ -78,6 +78,11 @@ def run_solve(problem, degree, size):
                     solver.solve()
                 except:
                     PETSc.Sys.Print("Unable to solve %s, %s, %s" % (name, problem.N, problem.degree))
+                    PETSc.Sys.Print("************************************")
+                    import traceback
+                    PETSc.Sys.Print(*traceback.format_stack())
+                    PETSc.Sys.Print("************************************")
+                    continue
             warm[(name, degree)] = True
 
         problem.u.assign(0)
@@ -143,17 +148,22 @@ def run_solve(problem, degree, size):
                     df.to_csv(results, index=False, mode=mode, header=header)
             except:
                 PETSc.Sys.Print("Unable to solve %s, %s, %s" % (name, problem.N, problem.degree))
-        PETSc.Sys.Print("Solving with parameter set '%s'...done" % name)
+                PETSc.Sys.Print("************************************")
+                import traceback
+                PETSc.Sys.Print(*traceback.format_stack())
+                PETSc.Sys.Print("************************************")
+                continue
+        PETSc.Sys.Print("Solving with parameter set %s, %s, %s...done" % (name, problem.N, problem.degree))
 
 
 # Sizes for one node
 if args.problem == "poisson":
     if problem.dimension == 2:
         sizes = [16, 32, 64, 128, 256, 512]
-        degrees = range(1, 5)[:1]
+        degrees = range(1, 5)
     elif problem.dimension == 3:
         sizes = [8, 16, 32, 64]
-        degrees = range(1, 4)
+        degrees = range(1, 5)
     else:
         raise ValueError("Unhandled dimension %d", problem.dimension)
 elif args.problem == "rayleigh_benard":

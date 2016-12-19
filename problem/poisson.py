@@ -45,6 +45,8 @@ class Problem(baseproblem.Problem):
             return self.hypre3d
 
     mumps = {"snes_type": "ksponly",
+             "snes_converged_reason": True,
+             "ksp_converged_reason": True,
              "ksp_type": "preonly",
              "pc_type": "lu",
              "pc_factor_mat_solver_package": "mumps",
@@ -68,6 +70,9 @@ class Problem(baseproblem.Problem):
                    # Low-order config
                    "ssc_sub_1_lo_pc_type": "hypre",
                    "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
+        for k, v in self.hypre.items():
+            if k.startswith("pc_hypre_boomeramg"):
+                schwarz["ssc_sub_1_lo_%s" % k] = v
         return schwarz
 
     @property
@@ -88,6 +93,9 @@ class Problem(baseproblem.Problem):
                      # Low-order config
                      "ssc_sub_1_lo_pc_type": "hypre",
                      "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
+        for k, v in self.hypre.items():
+            if k.startswith("pc_hypre_boomeramg"):
+                schwarzmf["ssc_sub_1_lo_%s" % k] = v
         return schwarzmf
 
     @staticmethod
