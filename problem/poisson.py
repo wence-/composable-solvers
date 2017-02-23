@@ -16,18 +16,21 @@ class Problem(baseproblem.Problem):
     def random(self):
         return self.args.random
 
-    parameter_names = ("hypre", "mumps", "schwarz", "schwarzmf")
+    parameter_names = ("hypre", "mumps", "schwarz", "schwarzmf", "schwarz_rich")
 
     hypre3d = {"snes_type": "ksponly",
                "ksp_type": "cg",
                "ksp_rtol": 1e-8,
                "ksp_monitor": True,
                "pc_type": "hypre",
+               "ksp_view": True,
                "pc_hypre_type": "boomeramg",
+               "pc_hypre_boomeramg_no_CF": True,
                "pc_hypre_boomeramg_coarsen_type": "HMIS",
                "pc_hypre_boomeramg_interp_type": "ext+i",
-               "pc_hypre_boomeramg_P_max": 7,
-               "pc_hypre_boomeramg_strong_threshold": 0.25,
+               "pc_hypre_boomeramg_P_max": 4,
+               "pc_hypre_boomeramg_agg_nl": 1,
+               "pc_hypre_boomeramg_agg_num_paths": 2,
                "mat_type": "aij"}
 
     hypre2d = {"snes_type": "ksponly",
@@ -56,6 +59,7 @@ class Problem(baseproblem.Problem):
     def schwarz(self):
         schwarz = {"snes_type": "ksponly",
                    "ksp_type": "cg",
+                   "ksp_view": True,
                    "ksp_rtol": 1e-8,
                    "ksp_monitor": True,
                    "mat_type": "matfree",
@@ -68,16 +72,27 @@ class Problem(baseproblem.Problem):
                    "ssc_sub_0_sub_ksp_type": "preonly",
                    "ssc_sub_0_sub_pc_type": "lu",
                    # Low-order config
-                   "ssc_sub_1_lo_pc_type": "hypre",
-                   "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
+                   "ssc_sub_1_lo_pc_type": "telescope",
+                   "ssc_sub_1_lo_pc_telescope_reduction_factor": 6,
+                   "ssc_sub_1_lo_telescope_ksp_type": "preonly",
+                   "ssc_sub_1_lo_telescope_pc_type": "gamg",
+                   "ssc_sub_1_lo_telescope_pc_hypre_type": "boomeramg"}
         for k, v in self.hypre.items():
             if k.startswith("pc_hypre_boomeramg"):
-                schwarz["ssc_sub_1_lo_%s" % k] = v
+                schwarz["ssc_sub_1_lo_telescope_%s" % k] = v
         return schwarz
+
+    @property
+    def schwarz_rich(self):
+        opts = self.schwarz
+        opts["ssc_sub_1_lo_telescope_ksp_type"] = "richardson"
+        opts["ssc_sub_1_lo_telescope_ksp_max_it"] = 4
+        return opts
 
     @property
     def schwarzmf(self):
         schwarzmf = {"snes_type": "ksponly",
+                     "ksp_view": True,
                      "ksp_type": "cg",
                      "ksp_rtol": 1e-8,
                      "ksp_monitor": True,
@@ -91,11 +106,14 @@ class Problem(baseproblem.Problem):
                      "ssc_sub_0_sub_ksp_type": "preonly",
                      "ssc_sub_0_sub_pc_type": "lu",
                      # Low-order config
-                     "ssc_sub_1_lo_pc_type": "hypre",
-                     "ssc_sub_1_lo_pc_hypre_type": "boomeramg"}
+                     "ssc_sub_1_lo_pc_type": "telescope",
+                     "ssc_sub_1_lo_pc_telescope_reduction_factor": 6,
+                     "ssc_sub_1_lo_telescope_ksp_type": "preonly",
+                     "ssc_sub_1_lo_telescope_pc_type": "hypre",
+                     "ssc_sub_1_lo_telescope_pc_hypre_type": "boomeramg"}
         for k, v in self.hypre.items():
             if k.startswith("pc_hypre_boomeramg"):
-                schwarzmf["ssc_sub_1_lo_%s" % k] = v
+                schwarzmf["ssc_sub_1_lo_telescope_%s" % k] = v
         return schwarzmf
 
     @staticmethod

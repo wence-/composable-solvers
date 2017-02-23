@@ -11,7 +11,7 @@ class Problem(baseproblem.Problem):
 
     name = "Rayleigh-Benard"
 
-    parameter_names = ("mumps", "pcd_mg", "pcd_schwarz_velocity")
+    parameter_names = ("mumps", "pcd_mg", "pcd_schwarzmf_velocity", "pcd_schwarz_velocity")
 
     mumps = {"snes_type": "newtonls",
              "snes_monitor": True,
@@ -76,31 +76,28 @@ class Problem(baseproblem.Problem):
               "fieldsplit_1_assembled_pc_type": "lu",
               "fieldsplit_1_assembled_pc_factor_mat_solver_package": "mumps"}
 
+    hypre3d = {"pc_hypre_type": "boomeramg",
+               "pc_hypre_boomeramg_no_CF": True,
+               "pc_hypre_boomeramg_coarsen_type": "HMIS",
+               "pc_hypre_boomeramg_interp_type": "ext+i",
+               "pc_hypre_boomeramg_P_max": 4,
+               "pc_hypre_boomeramg_agg_nl": 1,
+               "pc_hypre_boomeramg_agg_num_paths": 2}
+
+    hypre2d = {"pc_type": "hypre",
+               "pc_hypre_type": "boomeramg"}
+
     @property
     def hypre(self):
         if self.dimension == 2:
-            return {"snes_type": "ksponly",
-                    "ksp_type": "cg",
-                    "ksp_rtol": 1e-8,
-                    "ksp_monitor": True,
-                    "pc_type": "hypre",
-                    "pc_hypre_type": "boomeramg"}
+            return self.hypre2d
         else:
-            return {"snes_type": "ksponly",
-                    "ksp_type": "cg",
-                    "ksp_rtol": 1e-8,
-                    "ksp_monitor": True,
-                    "pc_type": "hypre",
-                    "pc_hypre_type": "boomeramg",
-                    "pc_hypre_boomeramg_coarsen_type": "HMIS",
-                    "pc_hypre_boomeramg_interp_type": "ext+i",
-                    "pc_hypre_boomeramg_P_max": 7,
-                    "pc_hypre_boomeramg_strong_threshold": 0.25,
-                    "mat_type": "aij"}
+            return self.hypre3d
 
     @property
     def pcd_mg(self):
         pcd_mg = {"snes_type": "newtonls",
+                  "snes_view": True,
                   "snes_monitor": True,
                   "snes_rtol": 1e-8,
                   "snes_converged_reason": True,
@@ -116,6 +113,7 @@ class Problem(baseproblem.Problem):
                   "pc_fieldsplit_1_fields": "2",
                   # GMRES on Navier-stokes, with fieldsplit PC.
                   "fieldsplit_0_ksp_type": "gmres",
+                  "fieldsplit_0_ksp_converged_reason": True,
                   "fieldsplit_0_ksp_gmres_modifiedgramschmidt": True,
                   "fieldsplit_0_ksp_rtol": 1e-2,
                   "fieldsplit_0_pc_type": "fieldsplit",
@@ -140,24 +138,30 @@ class Problem(baseproblem.Problem):
                   # hypre on assembled stiffness matrix
                   "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "preonly",
                   "fieldsplit_0_fieldsplit_1_pcd_Kp_mat_type": "aij",
-                  "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "hypre",
+                  "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "telescope",
+                  "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_telescope_reduction_factor": 6,
+                  "fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_pc_type": "hypre",
                   # hypre on temperature block
                   "fieldsplit_1_ksp_type": "gmres",
+                  "fieldsplit_1_ksp_converged_reason": True,
                   "fieldsplit_1_ksp_rtol": 1e-4,
                   "fieldsplit_1_pc_type": "python",
                   "fieldsplit_1_pc_python_type": "firedrake.AssembledPC",
                   "fieldsplit_1_assembled_mat_type": "aij",
-                  "fieldsplit_1_assembled_pc_type": "hypre"}
+                  "fieldsplit_1_assembled_pc_type": "telescope",
+                  "fieldsplit_1_assembled_pc_telescope_reduction_factor": 6,
+                  "fieldsplit_1_assembled_telescope_pc_type": "hypre"}
         for k, v in self.hypre.items():
             if k.startswith("pc_hypre_boomeramg"):
-                pcd_mg["fieldsplit_1_assembled_%s" % k] = v
-                pcd_mg["fieldsplit_0_fieldsplit_1_pcd_Kp_%s" % k] = v
+                pcd_mg["fieldsplit_1_assembled_telescope_%s" % k] = v
+                pcd_mg["fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_%s" % k] = v
                 pcd_mg["fieldsplit_0_fieldsplit_0_assembled_%s" % k] = v
         return pcd_mg
 
     @property
     def pcd_schwarz_velocity(self):
         pcd_schwarz = {"snes_type": "newtonls",
+                       "snes_view": True,
                        "snes_monitor": True,
                        "snes_rtol": 1e-8,
                        "snes_converged_reason": True,
@@ -174,6 +178,7 @@ class Problem(baseproblem.Problem):
                        # GMRES on Navier-stokes, with fieldsplit PC.
                        "fieldsplit_0_ksp_type": "gmres",
                        "fieldsplit_0_ksp_gmres_modifiedgramschmidt": True,
+                       "fieldsplit_0_ksp_converged_reason": True,
                        "fieldsplit_0_ksp_rtol": 1e-2,
                        "fieldsplit_0_pc_type": "fieldsplit",
                        "fieldsplit_0_pc_fieldsplit_type": "schur",
@@ -184,7 +189,7 @@ class Problem(baseproblem.Problem):
                        "fieldsplit_0_fieldsplit_0_pc_python_type": "ssc.SSC",
                        "fieldsplit_0_fieldsplit_0_ssc_pc_composite_type": "additive",
                        "fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_save_operators": True,
-                       "fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
+                       "fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_sub_mat_type": "seqaij",
                        "fieldsplit_0_fieldsplit_0_ssc_sub_0_sub_ksp_type": "preonly",
                        "fieldsplit_0_fieldsplit_0_ssc_sub_0_sub_pc_type": "lu",
                        "fieldsplit_0_fieldsplit_0_ssc_sub_1_lo_pc_type": "hypre",
@@ -207,6 +212,7 @@ class Problem(baseproblem.Problem):
                        "fieldsplit_1_ksp_type": "gmres",
                        "fieldsplit_1_ksp_rtol": 1e-4,
                        "fieldsplit_1_ksp_gmres_modifiedgramschmidt": True,
+                       "fieldsplit_1_ksp_converged_reason": True,
                        "fieldsplit_1_pc_type": "python",
                        "fieldsplit_1_pc_python_type": "firedrake.AssembledPC",
                        "fieldsplit_1_assembled_mat_type": "aij",
@@ -215,9 +221,15 @@ class Problem(baseproblem.Problem):
             if k.startswith("pc_hypre_boomeramg"):
                 pcd_schwarz["fieldsplit_1_assembled_%s" % k] = v
                 pcd_schwarz["fieldsplit_0_fieldsplit_1_pcd_Kp_%s" % k] = v
-                pcd_schwarz["fieldsplit_0_fieldsplit_0_ssc_subc_1_lo_%s" % k] = v
+                pcd_schwarz["fieldsplit_0_fieldsplit_0_ssc_sub_1_lo_%s" % k] = v
 
         return pcd_schwarz
+
+    @property
+    def pcd_schwarzmf_velocity(self):
+        opts = self.pcd_schwarz_velocity
+        opts["fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_save_operators"] = False
+        return opts
 
     @cached_property
     def Ra(self):

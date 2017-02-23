@@ -2,6 +2,7 @@
 from firedrake import *
 from firedrake.utils import cached_property
 from abc import ABCMeta, abstractproperty, abstractmethod
+from firedrake.petsc import PETSc
 
 
 class Problem(object):
@@ -138,6 +139,10 @@ class Problem(object):
                                             near_nullspace=self.near_nullspace,
                                             appctx=self.appctx,
                                             solver_parameters=parameters)
+        PETSc.Sys.syncPrint("[%d] mesh sizes %s, dof sizes %s" % (self.mesh.comm.rank,
+                                                                  self.mesh.cell_set.sizes,
+                                                                  self.function_space.dof_dset.sizes))
+        PETSc.Sys.syncFlush()
         return solver
 
     @abstractmethod
