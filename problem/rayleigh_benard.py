@@ -124,7 +124,11 @@ class Problem(baseproblem.Problem):
                   "fieldsplit_0_fieldsplit_0_pc_type": "python",
                   "fieldsplit_0_fieldsplit_0_pc_python_type": "firedrake.AssembledPC",
                   "fieldsplit_0_fieldsplit_0_assembled_mat_type": "aij",
-                  "fieldsplit_0_fieldsplit_0_assembled_pc_type": "hypre",
+                  "fieldsplit_0_fieldsplit_0_assembled_pc_type": "gamg",
+                  "fieldsplit_0_fieldsplit_0_assembled_mg_levels_ksp_type": "richardson",
+                  "fieldsplit_0_fieldsplit_0_assembled_mg_levels_ksp_max_it": 3,
+                  "fieldsplit_0_fieldsplit_0_assembled_mg_levels_pc_type": "bjacobi",
+                  "fieldsplit_0_fieldsplit_0_assembled_mg_levels_sub_pc_type": "ilu",
                   # PCD on the pressure block
                   "fieldsplit_0_fieldsplit_1_ksp_type": "preonly",
                   "fieldsplit_0_fieldsplit_1_pc_type": "python",
@@ -133,14 +137,18 @@ class Problem(baseproblem.Problem):
                   "fieldsplit_0_fieldsplit_1_pcd_Fp_mat_type": "matfree",
                   # sor on assembled mass matrix
                   "fieldsplit_0_fieldsplit_1_pcd_Mp_mat_type": "aij",
-                  "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "preonly",
+                  "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "richardson",
+                  "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_max_it": 2,
                   "fieldsplit_0_fieldsplit_1_pcd_Mp_pc_type": "sor",
                   # hypre on assembled stiffness matrix
                   "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "preonly",
                   "fieldsplit_0_fieldsplit_1_pcd_Kp_mat_type": "aij",
                   "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "telescope",
                   "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_telescope_reduction_factor": 6,
-                  "fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_pc_type": "hypre",
+                  "fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_pc_type": "ksp",
+                  "fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_ksp_ksp_type": "richardson",
+                  "fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_ksp_ksp_max_it": 3,
+                  "fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_ksp_pc_type": "hypre",
                   # hypre on temperature block
                   "fieldsplit_1_ksp_type": "gmres",
                   "fieldsplit_1_ksp_converged_reason": True,
@@ -150,11 +158,16 @@ class Problem(baseproblem.Problem):
                   "fieldsplit_1_assembled_mat_type": "aij",
                   "fieldsplit_1_assembled_pc_type": "telescope",
                   "fieldsplit_1_assembled_pc_telescope_reduction_factor": 6,
-                  "fieldsplit_1_assembled_telescope_pc_type": "hypre"}
+                  "fieldsplit_1_assembled_telescope_pc_type": "gamg",
+                  "fieldsplit_1_assembled_telescope_mg_levels_ksp_type": "richardson",
+                  "fieldsplit_1_assembled_telescope_mg_levels_ksp_max_it": 3,
+                  "fieldsplit_1_assembled_telescope_mg_levels_pc_type": "bjacobi",
+                  "fieldsplit_1_assembled_telescope_mg_levels_sub_pc_type": "ilu",}
         for k, v in self.hypre.items():
             if k.startswith("pc_hypre_boomeramg"):
                 pcd_mg["fieldsplit_1_assembled_telescope_%s" % k] = v
                 pcd_mg["fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_%s" % k] = v
+                pcd_mg["fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_ksp_%s" % k] = v
                 pcd_mg["fieldsplit_0_fieldsplit_0_assembled_%s" % k] = v
         return pcd_mg
 
