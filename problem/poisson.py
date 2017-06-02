@@ -16,115 +16,44 @@ class Problem(baseproblem.Problem):
     def random(self):
         return self.args.random
 
-    parameter_names = ("hypre", "mumps", "schwarz", "schwarzmf", "schwarz_rich", "gamg")
+    parameter_names = ("hypre", "schwarz_rich")
 
-    hypre3d = {"snes_type": "ksponly",
-               "ksp_type": "gmres",
-               "ksp_rtol": 1e-8,
-               "ksp_monitor": True,
-               "pc_type": "hypre",
-               "ksp_view": True,
-               "pc_hypre_type": "boomeramg",
-               "pc_hypre_boomeramg_no_CF": True,
-               "pc_hypre_boomeramg_coarsen_type": "hmis",
-               "pc_hypre_boomeramg_interp_type": "ext+i",
-               "pc_hypre_boomeramg_P_max": 4,
-               "pc_hypre_boomeramg_agg_nl": 1,
-               "pc_hypre_boomeramg_strong_threshold": 0.25,
-               "pc_hypre_boomeramg_max_num_paths": 2,
-               "mat_type": "aij"}
-
-    hypre2d = {"snes_type": "ksponly",
-               "ksp_type": "cg",
-               "ksp_rtol": 1e-8,
-               "ksp_monitor": True,
-               "pc_type": "hypre",
-               "pc_hypre_type": "boomeramg"}
-
-    gamg = {"snes_type": "ksponly",
-            "ksp_type": "cg",
-            "ksp_rtol": 1e-8,
-            "ksp_monitor": True,
-            "ksp_view": True,
-            "pc_type": "gamg",
-            "pc_gamg_square_graph": 1,
-            "pc_gamg_threshold": 1e-7}
-    
     @property
     def hypre(self):
-        if self.dimension == 2:
-            return self.hypre2d
-        else:
-            return self.hypre3d
-
-    mumps = {"snes_type": "ksponly",
-             "snes_converged_reason": True,
-             "ksp_converged_reason": True,
-             "ksp_type": "preonly",
-             "pc_type": "lu",
-             "pc_factor_mat_solver_package": "mumps",
-             "mat_type": "aij"}
-
-    @property
-    def schwarz(self):
-        schwarz = {"snes_type": "ksponly",
-                   "ksp_type": "cg",
-                   "ksp_view": True,
-                   "ksp_rtol": 1e-8,
-                   "ksp_monitor": True,
-                   "mat_type": "matfree",
-                   "pc_type": "python",
-                   "pc_python_type": "ssc.SSC",
-                   "ssc_pc_composite_type": "additive",
-                   # Patch config
-                   "ssc_sub_0_pc_patch_save_operators": True,
-                   "ssc_sub_0_pc_patch_sub_mat_type": "seqaij",
-                   "ssc_sub_0_sub_ksp_type": "preonly",
-                   "ssc_sub_0_sub_pc_type": "lu",
-                   # Low-order config
-                   "ssc_sub_1_lo_pc_type": "telescope",
-                   "ssc_sub_1_lo_pc_telescope_reduction_factor": 6,
-                   "ssc_sub_1_lo_telescope_ksp_type": "preonly",
-                   "ssc_sub_1_lo_telescope_pc_type": "hypre",
-                   "ssc_sub_1_lo_telescope_pc_hypre_type": "boomeramg"}
-        for k, v in self.hypre.items():
-            if k.startswith("pc_hypre_boomeramg") and k != "pc_hypre_boomeramg_print_statistics":
-                schwarz["ssc_sub_1_lo_telescope_%s" % k] = v
-        return schwarz
+        return {"snes_type": "ksponly",
+                "ksp_type": "cg",
+                "ksp_rtol": 1e-8,
+                "ksp_monitor": True,
+                "ksp_view": True,
+                "pc_type": "hypre",
+                "pc_hypre_type": "boomeramg",
+                "pc_hypre_boomeramg_no_CF": True,
+                "pc_hypre_boomeramg_coarsen_type": "hmis",
+                "pc_hypre_boomeramg_interp_type": "ext+i",
+                "pc_hypre_boomeramg_P_max": 4,
+                "pc_hypre_boomeramg_agg_nl": 1}
 
     @property
     def schwarz_rich(self):
-        opts = self.schwarz
-        opts["ssc_sub_1_lo_telescope_ksp_type"] = "richardson"
-        opts["ssc_sub_1_lo_telescope_ksp_max_it"] = 4
-        return opts
-
-    @property
-    def schwarzmf(self):
-        schwarzmf = {"snes_type": "ksponly",
-                     "ksp_view": True,
-                     "ksp_type": "cg",
-                     "ksp_rtol": 1e-8,
-                     "ksp_monitor": True,
-                     "mat_type": "matfree",
-                     "pc_type": "python",
-                     "pc_python_type": "ssc.SSC",
-                     "ssc_pc_composite_type": "additive",
-                     # Patch config
-                     "ssc_sub_0_pc_patch_save_operators": False,
-                     "ssc_sub_0_pc_patch_sub_mat_type": "seqdense",
-                     "ssc_sub_0_sub_ksp_type": "preonly",
-                     "ssc_sub_0_sub_pc_type": "lu",
-                     # Low-order config
-                     "ssc_sub_1_lo_pc_type": "telescope",
-                     "ssc_sub_1_lo_pc_telescope_reduction_factor": 6,
-                     "ssc_sub_1_lo_telescope_ksp_type": "preonly",
-                     "ssc_sub_1_lo_telescope_pc_type": "hypre",
-                     "ssc_sub_1_lo_telescope_pc_hypre_type": "boomeramg"}
-        for k, v in self.hypre.items():
-            if k.startswith("pc_hypre_boomeramg"):
-                schwarzmf["ssc_sub_1_lo_telescope_%s" % k] = v
-        return schwarzmf
+        return {"snes_type": "ksponly",
+                "ksp_type": "cg",
+                "ksp_view": True,
+                "ksp_rtol": 1e-8,
+                "ksp_monitor": True,
+                "mat_type": "matfree",
+                "pc_type": "python",
+                "pc_python_type": "ssc.SSC",
+                "ssc_pc_composite_type": "additive",
+                # Patch config
+                   "ssc_sub_0_pc_patch_save_operators": True,
+                "ssc_sub_0_pc_patch_sub_mat_type": "seqaij",
+                "ssc_sub_0_sub_ksp_type": "preonly",
+                "ssc_sub_0_sub_pc_type": "lu",
+                # Low-order config
+                   "ssc_sub_1_lo_pc_type": "telescope",
+                "ssc_sub_1_lo_pc_telescope_reduction_factor": 6,
+                "ssc_sub_1_lo_telescope_ksp_type": "preonly",
+                "ssc_sub_1_lo_telescope_pc_type": "gamg"}
 
     @staticmethod
     def argparser():

@@ -11,89 +11,30 @@ class Problem(baseproblem.Problem):
 
     name = "Rayleigh-Benard"
 
-    parameter_names = ("mumps", "pcd_mg", "pcd_schwarzmf_velocity", "pcd_schwarz_velocity")
+    parameter_names = ("mumps", "pcd_mg")
 
-    mumps = {"snes_type": "newtonls",
-             "snes_monitor": True,
-             "snes_converged_reason": True,
-             "ksp_converged_reason": True,
-             "snes_rtol": 1e-8,
-             "snes_linesearch_type": "basic",
-             "ksp_type": "preonly",
-             "mat_type": "aij",
-             "pc_type": "lu",
-             "pc_factor_mat_solver_package": "mumps"}
-
-    # Zero pivots sometimes occur?
-    pcd_lu = {"snes_type": "newtonls",
-              "snes_monitor": True,
-              "snes_rtol": 1e-8,
-              "snes_linesearch_type": "basic",
-              "snes_converged_reason": True,
-              "ksp_converged_reason": True,
-              "mat_type": "matfree",
-              "ksp_type": "fgmres",
-              "ksp_monitor": True,
-              "ksp_gmres_modifiedgramschmidt": True,
-              "pc_type": "fieldsplit",
-              "pc_fieldsplit_type": "multiplicative",
-              "pc_fieldsplit_0_fields": "0,1",
-              "pc_fieldsplit_1_fields": "2",
-              # GMRES on Navier-stokes, with fieldsplit PC.
-              "fieldsplit_0_ksp_type": "gmres",
-              "fieldsplit_0_ksp_gmres_modifiedgramschmidt": True,
-              "fieldsplit_0_ksp_rtol": 1e-2,
-              "fieldsplit_0_pc_type": "fieldsplit",
-              "fieldsplit_0_pc_fieldsplit_type": "schur",
-              "fieldsplit_0_pc_fieldsplit_schur_fact_type": "lower",
-              # LU on velocity block
-              "fieldsplit_0_fieldsplit_0_ksp_type": "preonly",
-              "fieldsplit_0_fieldsplit_0_pc_type": "python",
-              "fieldsplit_0_fieldsplit_0_pc_python_type": "firedrake.AssembledPC",
-              "fieldsplit_0_fieldsplit_0_assembled_pc_type": "lu",
-              "fieldsplit_0_fieldsplit_0_assembled_mat_type": "baij",
-              "fieldsplit_0_fieldsplit_0_assembled_pc_factor_mat_solver_package": "mumps",
-              # PCD on the pressure block
-              "fieldsplit_0_fieldsplit_1_ksp_type": "preonly",
-              "fieldsplit_0_fieldsplit_1_pc_type": "python",
-              "fieldsplit_0_fieldsplit_1_pc_python_type": "firedrake.PCDPC",
-              # Matrix-free Fp application
-              "fieldsplit_0_fieldsplit_1_pcd_Fp_mat_type": "matfree",
-              # lu on assembled mass matrix
-              "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "preonly",
-              "fieldsplit_0_fieldsplit_1_pcd_Mp_mat_type": "aij",
-              "fieldsplit_0_fieldsplit_1_pcd_Mp_pc_type": "lu",
-              "fieldsplit_0_fieldsplit_1_pcd_Mp_pc_factor_mat_solver_package": "mumps",
-              # lu on assembled stiffness matrix
-              "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "preonly",
-              "fieldsplit_0_fieldsplit_1_pcd_Kp_mat_type": "aij",
-              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "lu",
-              "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_factor_mat_solver_package": "mumps",
-              # LU on temperature block
-              "fieldsplit_1_ksp_type": "preonly",
-              "fieldsplit_1_pc_type": "python",
-              "fieldsplit_1_pc_python_type": "firedrake.AssembledPC",
-              "fieldsplit_1_assembled_pc_type": "lu",
-              "fieldsplit_1_assembled_pc_factor_mat_solver_package": "mumps"}
-
-    hypre3d = {"pc_hypre_type": "boomeramg",
-               "pc_hypre_boomeramg_no_CF": True,
-               "pc_hypre_boomeramg_coarsen_type": "HMIS",
-               "pc_hypre_boomeramg_interp_type": "ext+i",
-               "pc_hypre_boomeramg_P_max": 4,
-               "pc_hypre_boomeramg_agg_nl": 1,
-               "pc_hypre_boomeramg_agg_num_paths": 2}
-
-    hypre2d = {"pc_type": "hypre",
-               "pc_hypre_type": "boomeramg"}
+    @property
+    def mumps(self):
+        return {"snes_type": "newtonls",
+                "snes_monitor": True,
+                "snes_converged_reason": True,
+                "ksp_converged_reason": True,
+                "snes_rtol": 1e-8,
+                "snes_linesearch_type": "basic",
+                "ksp_type": "preonly",
+                "mat_type": "aij",
+                "pc_type": "lu",
+                "pc_factor_mat_solver_package": "mumps"}
 
     @property
     def hypre(self):
-        if self.dimension == 2:
-            return self.hypre2d
-        else:
-            return self.hypre3d
-
+        return {"pc_hypre_type": "boomeramg",
+                "pc_hypre_boomeramg_no_CF": True,
+                "pc_hypre_boomeramg_coarsen_type": "HMIS",
+                "pc_hypre_boomeramg_interp_type": "ext+i",
+                "pc_hypre_boomeramg_P_max": 4,
+                "pc_hypre_boomeramg_agg_nl": 1,
+                "pc_hypre_boomeramg_agg_num_paths": 2}
     @property
     def pcd_mg(self):
         pcd_mg = {"snes_type": "newtonls",
@@ -158,79 +99,6 @@ class Problem(baseproblem.Problem):
                 pcd_mg["fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_%s" % k] = v
                 pcd_mg["fieldsplit_0_fieldsplit_0_assembled_%s" % k] = v
         return pcd_mg
-
-    @property
-    def pcd_schwarz_velocity(self):
-        pcd_schwarz = {"snes_type": "newtonls",
-                       "snes_view": True,
-                       "snes_monitor": True,
-                       "snes_rtol": 1e-8,
-                       "snes_converged_reason": True,
-                       "ksp_converged_reason": True,
-                       "snes_linesearch_type": "basic",
-                       "mat_type": "matfree",
-                       "ksp_type": "fgmres",
-                       "ksp_monitor": True,
-                       "ksp_gmres_modifiedgramschmidt": True,
-                       "pc_type": "fieldsplit",
-                       "pc_fieldsplit_type": "multiplicative",
-                       "pc_fieldsplit_0_fields": "0,1",
-                       "pc_fieldsplit_1_fields": "2",
-                       # GMRES on Navier-stokes, with fieldsplit PC.
-                       "fieldsplit_0_ksp_type": "gmres",
-                       "fieldsplit_0_ksp_gmres_modifiedgramschmidt": True,
-                       "fieldsplit_0_ksp_converged_reason": True,
-                       "fieldsplit_0_ksp_rtol": 1e-2,
-                       "fieldsplit_0_pc_type": "fieldsplit",
-                       "fieldsplit_0_pc_fieldsplit_type": "schur",
-                       "fieldsplit_0_pc_fieldsplit_schur_fact_type": "lower",
-                       # Schwarz on velocity block
-                       "fieldsplit_0_fieldsplit_0_ksp_type": "preonly",
-                       "fieldsplit_0_fieldsplit_0_pc_type": "python",
-                       "fieldsplit_0_fieldsplit_0_pc_python_type": "ssc.SSC",
-                       "fieldsplit_0_fieldsplit_0_ssc_pc_composite_type": "additive",
-                       "fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_save_operators": True,
-                       "fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_sub_mat_type": "seqaij",
-                       "fieldsplit_0_fieldsplit_0_ssc_sub_0_sub_ksp_type": "preonly",
-                       "fieldsplit_0_fieldsplit_0_ssc_sub_0_sub_pc_type": "lu",
-                       "fieldsplit_0_fieldsplit_0_ssc_sub_1_lo_pc_type": "hypre",
-                       "fieldsplit_0_fieldsplit_0_ssc_sub_1_lo_mat_type": "aij",
-                       # PCD on the pressure block
-                       "fieldsplit_0_fieldsplit_1_ksp_type": "preonly",
-                       "fieldsplit_0_fieldsplit_1_pc_type": "python",
-                       "fieldsplit_0_fieldsplit_1_pc_python_type": "firedrake.PCDPC",
-                       # Matrix-free Fp application
-                       "fieldsplit_0_fieldsplit_1_pcd_Fp_mat_type": "matfree",
-                       # SOR on assembled mass matrix
-                       "fieldsplit_0_fieldsplit_1_pcd_Mp_ksp_type": "preonly",
-                       "fieldsplit_0_fieldsplit_1_pcd_Mp_pc_type": "sor",
-                       # Hypre on assembled stiffness matrix
-                       # hypre on assembled stiffness matrix
-                       "fieldsplit_0_fieldsplit_1_pcd_Kp_ksp_type": "preonly",
-                       "fieldsplit_0_fieldsplit_1_pcd_Kp_mat_type": "aij",
-                       "fieldsplit_0_fieldsplit_1_pcd_Kp_pc_type": "hypre",
-                       # GMRES + hypre on the temperature block
-                       "fieldsplit_1_ksp_type": "gmres",
-                       "fieldsplit_1_ksp_rtol": 1e-4,
-                       "fieldsplit_1_ksp_gmres_modifiedgramschmidt": True,
-                       "fieldsplit_1_ksp_converged_reason": True,
-                       "fieldsplit_1_pc_type": "python",
-                       "fieldsplit_1_pc_python_type": "firedrake.AssembledPC",
-                       "fieldsplit_1_assembled_mat_type": "aij",
-                       "fieldsplit_1_assembled_pc_type": "hypre"}
-        for k, v in self.hypre.items():
-            if k.startswith("pc_hypre_boomeramg"):
-                pcd_schwarz["fieldsplit_1_assembled_%s" % k] = v
-                pcd_schwarz["fieldsplit_0_fieldsplit_1_pcd_Kp_%s" % k] = v
-                pcd_schwarz["fieldsplit_0_fieldsplit_0_ssc_sub_1_lo_%s" % k] = v
-
-        return pcd_schwarz
-
-    @property
-    def pcd_schwarzmf_velocity(self):
-        opts = self.pcd_schwarz_velocity
-        opts["fieldsplit_0_fieldsplit_0_ssc_sub_0_pc_patch_save_operators"] = False
-        return opts
 
     @cached_property
     def Ra(self):
