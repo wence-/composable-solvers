@@ -16,24 +16,22 @@ class Problem(baseproblem.Problem):
     def random(self):
         return self.args.random
 
-    parameter_names = ("hypre", "mumps", "schwarz", "schwarzmf", "schwarz_rich")
+    parameter_names = ("hypre", "mumps", "schwarz", "schwarzmf", "schwarz_rich", "gamg")
 
     hypre3d = {"snes_type": "ksponly",
-               "ksp_type": "cg",
+               "ksp_type": "gmres",
                "ksp_rtol": 1e-8,
                "ksp_monitor": True,
                "pc_type": "hypre",
                "ksp_view": True,
                "pc_hypre_type": "boomeramg",
-               "pc_hypre_boomeramg_coarsen_type": "falgout",
-               "pc_hypre_boomeramg_print_statistics": True,
-               "pc_hypre_boomeramg_interp_type": "classical",
-               "pc_hypre_boomeramg_relax_type_all": "chebyshev",
-               "pc_hypre_boomeramg_relax_weight_all": 2.0/3.0,
+               "pc_hypre_boomeramg_no_CF": True,
+               "pc_hypre_boomeramg_coarsen_type": "hmis",
+               "pc_hypre_boomeramg_interp_type": "ext+i",
                "pc_hypre_boomeramg_P_max": 4,
-               "pc_hypre_boomeramg_strong_threshold": 0.5,
                "pc_hypre_boomeramg_agg_nl": 1,
-               "pc_hypre_boomeramg_agg_num_paths": 2,
+               "pc_hypre_boomeramg_strong_threshold": 0.25,
+               "pc_hypre_boomeramg_max_num_paths": 2,
                "mat_type": "aij"}
 
     hypre2d = {"snes_type": "ksponly",
@@ -43,6 +41,15 @@ class Problem(baseproblem.Problem):
                "pc_type": "hypre",
                "pc_hypre_type": "boomeramg"}
 
+    gamg = {"snes_type": "ksponly",
+            "ksp_type": "cg",
+            "ksp_rtol": 1e-8,
+            "ksp_monitor": True,
+            "ksp_view": True,
+            "pc_type": "gamg",
+            "pc_gamg_square_graph": 1,
+            "pc_gamg_threshold": 1e-7}
+    
     @property
     def hypre(self):
         if self.dimension == 2:
@@ -78,10 +85,10 @@ class Problem(baseproblem.Problem):
                    "ssc_sub_1_lo_pc_type": "telescope",
                    "ssc_sub_1_lo_pc_telescope_reduction_factor": 6,
                    "ssc_sub_1_lo_telescope_ksp_type": "preonly",
-                   "ssc_sub_1_lo_telescope_pc_type": "gamg",
+                   "ssc_sub_1_lo_telescope_pc_type": "hypre",
                    "ssc_sub_1_lo_telescope_pc_hypre_type": "boomeramg"}
         for k, v in self.hypre.items():
-            if k.startswith("pc_hypre_boomeramg"):
+            if k.startswith("pc_hypre_boomeramg") and k != "pc_hypre_boomeramg_print_statistics":
                 schwarz["ssc_sub_1_lo_telescope_%s" % k] = v
         return schwarz
 

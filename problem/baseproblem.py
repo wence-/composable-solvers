@@ -139,10 +139,10 @@ class Problem(object):
                                             near_nullspace=self.near_nullspace,
                                             appctx=self.appctx,
                                             solver_parameters=parameters)
-        PETSc.Sys.syncPrint("[%d] mesh sizes %s, dof sizes %s" % (self.mesh.comm.rank,
-                                                                  self.mesh.cell_set.sizes,
-                                                                  self.function_space.dof_dset.sizes))
-        PETSc.Sys.syncFlush()
+        # PETSc.Sys.syncPrint("[%d] mesh sizes %s, dof sizes %s" % (self.mesh.comm.rank,
+        #                                                           self.mesh.cell_set.sizes,
+        #                                                           self.function_space.dof_dset.sizes))
+        # PETSc.Sys.syncFlush()
         return solver
 
     @abstractmethod
