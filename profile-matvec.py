@@ -12,8 +12,6 @@ PETSc.Log.begin()
 parser = ArgumentParser(description="""Profile matvecs""", add_help=False)
 
 parser.add_argument("--problem", choices=["poisson",
-                                          "elasticity",
-                                          "navier_stokes",
                                           "rayleigh_benard"],
                     help="Which problem to profile")
 
@@ -60,18 +58,19 @@ if args.problem == "rayleigh_benard":
         refinements = (1, 0, 0)
     else:
         raise ValueError("Unhandled dimension")
-
-if args.problem == "poisson":
+elif args.problem == "poisson":
     if prob_args.dimension == 2:
         size = 200
-        degrees =     (1, 2, 3, 4, 5, 6, 7)
+        degrees = (1, 2, 3, 4, 5, 6, 7)
         refinements = (4, 3, 2, 2, 1, 1, 0)
     elif prob_args.dimension == 3:
         size = 22
-        degrees =     (1, 2, 3, 4, 5)
+        degrees = (1, 2, 3, 4, 5)
         refinements = (3, 2, 1, 1, 0)
     else:
         raise ValueError("Unhandled dimension")
+else:
+    raise ValueError("Unhandled problem %s" % args.problem)
 
 problem = module.Problem(quadrilateral=args.tensor)
 problem.N = size
@@ -93,7 +92,6 @@ def mat_info(mat, typ):
     cols = mat.petscmat.getSize()[1]
     bytes = info["memory"]
     return rows, cols, bytes
-
 
 
 for degree, refinement in zip(degrees, refinements):
