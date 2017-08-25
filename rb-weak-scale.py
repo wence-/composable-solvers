@@ -62,6 +62,8 @@ def run_solve(problem_cls, degree):
     size, ref = target_mesh_size[COMM_WORLD.size]
     problem = problem_cls(degree=degree, N=size, refinements=ref)
 
+    first = True
+
     for name in parameter_names:
         parameters = getattr(problem, name)
         solver = problem.solver(parameters=parameters)
@@ -111,13 +113,18 @@ def run_solve(problem_cls, degree):
                         os.makedirs(os.path.dirname(results))
 
                     if args.overwrite:
-                        mode = "w"
-                        header = True
+                        if first:
+                            mode = "w"
+                            header = True
+                        else:
+                            mode = "a"
+                            header = False
+                        first = False
                     else:
                         mode = "a"
                         header = not os.path.exists(results)
-                        snes_history, linear_its = solver.snes.getConvergenceHistory()
-                        ksp_history = solver.snes.ksp.getConvergenceHistory()
+                    snes_history, linear_its = solver.snes.getConvergenceHistory()
+                    ksp_history = solver.snes.ksp.getConvergenceHistory()
                     data = {"snes_its": newton_its,
                             "ksp_its": ksp_its,
                             "snes_history": cPickle.dumps(snes_history),

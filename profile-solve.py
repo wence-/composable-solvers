@@ -64,7 +64,9 @@ results = os.path.abspath(args.results_file)
 
 warm = defaultdict(bool)
 
+
 def run_solve(problem, degree, size):
+    first = True
     problem.reinit(degree=degree, size=size)
     for name in parameter_names:
         parameters = getattr(problem, name)
@@ -115,13 +117,18 @@ def run_solve(problem, degree, size):
                         os.makedirs(os.path.dirname(results))
 
                     if args.overwrite:
-                        mode = "w"
-                        header = True
+                        if first:
+                            mode = "w"
+                            header = True
+                        else:
+                            mode = "a"
+                            header = False
+                        first = False
                     else:
                         mode = "a"
                         header = not os.path.exists(results)
-                        snes_history, linear_its = solver.snes.getConvergenceHistory()
-                        ksp_history = solver.snes.ksp.getConvergenceHistory()
+                    snes_history, linear_its = solver.snes.getConvergenceHistory()
+                    ksp_history = solver.snes.ksp.getConvergenceHistory()
                     data = {"snes_its": newton_its,
                             "ksp_its": ksp_its,
                             "snes_history": cPickle.dumps(snes_history),

@@ -94,6 +94,8 @@ def mat_info(mat, typ):
     return rows, cols, bytes
 
 
+first = True
+
 for degree, refinement in zip(degrees, refinements):
     PETSc.Sys.Print("Running degree %d, ref %d" % (degree, refinement))
     problem.reinit(degree=degree, refinements=refinement)
@@ -139,8 +141,13 @@ for degree, refinement in zip(degrees, refinements):
                 os.makedirs(os.path.dirname(results))
 
             if args.overwrite:
-                mode = "w"
-                header = True
+                if first:
+                    mode = "w"
+                    header = True
+                else:
+                    mode = "a"
+                    header = False
+                first = False
             else:
                 mode = "a"
                 header = not os.path.exists(results)
