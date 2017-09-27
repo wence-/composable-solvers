@@ -64,8 +64,8 @@ elif args.problem == "poisson":
         degrees = (1, 2, 3, 4, 5, 6, 7)
         refinements = (4, 3, 2, 2, 1, 1, 0)
     elif prob_args.dimension == 3:
-        size = 22
-        degrees = (1, 2, 3, 4, 5)
+        size = 30
+        degrees =     (1, 2, 3, 4, 5)
         refinements = (3, 2, 1, 1, 0)
     else:
         raise ValueError("Unhandled dimension")
