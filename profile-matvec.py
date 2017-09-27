@@ -6,6 +6,7 @@ import pandas
 from firedrake import assemble, COMM_WORLD
 from firedrake.petsc import PETSc
 from mpi4py import MPI
+from functools import reduce
 
 PETSc.Log.begin()
 
@@ -81,6 +82,7 @@ def mat_info(mat, typ):
     if typ == "matfree":
         ctx = mat.petscmat.getPythonContext()
         info = ctx.getInfo(mat.petscmat)
+        info["nz_used"] = 0
     elif typ == "aij":
         info = mat.petscmat.getInfo()
     elif typ == "nest":
@@ -91,10 +93,76 @@ def mat_info(mat, typ):
     rows = mat.petscmat.getSize()[0]
     cols = mat.petscmat.getSize()[1]
     bytes = info["memory"]
-    return rows, cols, bytes
+    nz = info["nz_used"]
+    return rows, cols, bytes, nz
 
 
 first = True
+workaround_flop_counting_bug = True
+
+if workaround_flop_counting_bug:
+    # Prior to c91eb2e, PyOP2 overcounted flops by this factor
+    scaling = 3.0
+else:
+    scaling = 1.0
+
+
+sizeof_int = PETSc.IntType().dtype.itemsize
+sizeof_double = PETSc.ScalarType().dtype.itemsize
+
+
+def aij_matvec_bytes(rows, cols, nz):
+    # Gropp et al. 2000
+    return ((cols + rows)*sizeof_double         # Vec read/write
+            + rows*sizeof_int                   # Row pointer
+            + nz*(sizeof_int + sizeof_double))  # col idx + nonzeros
+
+
+def aij_matvec_flops(nz):
+    return float(2*nz)
+
+
+def aij_matvec_ai(rows, cols, nz):
+    return aij_matvec_flops(nz) / aij_matvec_bytes(rows, cols, nz)
+
+
+def aij_assemble_ai(rows, row_dof_per_cell,
+                    cols, col_dof_per_cell,
+                    coords, coord_dof_per_cell,
+                    ncell, nz, flops):
+    field_bytes = coords*sizeof_double
+    # RW for mat data since we increment
+    mat_bytes = nz*sizeof_int + 2*nz*sizeof_double + rows*sizeof_int
+    map_bytes = (row_dof_per_cell + col_dof_per_cell + coord_dof_per_cell)*sizeof_int*ncell
+    return float(flops) / (field_bytes + mat_bytes + map_bytes)
+
+
+def matfree_matvec_bytes(rows, row_dof_per_cell,
+                         cols, col_dof_per_cell,
+                         coords, coord_dof_per_cell,
+                         ncell):
+    # Perfect cache.
+    # field data (RW for output since we increment)
+    field_bytes = (rows*2 + cols + coords)*sizeof_double
+    # indirect data
+    map_bytes = (row_dof_per_cell
+                 + col_dof_per_cell
+                 + coord_dof_per_cell)*ncell*sizeof_int
+    return field_bytes + map_bytes
+
+
+def matfree_matvec_flops(flops):
+    return float(flops)
+
+
+def matfree_matvec_ai(rows, row_dof_per_cell,
+                      cols, col_dof_per_cell,
+                      coords, coord_dof_per_cell,
+                      ncell, flops):
+    return matfree_matvec_flops(flops) / matfree_matvec_bytes(rows, row_dof_per_cell,
+                                                              cols, col_dof_per_cell,
+                                                              coords, coord_dof_per_cell,
+                                                              ncell)
 
 for degree, refinement in zip(degrees, refinements):
     PETSc.Sys.Print("Running degree %d, ref %d" % (degree, refinement))
@@ -130,11 +198,34 @@ for degree, refinement in zip(degrees, refinements):
             matmult = matmult_event.getPerfInfo()
             assembly = assemble_event.getPerfInfo()
             matmult_time = problem.comm.allreduce(matmult["time"], op=MPI.SUM) / (problem.comm.size * args.num_matvecs)
-            matmult_flops = problem.comm.allreduce(matmult["flops"], op=MPI.SUM) / args.num_matvecs
-            assemble_time = problem.comm.allreduce(assembly["time"], op=MPI.SUM) / problem.comm.size
-            assemble_flops = problem.comm.allreduce(assembly["flops"], op=MPI.SUM)
+            if typ == "matfree":
+                matmult_flops = problem.comm.allreduce(matmult["flops"], op=MPI.SUM) / (args.num_matvecs * scaling)
+            else:
+                matmult_flops = problem.comm.allreduce(matmult["flops"], op=MPI.SUM) / args.num_matvecs
+            assemble_time = problem.comm.allreduce(assembly["time"], op=MPI.SUM) / (problem.comm.size * scaling)
+            assemble_flops = problem.comm.allreduce(assembly["flops"], op=MPI.SUM) / scaling
 
-        rows, cols, bytes = mat_info(A, typ)
+        rows, cols, bytes, nz = mat_info(A, typ)
+
+        V = problem.function_space
+        Vc = problem.mesh.coordinates.function_space()
+        if typ == "matfree":
+            ai = matfree_matvec_ai(rows, V.cell_node_map().arity,
+                                   cols, V.cell_node_map().arity,
+                                   Vc.dof_dset.layout_vec.getSizes()[-1],
+                                   Vc.cell_node_map().arity,
+                                   num_cells,
+                                   matmult_flops)
+            assemble_ai = 0
+        else:
+            ai = aij_matvec_ai(rows, cols, nz)
+            assemble_ai = aij_assemble_ai(rows, V.cell_node_map().arity,
+                                          cols, V.cell_node_map().arity,
+                                          Vc.dof_dset.layout_vec.getSizes()[-1],
+                                          Vc.cell_node_map().arity,
+                                          num_cells,
+                                          nz,
+                                          assemble_flops)
 
         if COMM_WORLD.rank == 0:
             if not os.path.exists(os.path.dirname(results)):
@@ -156,7 +247,10 @@ for degree, refinement in zip(degrees, refinements):
                     "cols": cols,
                     "type": typ,
                     "bytes": bytes,
+                    "nonzeros": nz,
                     "assemble_time": assemble_time,
+                    "matvec_ai": ai,
+                    "assemble_ai": assemble_ai,
                     "assemble_flops": assemble_flops,
                     "matmult_time": matmult_time,
                     "matmult_flops": matmult_flops,
