@@ -51,9 +51,9 @@ if args.problem == "rayleigh_benard":
     if prob_args.dimension == 2:
         size = 200
         degrees = range(1, 5)
-        refinements = (2, 1, 0, 0)
+        refinements = (3, 2, 1, 1)
     elif prob_args.dimension == 3:
-        size = 32
+        size = 40
         degrees = range(1, 4)
         refinements = (1, 0, 0)
     else:
@@ -61,8 +61,8 @@ if args.problem == "rayleigh_benard":
 elif args.problem == "poisson":
     if prob_args.dimension == 2:
         size = 200
-        degrees = (1, 2, 3, 4, 5, 6, 7)
-        refinements = (4, 3, 2, 2, 1, 1, 0)
+        degrees =     (1, 2, 3, 4, 5, 6, 7)
+        refinements = (4, 3, 2, 2, 1, 1, 1)
     elif prob_args.dimension == 3:
         size = 30
         degrees =     (1, 2, 3, 4, 5)
