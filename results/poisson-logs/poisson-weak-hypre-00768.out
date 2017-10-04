@@ -1,0 +1,135 @@
+Int has 8 bytes
+
+Solving with parameter set hypre, 55, 4...
+Warmup solve
+    Residual norms for  solve.
+    0 KSP Residual norm 4.517897334802e+01 
+    1 KSP Residual norm 5.324570224182e+00 
+    2 KSP Residual norm 2.421416158222e+00 
+    3 KSP Residual norm 1.673401929015e+00 
+    4 KSP Residual norm 7.586264206712e-01 
+    5 KSP Residual norm 2.797827366314e-01 
+    6 KSP Residual norm 1.436962249903e-01 
+    7 KSP Residual norm 7.228917387268e-02 
+    8 KSP Residual norm 2.815356802377e-02 
+    9 KSP Residual norm 1.309300724314e-02 
+   10 KSP Residual norm 5.999887669315e-03 
+   11 KSP Residual norm 2.643991805121e-03 
+   12 KSP Residual norm 1.211815151477e-03 
+   13 KSP Residual norm 5.805745842187e-04 
+   14 KSP Residual norm 2.655005478574e-04 
+   15 KSP Residual norm 1.179729736955e-04 
+   16 KSP Residual norm 5.360156306600e-05 
+   17 KSP Residual norm 2.480541842560e-05 
+   18 KSP Residual norm 1.170699430561e-05 
+   19 KSP Residual norm 5.488810156773e-06 
+   20 KSP Residual norm 2.583768493541e-06 
+   21 KSP Residual norm 1.228967717292e-06 
+   22 KSP Residual norm 5.915140623556e-07 
+   23 KSP Residual norm 2.876712156282e-07 
+KSP Object: () 768 MPI processes
+  type: cg
+  maximum iterations=10000, initial guess is zero
+  tolerances:  relative=1e-08, absolute=1e-50, divergence=10000.
+  left preconditioning
+  using PRECONDITIONED norm type for convergence test
+PC Object: () 768 MPI processes
+  type: hypre
+    HYPRE BoomerAMG preconditioning
+    HYPRE BoomerAMG: Cycle type V
+    HYPRE BoomerAMG: Maximum number of levels 25
+    HYPRE BoomerAMG: Maximum number of iterations PER hypre call 1
+    HYPRE BoomerAMG: Convergence tolerance PER hypre call 0.
+    HYPRE BoomerAMG: Threshold for strong coupling 0.25
+    HYPRE BoomerAMG: Interpolation truncation factor 0.
+    HYPRE BoomerAMG: Interpolation: max elements per row 4
+    HYPRE BoomerAMG: Number of levels of aggressive coarsening 1
+    HYPRE BoomerAMG: Number of paths for aggressive coarsening 2
+    HYPRE BoomerAMG: Maximum row sums 0.9
+    HYPRE BoomerAMG: Sweeps down         1
+    HYPRE BoomerAMG: Sweeps up           1
+    HYPRE BoomerAMG: Sweeps on coarse    1
+    HYPRE BoomerAMG: Relax down          symmetric-SOR/Jacobi
+    HYPRE BoomerAMG: Relax up            symmetric-SOR/Jacobi
+    HYPRE BoomerAMG: Relax on coarse     Gaussian-elimination
+    HYPRE BoomerAMG: Relax weight  (all)      1.
+    HYPRE BoomerAMG: Outer relax weight (all) 1.
+    HYPRE BoomerAMG: Not using CF-relaxation
+    HYPRE BoomerAMG: Not using more complex smoothers.
+    HYPRE BoomerAMG: Measure type        local
+    HYPRE BoomerAMG: Coarsen type        HMIS
+    HYPRE BoomerAMG: Interpolation type  ext+i
+  linear system matrix = precond matrix:
+  Mat Object: 768 MPI processes
+    type: mpiaij
+    rows=85766121, cols=85766121
+    total: nonzeros=6434400721, allocated nonzeros=6434400721
+    total number of mallocs used during MatSetValues calls =0
+      using I-node (on process 0) routines: found 44338 nodes, limit used is 5
+Timed solve
+    Residual norms for  solve.
+    0 KSP Residual norm 4.517897334802e+01 
+    1 KSP Residual norm 5.324570224182e+00 
+    2 KSP Residual norm 2.421416158222e+00 
+    3 KSP Residual norm 1.673401929015e+00 
+    4 KSP Residual norm 7.586264206712e-01 
+    5 KSP Residual norm 2.797827366314e-01 
+    6 KSP Residual norm 1.436962249903e-01 
+    7 KSP Residual norm 7.228917387268e-02 
+    8 KSP Residual norm 2.815356802377e-02 
+    9 KSP Residual norm 1.309300724314e-02 
+   10 KSP Residual norm 5.999887669315e-03 
+   11 KSP Residual norm 2.643991805121e-03 
+   12 KSP Residual norm 1.211815151477e-03 
+   13 KSP Residual norm 5.805745842187e-04 
+   14 KSP Residual norm 2.655005478574e-04 
+   15 KSP Residual norm 1.179729736955e-04 
+   16 KSP Residual norm 5.360156306600e-05 
+   17 KSP Residual norm 2.480541842560e-05 
+   18 KSP Residual norm 1.170699430561e-05 
+   19 KSP Residual norm 5.488810156773e-06 
+   20 KSP Residual norm 2.583768493541e-06 
+   21 KSP Residual norm 1.228967717292e-06 
+   22 KSP Residual norm 5.915140623556e-07 
+   23 KSP Residual norm 2.876712156282e-07 
+KSP Object: () 768 MPI processes
+  type: cg
+  maximum iterations=10000, initial guess is zero
+  tolerances:  relative=1e-08, absolute=1e-50, divergence=10000.
+  left preconditioning
+  using PRECONDITIONED norm type for convergence test
+PC Object: () 768 MPI processes
+  type: hypre
+    HYPRE BoomerAMG preconditioning
+    HYPRE BoomerAMG: Cycle type V
+    HYPRE BoomerAMG: Maximum number of levels 25
+    HYPRE BoomerAMG: Maximum number of iterations PER hypre call 1
+    HYPRE BoomerAMG: Convergence tolerance PER hypre call 0.
+    HYPRE BoomerAMG: Threshold for strong coupling 0.25
+    HYPRE BoomerAMG: Interpolation truncation factor 0.
+    HYPRE BoomerAMG: Interpolation: max elements per row 4
+    HYPRE BoomerAMG: Number of levels of aggressive coarsening 1
+    HYPRE BoomerAMG: Number of paths for aggressive coarsening 2
+    HYPRE BoomerAMG: Maximum row sums 0.9
+    HYPRE BoomerAMG: Sweeps down         1
+    HYPRE BoomerAMG: Sweeps up           1
+    HYPRE BoomerAMG: Sweeps on coarse    1
+    HYPRE BoomerAMG: Relax down          symmetric-SOR/Jacobi
+    HYPRE BoomerAMG: Relax up            symmetric-SOR/Jacobi
+    HYPRE BoomerAMG: Relax on coarse     Gaussian-elimination
+    HYPRE BoomerAMG: Relax weight  (all)      1.
+    HYPRE BoomerAMG: Outer relax weight (all) 1.
+    HYPRE BoomerAMG: Not using CF-relaxation
+    HYPRE BoomerAMG: Not using more complex smoothers.
+    HYPRE BoomerAMG: Measure type        local
+    HYPRE BoomerAMG: Coarsen type        HMIS
+    HYPRE BoomerAMG: Interpolation type  ext+i
+  linear system matrix = precond matrix:
+  Mat Object: 768 MPI processes
+    type: mpiaij
+    rows=85766121, cols=85766121
+    total: nonzeros=6434400721, allocated nonzeros=6434400721
+    total number of mallocs used during MatSetValues calls =0
+      using I-node (on process 0) routines: found 44338 nodes, limit used is 5
+Solving with parameter set hypre, 55, 4...done
+Application 25302394 resources: utime ~34162s, stime ~3037s, Rss ~1237200, inblocks ~41635432, outblocks ~681991

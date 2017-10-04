@@ -1,0 +1,227 @@
+************************************************************************************************************************
+***             WIDEN YOUR WINDOW TO 120 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document            ***
+************************************************************************************************************************
+
+---------------------------------------------- PETSc Performance Summary: ----------------------------------------------
+
+poisson-new-weak.py on a petsc-gnu51-ivybridge-int64 named nid01960 with 3072 processors, by lmn02 Fri Feb 17 17:22:03 2017
+Using Petsc Development GIT revision: v3.7.5-3014-g413f72f  GIT Date: 2017-02-05 17:50:57 -0600
+
+                         Max       Max/Min        Avg      Total 
+Time (sec):           4.192e+02      1.00002   4.192e+02
+Objects:              9.670e+03     26.20596   4.022e+02
+Flops:                2.383e+10      1.47718   2.124e+10  6.526e+13
+Flops/sec:            5.685e+07      1.47718   5.068e+07  1.557e+11
+MPI Messages:         1.322e+05      3.53526   3.870e+04  1.189e+08
+MPI Message Lengths:  3.438e+09    130.36362   1.170e+03  1.390e+11
+MPI Reductions:       2.420e+02      1.00000
+
+Flop counting convention: 1 flop = 1 real number operation of type (multiply/divide/add/subtract)
+                            e.g., VecAXPY() for real vectors of length N --> 2N flops
+                            and VecAXPY() for complex vectors of length N --> 8N flops
+
+Summary of Stages:   ----- Time ------  ----- Flops -----  --- Messages ---  -- Message Lengths --  -- Reductions --
+                        Avg     %Total     Avg     %Total   counts   %Total     Avg         %Total   counts   %Total 
+ 0:      Main Stage: 3.9809e+02  95.0%  0.0000e+00   0.0%  1.167e+08  98.1%  7.390e+02       63.2%  8.100e+01  33.5% 
+ 1:          Warmup: 1.1070e+01   2.6%  3.2632e+13  50.0%  1.137e+06   1.0%  2.230e+02       19.1%  8.000e+01  33.1% 
+ 2: P(4, 88) Warm solve hypre: 1.0033e+01   2.4%  3.2632e+13  50.0%  1.071e+06   0.9%  2.076e+02       17.7%  8.000e+01  33.1% 
+
+------------------------------------------------------------------------------------------------------------------------
+See the 'Profiling' chapter of the users' manual for details on interpreting output.
+Phase summary info:
+   Count: number of times phase was executed
+   Time and Flops: Max - maximum over all processors
+                   Ratio - ratio of maximum to minimum over all processors
+   Mess: number of messages sent
+   Avg. len: average message length (bytes)
+   Reduct: number of global reductions
+   Global: entire computation
+   Stage: stages of a computation. Set stages with PetscLogStagePush() and PetscLogStagePop().
+      %T - percent time in this phase         %F - percent flops in this phase
+      %M - percent messages in this phase     %L - percent message lengths in this phase
+      %R - percent reductions in this phase
+   Total Mflop/s: 10e-6 * (sum of flops over all processors)/(max time over all processors)
+------------------------------------------------------------------------------------------------------------------------
+Event                Count      Time (sec)     Flops                             --- Global ---  --- Stage ---   Total
+                   Max Ratio  Max     Ratio   Max  Ratio  Mess   Avg len Reduct  %T %F %M %L %R  %T %F %M %L %R Mflop/s
+------------------------------------------------------------------------------------------------------------------------
+
+--- Event Stage 0: Main Stage
+
+PetscBarrier           1 1.0 4.2431e-01 6.1 0.00e+00 0.0 9.5e+04 2.4e+01 5.0e+00  0  0  0  0  2   0  0  0  0  6     0
+BuildTwoSided         41 1.0 8.2153e+0181.4 0.00e+00 0.0 1.9e+07 8.0e+00 0.0e+00 19  0 16  0  0  20  0 17  0  0     0
+VecSet                 5 1.0 1.0843e-02 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyBegin       1 1.0 2.1501e-03273.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         1 1.0 2.8007e-01 3.3 0.00e+00 0.0 8.6e+04 1.1e+04 8.0e+00  0  0  0  1  3   0  0  0  1 10     0
+Mesh Partition         2 1.0 1.0280e+02 1.0 0.00e+00 0.0 1.1e+08 7.9e+01 1.1e+01 25  0 96  6  5  26  0 98 10 14     0
+Mesh Migration         2 1.0 9.1406e+00 1.0 0.00e+00 0.0 2.2e+06 3.0e+04 2.4e+01  2  0  2 49 10   2  0  2 78 30     0
+DMPlexInterp           1 1.0 2.8439e+01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  7  0  0  0  1   7  0  0  0  2     0
+DMPlexDistribute       1 1.0 1.1147e+02 1.0 0.00e+00 0.0 5.7e+07 1.3e+02 9.0e+00 27  0 48  5  4  28  0 49  8 11     0
+DMPlexDistCones        2 1.0 2.0729e+00 1.2 0.00e+00 0.0 4.0e+05 6.3e+04 0.0e+00  0  0  0 18  0   0  0  0 29  0     0
+DMPlexDistLabels       2 1.0 5.7408e+00 1.0 0.00e+00 0.0 1.1e+06 3.1e+04 2.0e+00  1  0  1 25  1   1  0  1 39  2     0
+DMPlexDistribOL        1 1.0 1.1382e+00 1.0 0.00e+00 0.0 5.9e+07 1.3e+03 2.6e+01  0  0 50 54 11   0  0 51 85 32     0
+DMPlexDistField        3 1.0 5.4836e-01 1.2 0.00e+00 0.0 5.5e+05 6.2e+03 2.0e+00  0  0  0  2  1   0  0  0  4  2     0
+DMPlexDistData         2 1.0 8.0997e+0142.5 0.00e+00 0.0 1.1e+08 3.5e+01 0.0e+00 19  0 95  3  0  20  0 97  4  0     0
+DMPlexStratify         6 1.0 2.9929e+01 6.1 0.00e+00 0.0 0.0e+00 0.0e+00 6.0e+00  7  0  0  0  2   7  0  0  0  7     0
+SFSetGraph            47 1.0 7.2362e-02 2.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFBcastBegin          90 1.0 8.3775e+0112.0 0.00e+00 0.0 1.2e+08 7.4e+02 0.0e+00 20  0 98 62  0  21  0100 98  0     0
+SFBcastEnd            90 1.0 9.1608e+00 6.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  2  0  0  0  0   2  0  0  0  0     0
+SFReduceBegin          4 1.0 1.9880e-01102.5 0.00e+00 0.0 1.6e+05 4.5e+03 0.0e+00  0  0  0  1  0   0  0  0  1  0     0
+SFReduceEnd            4 1.0 4.6527e-01 2.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFFetchOpBegin         1 1.0 1.1301e-0427.9 0.00e+00 0.0 2.1e+04 3.2e+03 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFFetchOpEnd           1 1.0 7.4840e-03122.6 0.00e+00 0.0 2.1e+04 3.2e+03 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+CreateMesh             5 1.0 1.1843e+02 1.0 0.00e+00 0.0 1.2e+08 7.0e+02 3.9e+01 28  0 98 59 16  30  0100 93 48     0
+CreateFunctionSpace       1 1.0 4.8895e+00 1.0 0.00e+00 0.0 6.0e+07 1.3e+03 4.0e+01  1  0 50 57 17   1  0 51 91 49     0
+Mesh: reorder          1 1.0 1.3052e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  1   0  0  0  0  2     0
+Mesh: numbering        1 1.0 3.5324e-01 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  1   0  0  0  0  2     0
+CreateSparsity         1 1.0 7.9974e-01 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatZeroInitial         1 1.0 8.2965e-01 1.1 0.00e+00 0.0 8.6e+04 1.1e+04 8.0e+00  0  0  0  1  3   0  0  0  1 10     0
+ParLoopExecute         3 1.0 9.8381e+0040.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   1  0  0  0  0     0
+ParLoopset_5           2 1.0 1.7359e-03 3.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopHaloEnd         3 1.0 3.1233e-05 7.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin       3 1.0 4.5061e-05 3.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd         3 1.0 4.1246e-05 4.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_4           4 1.0 6.5417e-0242.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+
+--- Event Stage 1: Warmup
+
+BuildTwoSided          1 1.0 9.6618e-02259.1 0.00e+00 0.0 2.2e+04 8.0e+00 0.0e+00  0  0  0  0  0   0  0  2  0  0     0
+VecTDot               48 1.0 2.1410e-01 2.3 1.21e+07 1.3 0.0e+00 0.0e+00 4.8e+01  0  0  0  0 20   1  0  0  0 60 157115
+VecNorm               25 1.0 4.2337e-01 9.2 6.33e+06 1.3 0.0e+00 0.0e+00 2.5e+01  0  0  0  0 10   2  0  0  0 31 41382
+VecCopy                6 1.0 1.5182e-02 8.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSet                26 1.0 1.1567e-02 4.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAXPY               49 1.0 2.3128e-02 1.9 1.24e+07 1.3 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0 1484770
+VecAYPX               23 1.0 9.3198e-03 2.0 5.82e+06 1.3 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0 1729495
+VecScatterBegin       24 1.0 2.5534e-02 8.8 0.00e+00 0.0 1.0e+06 2.2e+04 0.0e+00  0  0  1 16  0   0  0 90 86  0     0
+VecScatterEnd         24 1.0 1.3276e-0154.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatMult               24 1.0 7.8462e-01 1.2 4.65e+08 1.3 1.0e+06 2.2e+04 0.0e+00  0  2  1 16  0   7  4 90 86  0 1600315
+MatConvert             1 1.0 7.0238e-01 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 4.0e+00  0  0  0  0  2   5  0  0  0  5     0
+MatAssemblyBegin       4 1.0 1.5974e-05 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         4 1.0 2.4096e-01 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 4.0e+00  0  0  0  0  2   2  0  0  0  5     0
+MatGetRowIJ            2 1.0 1.6369e-02 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatZeroEntries         1 1.0 1.6168e-02 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                1 1.0 1.4513e-02 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 1.0e+00  0  0  0  0  0   0  0  0  0  1     0
+PCSetUp                1 1.0 2.5070e+00 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 4.0e+00  1  0  0  0  2  21  0  0  0  5     0
+PCApply               25 1.0 5.7858e+00 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0  50  0  0  0  0     0
+KSPSetUp               1 1.0 1.8561e-03 6.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve               1 1.0 9.2773e+00 1.0 5.01e+08 1.3 1.0e+06 2.2e+04 7.7e+01  2  2  1 16 32  82  4 90 86 96 146223
+SNESSolve              1 1.0 1.0610e+01 1.0 1.19e+10 1.5 1.1e+06 2.3e+04 7.8e+01  3 50  1 19 32  96100100100 98 3075681
+SNESFunctionEval       1 1.0 4.7501e-01 1.4 7.22e+08 1.5 1.1e+05 3.3e+04 0.0e+00  0  3  0  3  0   4  6 10 14  0 4154625
+SNESJacobianEval       1 1.0 1.2128e+00 1.5 1.07e+10 1.5 0.0e+00 0.0e+00 0.0e+00  0 45  0  0  0   9 90  0  0  0 24159846
+SFBcastBegin           1 1.0 1.1784e-0115.7 0.00e+00 0.0 1.1e+05 3.3e+04 0.0e+00  0  0  0  3  0   1  0 10 14  0     0
+SFBcastEnd             1 1.0 4.5490e-04 3.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopExecute         5 1.0 1.8055e+00 1.4 1.14e+10 1.5 1.1e+05 3.3e+04 0.0e+00  0 48  0  3  0  14 96 10 14  0 17321839
+ParLoopHaloEnd         5 1.0 2.7628e-0314.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin       5 1.0 4.7112e-0419.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd         5 1.0 5.1022e-05 2.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_4           6 1.0 1.6314e-0238.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ApplyBC                1 1.0 3.1894e-01 3.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+ParLoopCells           6 1.0 1.0517e+00 1.4 1.14e+10 1.5 0.0e+00 0.0e+00 0.0e+00  0 48  0  0  0   8 96  0  0  0 29736268
+
+--- Event Stage 2: P(4, 88) Warm solve hypre
+
+VecTDot               48 1.0 2.2452e-01 2.7 1.21e+07 1.3 0.0e+00 0.0e+00 4.8e+01  0  0  0  0 20   2  0  0  0 60 149825
+VecNorm               25 1.0 4.0804e-0114.6 6.33e+06 1.3 0.0e+00 0.0e+00 2.5e+01  0  0  0  0 10   2  0  0  0 31 42937
+VecCopy                6 1.0 2.8708e-03 1.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSet                26 1.0 6.3779e-03 2.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAXPY               49 1.0 2.2861e-02 1.9 1.24e+07 1.3 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0 1502129
+VecAYPX               23 1.0 7.0059e-03 1.6 5.82e+06 1.3 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0 2300697
+VecScatterBegin       24 1.0 1.0924e-02 7.0 0.00e+00 0.0 1.0e+06 2.2e+04 0.0e+00  0  0  1 16  0   0  0 96 93  0     0
+VecScatterEnd         24 1.0 1.3643e-0162.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatMult               24 1.0 7.7979e-01 1.2 4.65e+08 1.3 1.0e+06 2.2e+04 0.0e+00  0  2  1 16  0   7  4 96 93  0 1610231
+MatConvert             1 1.0 3.1247e-01 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   3  0  0  0  0     0
+MatAssemblyBegin       4 1.0 1.4067e-05 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         4 1.0 5.4849e-01 2.6 0.00e+00 0.0 0.0e+00 0.0e+00 6.0e+00  0  0  0  0  2   3  0  0  0  8     0
+MatGetRowIJ            2 1.0 9.8419e-03 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatZeroEntries         1 1.0 1.9718e-02 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                1 1.0 7.4060e-0316.5 0.00e+00 0.0 0.0e+00 0.0e+00 1.0e+00  0  0  0  0  0   0  0  0  0  1     0
+PCSetUp                1 1.0 2.0541e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  20  0  0  0  0     0
+PCApply               25 1.0 5.5865e+00 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0  54  0  0  0  0     0
+KSPSetUp               1 1.0 1.1921e-06 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve               1 1.0 8.5599e+00 1.0 5.01e+08 1.3 1.0e+06 2.2e+04 7.3e+01  2  2  1 16 30  85  4 96 93 91 158478
+SNESSolve              1 1.0 9.9852e+00 1.0 1.19e+10 1.5 1.1e+06 2.3e+04 8.0e+01  2 50  1 18 33  97100100100100 3268042
+SNESFunctionEval       1 1.0 3.6106e-01 9.0 7.22e+08 1.5 4.4e+04 4.2e+04 0.0e+00  0  3  0  1  0   1  6  4  7  0 5465902
+SNESJacobianEval       1 1.0 1.2459e+00 1.2 1.07e+10 1.5 0.0e+00 0.0e+00 6.0e+00  0 45  0  0  2  11 90  0  0  8 23519049
+SFBcastBegin           1 1.0 2.4068e-02105.9 0.00e+00 0.0 4.4e+04 4.2e+04 0.0e+00  0  0  0  1  0   0  0  4  7  0     0
+SFBcastEnd             1 1.0 2.8834e-011517.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopExecute         5 1.0 1.3084e+00 1.8 1.14e+10 1.5 4.4e+04 4.2e+04 0.0e+00  0 48  0  1  0   9 96  4  7  0 23903500
+ParLoopHaloEnd         5 1.0 2.9438e-01866.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin       5 1.0 2.5034e-05 2.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd         5 1.0 3.8862e-05 2.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_4           6 1.0 5.7449e-03 6.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ApplyBC                1 1.0 4.7920e-0314.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells           6 1.0 1.0346e+00 1.4 1.14e+10 1.5 0.0e+00 0.0e+00 0.0e+00  0 48  0  0  0   9 96  0  0  0 30227583
+------------------------------------------------------------------------------------------------------------------------
+
+Memory usage is given in bytes:
+
+Object Type          Creations   Destructions     Memory  Descendants' Mem.
+Reports information only for process 0.
+
+--- Event Stage 0: Main Stage
+
+           Container     5              5         3080     0.
+              Viewer     2              0            0     0.
+           Index Set  9448           9448      8068016     0.
+   IS L to G Mapping     5              5     36893672     0.
+             Section    73             73        55480     0.
+              Vector    10             16     38532520     0.
+      Vector Scatter     1              1         1208     0.
+              Matrix     7              8    134269784     0.
+      Preconditioner     1              1         1584     0.
+       Krylov Solver     1              1         1360     0.
+     DMKSP interface     0              1          696     0.
+                SNES     1              1         1480     0.
+      SNESLineSearch     1              1         1032     0.
+              DMSNES     1              1          712     0.
+    Distributed Mesh    14             14        68592     0.
+    GraphPartitioner     6              6         3936     0.
+Star Forest Bipartite Graph    70             70        62328     0.
+     Discrete System    14             14        12992     0.
+
+--- Event Stage 1: Warmup
+
+              Vector     8              2         3568     0.
+              Matrix     1              0            0     0.
+     DMKSP interface     1              0            0     0.
+
+--- Event Stage 2: P(4, 88) Warm solve hypre
+
+========================================================================================================================
+Average time to get PetscTime(): 9.53674e-08
+Average time for MPI_Barrier(): 4.32014e-05
+Average time for zero size MPI_Send(): 2.31674e-06
+#PETSc Option Table entries:
+--degree 4
+--dimension 3
+--parameters hypre
+--results-file results64/poisson-weak-3d-64bit-hypre-lb.csv
+-degree 4
+-dimension 3
+-log_view ascii:results64/poisson-P4-hypre-weak-3d-64bit-3072-lb.log::append
+-parameters hypre
+-results-file results64/poisson-weak-3d-64bit-hypre-lb.csv
+#End of PETSc Option Table entries
+Compiled without FORTRAN kernels
+Compiled with full precision matrices (default)
+sizeof(short) 2 sizeof(int) 4 sizeof(long) 8 sizeof(void*) 8 sizeof(PetscScalar) 8 sizeof(PetscInt) 8
+Configure options: --COPTFLAGS="-march=ivybridge -O3" --CXXOPTFLAGS="-march=ivybridge -O3" --FOPTFLAGS="-march=ivybridge -O3" --PETSC_ARCH=petsc-gnu51-ivybridge-int64 --download-exodusii --download-hypre --download-metis --download-netcdf --download-parmetis --download-sowing=1 --known-bits-per-byte=8 --known-has-attribute-aligned=1 --known-level1-dcache-assoc=8 --known-level1-dcache-linesize=64 --known-level1-dcache-size=32768 --known-memcmp-ok=1 --known-mpi-c-double-complex=1 --known-mpi-int64_t=1 --known-mpi-long-double=1 --known-mpi-shared-libraries=1 --known-sdot-returns-double=0 --known-sizeof-MPI_Comm=4 --known-sizeof-MPI_Fint=4 --known-sizeof-char=1 --known-sizeof-double=8 --known-sizeof-float=4 --known-sizeof-int=4 --known-sizeof-long-long=8 --known-sizeof-long=8 --known-sizeof-short=2 --known-sizeof-size_t=8 --known-sizeof-void-p=8 --known-snrm2-returns-double=0 --prefix=/work/n02/n02/lmn02/petsc-gnu51-ivybridge-int64 --with-64-bit-indices=1 --with-batch=1 --with-blas-lapack-lib="-L/opt/cray/libsci/16.03.1/GNU/5.1/x86_64/lib -lsci_gnu_mp" --with-cc=cc --with-clib-autodetect=0 --with-cxx=CC --with-cxxlib-autodetect=0 --with-debugging=0 --with-fc=ftn --with-fortranlib-autodetect=0 --with-hdf5-dir=/opt/cray/hdf5-parallel/1.8.14/GNU/5.1 --with-hdf5=1 --with-make-np=4 --with-pic=1 --with-shared-libraries=1 --with-x=0 --download-eigen
+-----------------------------------------
+Libraries compiled on Tue Feb 14 12:07:09 2017 on eslogin003 
+Machine characteristics: Linux-3.0.101-0.47.86.1.11753.0.PTF-default-x86_64-with-SuSE-11-x86_64
+Using PETSc directory: /home2/n02/n02/lmn02/src/petsc
+Using PETSc arch: petsc-gnu51-ivybridge-int64
+-----------------------------------------
+
+Using C compiler: cc  -fPIC  -march=ivybridge -O3  ${COPTFLAGS} ${CFLAGS}
+Using Fortran compiler: ftn  -fPIC -march=ivybridge -O3   ${FOPTFLAGS} ${FFLAGS} 
+-----------------------------------------
+
+Using include paths: -I/home2/n02/n02/lmn02/src/petsc/petsc-gnu51-ivybridge-int64/include -I/home2/n02/n02/lmn02/src/petsc/include -I/home2/n02/n02/lmn02/src/petsc/include -I/home2/n02/n02/lmn02/src/petsc/petsc-gnu51-ivybridge-int64/include -I/work/n02/n02/lmn02/petsc-gnu51-ivybridge-int64/include -I/work/n02/n02/lmn02/petsc-gnu51-ivybridge-int64/include/eigen3 -I/opt/cray/hdf5-parallel/1.8.14/GNU/5.1/include
+-----------------------------------------
+
+Using C linker: cc
+Using Fortran linker: ftn
+Using libraries: -Wl,-rpath,/home2/n02/n02/lmn02/src/petsc/petsc-gnu51-ivybridge-int64/lib -L/home2/n02/n02/lmn02/src/petsc/petsc-gnu51-ivybridge-int64/lib -lpetsc -Wl,-rpath,/work/n02/n02/lmn02/petsc-gnu51-ivybridge-int64/lib -L/work/n02/n02/lmn02/petsc-gnu51-ivybridge-int64/lib -lHYPRE -lparmetis -lmetis -lexoIIv2for -lexodus -lnetcdf -Wl,-rpath,/opt/cray/hdf5-parallel/1.8.14/GNU/5.1/lib -L/opt/cray/hdf5-parallel/1.8.14/GNU/5.1/lib -lhdf5hl_fortran -lhdf5_fortran -lhdf5_hl -lhdf5 -lssl -lcrypto -ldl 
+-----------------------------------------
+

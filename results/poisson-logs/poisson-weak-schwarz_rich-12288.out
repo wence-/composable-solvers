@@ -1,0 +1,620 @@
+Int has 8 bytes
+Solving with parameter set schwarz_rich, 68, 4...
+Warmup solve
+    Residual norms for  solve.
+    0 KSP Residual norm 7.632628126310e+02 
+    1 KSP Residual norm 2.516714591681e+01 
+    2 KSP Residual norm 1.106384455094e+01 
+    3 KSP Residual norm 1.842666922379e+00 
+    4 KSP Residual norm 8.557639591527e-01 
+    5 KSP Residual norm 4.494980623644e-01 
+    6 KSP Residual norm 1.579969060477e-01 
+    7 KSP Residual norm 4.562612694910e-02 
+    8 KSP Residual norm 1.621106350545e-02 
+    9 KSP Residual norm 6.761825000830e-03 
+   10 KSP Residual norm 3.197369591874e-03 
+   11 KSP Residual norm 2.020702039206e-03 
+   12 KSP Residual norm 1.285037293017e-03 
+   13 KSP Residual norm 6.868590859693e-04 
+   14 KSP Residual norm 2.987037637673e-04 
+   15 KSP Residual norm 1.058247807033e-04 
+   16 KSP Residual norm 3.865285014686e-05 
+   17 KSP Residual norm 2.132290423754e-05 
+   18 KSP Residual norm 1.365212196286e-05 
+   19 KSP Residual norm 7.545451772412e-06 
+KSP Object: () 12288 MPI processes
+  type: cg
+  maximum iterations=10000, initial guess is zero
+  tolerances:  relative=1e-08, absolute=1e-50, divergence=10000.
+  left preconditioning
+  using PRECONDITIONED norm type for convergence test
+PC Object: () 12288 MPI processes
+  type: python
+    Python: ssc.SSC
+  Subspace correction PC
+  Combining (composite) PC:
+    PC Object: (ssc_) 12288 MPI processes
+      type: composite
+      Composite PC type - ADDITIVE
+      PCs on composite preconditioner follow
+      ---------------------------------
+        PC Object: (ssc_sub_0_) 12288 MPI processes
+          type: patch
+            Vertex-patch Additive Schwarz with 3304 patches
+            Saving patch operators (rebuilt every PCSetUp)
+            KSP on patches (all same):
+              KSP Object: (ssc_sub_0_sub_) 1 MPI processes
+                type: preonly
+                maximum iterations=10000, initial guess is zero
+                tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                left preconditioning
+                using NONE norm type for convergence test
+              PC Object: (ssc_sub_0_sub_) 1 MPI processes
+                type: lu
+                  out-of-place factorization
+                  tolerance for zero pivot 2.22045e-14
+                  matrix ordering: nd
+                  factor fill ratio given 5., needed 1.73093
+                    Factored matrix follows:
+                      Mat Object: 1 MPI processes
+                        type: seqaij
+                        rows=369, cols=369
+                        package used to perform factorization: petsc
+                        total: nonzeros=37473, allocated nonzeros=37473
+                        total number of mallocs used during MatSetValues calls =0
+                          using I-node routines: found 116 nodes, limit used is 5
+                linear system matrix = precond matrix:
+                Mat Object: 1 MPI processes
+                  type: seqaij
+                  rows=369, cols=369
+                  total: nonzeros=21649, allocated nonzeros=24060
+                  total number of mallocs used during MatSetValues calls =1481
+                    using I-node routines: found 136 nodes, limit used is 5
+          linear system matrix = precond matrix:
+          Mat Object: 12288 MPI processes
+            type: python
+            rows=1291467969, cols=1291467969
+                Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+              Firedrake matrix-free operator ImplicitMatrixContext
+        PC Object: (ssc_sub_1_) 12288 MPI processes
+          type: python
+            Python: ssc.lo.P1PC
+          Low-order PC
+            PC Object: (ssc_sub_1_lo_) 12288 MPI processes
+              type: telescope
+                Telescope: parent comm size reduction factor = 6
+                Telescope: comm_size = 12288 , subcomm_size = 2048
+                Telescope: subcomm type: interlaced
+                  Telescope: using default setup
+                KSP Object: (ssc_sub_1_lo_telescope_) 2048 MPI processes
+                  type: richardson
+                    Richardson: damping factor=1.
+                  maximum iterations=4, initial guess is zero
+                  tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                  left preconditioning
+                  using PRECONDITIONED norm type for convergence test
+                PC Object: (ssc_sub_1_lo_telescope_) 2048 MPI processes
+                  type: gamg
+                    MG: type is MULTIPLICATIVE, levels=5 cycles=v
+                      Cycles per PCApply=1
+                      Using externally compute Galerkin coarse grid matrices
+                      GAMG specific options
+                        Threshold for dropping small values in graph on each level =                   0.                   0.                   0.                  
+                        Threshold scaling factor for each level not specified = 1.
+                        AGG specific options
+                          Symmetric graph false
+                          Number of levels to square graph 1
+                          Number smoothing steps 1
+                  Coarse grid solver -- level -------------------------------
+                    KSP Object: (ssc_sub_1_lo_telescope_mg_coarse_) 2048 MPI processes
+                      type: preonly
+                      maximum iterations=10000, initial guess is zero
+                      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using NONE norm type for convergence test
+                    PC Object: (ssc_sub_1_lo_telescope_mg_coarse_) 2048 MPI processes
+                      type: bjacobi
+                        block Jacobi: number of blocks = 2048
+                        Local solve is same for all blocks, in the following KSP and PC objects:
+                      linear system matrix = precond matrix:
+                      Mat Object: 2048 MPI processes
+                        type: mpiaij
+                        rows=34, cols=34
+                        total: nonzeros=1148, allocated nonzeros=1148
+                        total number of mallocs used during MatSetValues calls =0
+                          using I-node (on process 0) routines: found 13 nodes, limit used is 5
+                  Down solver (pre-smoother) on level 1 -------------------------------
+                    KSP Object: (ssc_sub_1_lo_telescope_mg_levels_1_) 2048 MPI processes
+                      type: chebyshev
+                        Chebyshev: eigenvalue estimates used:  min = 0.145893, max = 1.60482
+                        Chebyshev: eigenvalues estimate via gmres min 0.236894, max 1.45893
+                        Chebyshev: eigenvalues estimated using gmres with translations  [0. 0.1; 0. 1.1]
+                        KSP Object: (ssc_sub_1_lo_telescope_mg_levels_1_esteig_) 2048 MPI processes
+                          type: gmres
+                            GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+                            GMRES: happy breakdown tolerance 1e-30
+                          maximum iterations=10, initial guess is zero
+                          tolerances:  relative=1e-12, absolute=1e-50, divergence=10000.
+                          left preconditioning
+                          using PRECONDITIONED norm type for convergence test
+                        Chebyshev: estimating eigenvalues using noisy right hand side
+                      maximum iterations=2
+                      tolerances:  relative=0., absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using nonzero initial guess
+                      using NONE norm type for convergence test
+                    PC Object: (ssc_sub_1_lo_telescope_mg_levels_1_) 2048 MPI processes
+                      type: sor
+                        SOR: type = local_symmetric, iterations = 1, local iterations = 1, omega = 1.
+                      linear system matrix = precond matrix:
+                      Mat Object: 2048 MPI processes
+                        type: mpiaij
+                        rows=1422, cols=1422
+                        total: nonzeros=243270, allocated nonzeros=243270
+                        total number of mallocs used during MatSetValues calls =0
+                          not using I-node (on process 0) routines
+                  Up solver (post-smoother) same as down solver (pre-smoother)
+                  Down solver (pre-smoother) on level 2 -------------------------------
+                    KSP Object: (ssc_sub_1_lo_telescope_mg_levels_2_) 2048 MPI processes
+                      type: chebyshev
+                        Chebyshev: eigenvalue estimates used:  min = 0.143173, max = 1.5749
+                        Chebyshev: eigenvalues estimate via gmres min 0.0513233, max 1.43173
+                        Chebyshev: eigenvalues estimated using gmres with translations  [0. 0.1; 0. 1.1]
+                        KSP Object: (ssc_sub_1_lo_telescope_mg_levels_2_esteig_) 2048 MPI processes
+                          type: gmres
+                            GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+                            GMRES: happy breakdown tolerance 1e-30
+                          maximum iterations=10, initial guess is zero
+                          tolerances:  relative=1e-12, absolute=1e-50, divergence=10000.
+                          left preconditioning
+                          using PRECONDITIONED norm type for convergence test
+                        Chebyshev: estimating eigenvalues using noisy right hand side
+                      maximum iterations=2
+                      tolerances:  relative=0., absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using nonzero initial guess
+                      using NONE norm type for convergence test
+                    PC Object: (ssc_sub_1_lo_telescope_mg_levels_2_) 2048 MPI processes
+                      type: sor
+                        SOR: type = local_symmetric, iterations = 1, local iterations = 1, omega = 1.
+                      linear system matrix = precond matrix:
+                      Mat Object: 2048 MPI processes
+                        type: mpiaij
+                        rows=59499, cols=59499
+                        total: nonzeros=9957933, allocated nonzeros=9957933
+                        total number of mallocs used during MatSetValues calls =0
+                          not using I-node (on process 0) routines
+                  Up solver (post-smoother) same as down solver (pre-smoother)
+                  Down solver (pre-smoother) on level 3 -------------------------------
+                    KSP Object: (ssc_sub_1_lo_telescope_mg_levels_3_) 2048 MPI processes
+                      type: chebyshev
+                        Chebyshev: eigenvalue estimates used:  min = 0.153739, max = 1.69113
+                        Chebyshev: eigenvalues estimate via gmres min 0.0366174, max 1.53739
+                        Chebyshev: eigenvalues estimated using gmres with translations  [0. 0.1; 0. 1.1]
+                        KSP Object: (ssc_sub_1_lo_telescope_mg_levels_3_esteig_) 2048 MPI processes
+                          type: gmres
+                            GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+                            GMRES: happy breakdown tolerance 1e-30
+                          maximum iterations=10, initial guess is zero
+                          tolerances:  relative=1e-12, absolute=1e-50, divergence=10000.
+                          left preconditioning
+                          using PRECONDITIONED norm type for convergence test
+                        Chebyshev: estimating eigenvalues using noisy right hand side
+                      maximum iterations=2
+                      tolerances:  relative=0., absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using nonzero initial guess
+                      using NONE norm type for convergence test
+                    PC Object: (ssc_sub_1_lo_telescope_mg_levels_3_) 2048 MPI processes
+                      type: sor
+                        SOR: type = local_symmetric, iterations = 1, local iterations = 1, omega = 1.
+                      linear system matrix = precond matrix:
+                      Mat Object: 2048 MPI processes
+                        type: mpiaij
+                        rows=1053764, cols=1053764
+                        total: nonzeros=56502900, allocated nonzeros=56502900
+                        total number of mallocs used during MatSetValues calls =0
+                          not using I-node (on process 0) routines
+                  Up solver (post-smoother) same as down solver (pre-smoother)
+                  Down solver (pre-smoother) on level 4 -------------------------------
+                    KSP Object: (ssc_sub_1_lo_telescope_mg_levels_4_) 2048 MPI processes
+                      type: chebyshev
+                        Chebyshev: eigenvalue estimates used:  min = 0.157396, max = 1.73136
+                        Chebyshev: eigenvalues estimate via gmres min 0.03381, max 1.57396
+                        Chebyshev: eigenvalues estimated using gmres with translations  [0. 0.1; 0. 1.1]
+                        KSP Object: (ssc_sub_1_lo_telescope_mg_levels_4_esteig_) 2048 MPI processes
+                          type: gmres
+                            GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+                            GMRES: happy breakdown tolerance 1e-30
+                          maximum iterations=10, initial guess is zero
+                          tolerances:  relative=1e-12, absolute=1e-50, divergence=10000.
+                          left preconditioning
+                          using PRECONDITIONED norm type for convergence test
+                        Chebyshev: estimating eigenvalues using noisy right hand side
+                      maximum iterations=2
+                      tolerances:  relative=0., absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using nonzero initial guess
+                      using NONE norm type for convergence test
+                    PC Object: (ssc_sub_1_lo_telescope_mg_levels_4_) 2048 MPI processes
+                      type: sor
+                        SOR: type = local_symmetric, iterations = 1, local iterations = 1, omega = 1.
+                      linear system matrix = precond matrix:
+                      Mat Object: 2048 MPI processes
+                        type: mpiaij
+                        rows=20346417, cols=20346417
+                        total: nonzeros=303410833, allocated nonzeros=303410833
+                        total number of mallocs used during MatSetValues calls =0
+                          not using I-node (on process 0) routines
+                  Up solver (post-smoother) same as down solver (pre-smoother)
+                  linear system matrix = precond matrix:
+                  Mat Object: 2048 MPI processes
+                    type: mpiaij
+                    rows=20346417, cols=20346417
+                    total: nonzeros=303410833, allocated nonzeros=303410833
+                    total number of mallocs used during MatSetValues calls =0
+                      not using I-node (on process 0) routines
+                                    KSP Object:               (ssc_sub_1_lo_telescope_mg_coarse_sub_)               1 MPI processes
+                                      type: preonly
+                                      maximum iterations=1, initial guess is zero
+                                      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                                      left preconditioning
+                                      using NONE norm type for convergence test
+                                    PC Object:               (ssc_sub_1_lo_telescope_mg_coarse_sub_)               1 MPI processes
+                                      type: lu
+                                        out-of-place factorization
+                                        tolerance for zero pivot 2.22045e-14
+                                        using diagonal shift on blocks to prevent zero pivot [INBLOCKS]
+                                        matrix ordering: nd
+                                        factor fill ratio given 5., needed 1.00174
+                                          Factored matrix follows:
+                                            Mat Object:               1 MPI processes
+                                              type: seqaij
+                                              rows=34, cols=34
+                                              package used to perform factorization: petsc
+                                              total: nonzeros=1150, allocated nonzeros=1150
+                                              total number of mallocs used during MatSetValues calls =0
+                                                using I-node routines: found 11 nodes, limit used is 5
+                                      linear system matrix = precond matrix:
+                                      Mat Object:               1 MPI processes
+                                        type: seqaij
+                                        rows=34, cols=34
+                                        total: nonzeros=1148, allocated nonzeros=1148
+                                        total number of mallocs used during MatSetValues calls =0
+                                          using I-node routines: found 13 nodes, limit used is 5
+              linear system matrix = precond matrix:
+              Mat Object: 12288 MPI processes
+                type: mpiaij
+                rows=20346417, cols=20346417
+                total: nonzeros=303410833, allocated nonzeros=303410833
+                total number of mallocs used during MatSetValues calls =0
+                  not using I-node (on process 0) routines
+          linear system matrix = precond matrix:
+          Mat Object: 12288 MPI processes
+            type: python
+            rows=1291467969, cols=1291467969
+                Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+              Firedrake matrix-free operator ImplicitMatrixContext
+      ---------------------------------
+      linear system matrix = precond matrix:
+      Mat Object: 12288 MPI processes
+        type: python
+        rows=1291467969, cols=1291467969
+            Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+          Firedrake matrix-free operator ImplicitMatrixContext
+  linear system matrix = precond matrix:
+  Mat Object: 12288 MPI processes
+    type: python
+    rows=1291467969, cols=1291467969
+        Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+      Firedrake matrix-free operator ImplicitMatrixContext
+Timed solve
+    Residual norms for  solve.
+    0 KSP Residual norm 7.632628126310e+02 
+    1 KSP Residual norm 2.516714591681e+01 
+    2 KSP Residual norm 1.106384455094e+01 
+    3 KSP Residual norm 1.842666922378e+00 
+    4 KSP Residual norm 8.557639591527e-01 
+    5 KSP Residual norm 4.494980623644e-01 
+    6 KSP Residual norm 1.579969060477e-01 
+    7 KSP Residual norm 4.562612694910e-02 
+    8 KSP Residual norm 1.621106350545e-02 
+    9 KSP Residual norm 6.761825000830e-03 
+   10 KSP Residual norm 3.197369591874e-03 
+   11 KSP Residual norm 2.020702039206e-03 
+   12 KSP Residual norm 1.285037293017e-03 
+   13 KSP Residual norm 6.868590859693e-04 
+   14 KSP Residual norm 2.987037637673e-04 
+   15 KSP Residual norm 1.058247807033e-04 
+   16 KSP Residual norm 3.865285014686e-05 
+   17 KSP Residual norm 2.132290423754e-05 
+   18 KSP Residual norm 1.365212196286e-05 
+   19 KSP Residual norm 7.545451772412e-06 
+KSP Object: () 12288 MPI processes
+  type: cg
+  maximum iterations=10000, initial guess is zero
+  tolerances:  relative=1e-08, absolute=1e-50, divergence=10000.
+  left preconditioning
+  using PRECONDITIONED norm type for convergence test
+PC Object: () 12288 MPI processes
+  type: python
+    Python: ssc.SSC
+  Subspace correction PC
+  Combining (composite) PC:
+    PC Object: (ssc_) 12288 MPI processes
+      type: composite
+      Composite PC type - ADDITIVE
+      PCs on composite preconditioner follow
+      ---------------------------------
+        PC Object: (ssc_sub_0_) 12288 MPI processes
+          type: patch
+            Vertex-patch Additive Schwarz with 3304 patches
+            Saving patch operators (rebuilt every PCSetUp)
+            KSP on patches (all same):
+              KSP Object: (ssc_sub_0_sub_) 1 MPI processes
+                type: preonly
+                maximum iterations=10000, initial guess is zero
+                tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                left preconditioning
+                using NONE norm type for convergence test
+              PC Object: (ssc_sub_0_sub_) 1 MPI processes
+                type: lu
+                  out-of-place factorization
+                  tolerance for zero pivot 2.22045e-14
+                  matrix ordering: nd
+                  factor fill ratio given 5., needed 1.73093
+                    Factored matrix follows:
+                      Mat Object: 1 MPI processes
+                        type: seqaij
+                        rows=369, cols=369
+                        package used to perform factorization: petsc
+                        total: nonzeros=37473, allocated nonzeros=37473
+                        total number of mallocs used during MatSetValues calls =0
+                          using I-node routines: found 116 nodes, limit used is 5
+                linear system matrix = precond matrix:
+                Mat Object: 1 MPI processes
+                  type: seqaij
+                  rows=369, cols=369
+                  total: nonzeros=21649, allocated nonzeros=24060
+                  total number of mallocs used during MatSetValues calls =1481
+                    using I-node routines: found 136 nodes, limit used is 5
+          linear system matrix = precond matrix:
+          Mat Object: 12288 MPI processes
+            type: python
+            rows=1291467969, cols=1291467969
+                Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+              Firedrake matrix-free operator ImplicitMatrixContext
+        PC Object: (ssc_sub_1_) 12288 MPI processes
+          type: python
+            Python: ssc.lo.P1PC
+          Low-order PC
+            PC Object: (ssc_sub_1_lo_) 12288 MPI processes
+              type: telescope
+                Telescope: parent comm size reduction factor = 6
+                Telescope: comm_size = 12288 , subcomm_size = 2048
+                Telescope: subcomm type: interlaced
+                  Telescope: using default setup
+                KSP Object: (ssc_sub_1_lo_telescope_) 2048 MPI processes
+                  type: richardson
+                    Richardson: damping factor=1.
+                  maximum iterations=4, initial guess is zero
+                  tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                  left preconditioning
+                  using PRECONDITIONED norm type for convergence test
+                PC Object: (ssc_sub_1_lo_telescope_) 2048 MPI processes
+                  type: gamg
+                    MG: type is MULTIPLICATIVE, levels=5 cycles=v
+                      Cycles per PCApply=1
+                      Using externally compute Galerkin coarse grid matrices
+                      GAMG specific options
+                        Threshold for dropping small values in graph on each level =                   0.                   0.                   0.                  
+                        Threshold scaling factor for each level not specified = 1.
+                        AGG specific options
+                          Symmetric graph false
+                          Number of levels to square graph 1
+                          Number smoothing steps 1
+                  Coarse grid solver -- level -------------------------------
+                    KSP Object: (ssc_sub_1_lo_telescope_mg_coarse_) 2048 MPI processes
+                      type: preonly
+                      maximum iterations=10000, initial guess is zero
+                      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using NONE norm type for convergence test
+                    PC Object: (ssc_sub_1_lo_telescope_mg_coarse_) 2048 MPI processes
+                      type: bjacobi
+                        block Jacobi: number of blocks = 2048
+                        Local solve is same for all blocks, in the following KSP and PC objects:
+                      linear system matrix = precond matrix:
+                      Mat Object: 2048 MPI processes
+                        type: mpiaij
+                        rows=34, cols=34
+                        total: nonzeros=1148, allocated nonzeros=1148
+                        total number of mallocs used during MatSetValues calls =0
+                          using I-node (on process 0) routines: found 13 nodes, limit used is 5
+                  Down solver (pre-smoother) on level 1 -------------------------------
+                    KSP Object: (ssc_sub_1_lo_telescope_mg_levels_1_) 2048 MPI processes
+                      type: chebyshev
+                        Chebyshev: eigenvalue estimates used:  min = 0.145893, max = 1.60482
+                        Chebyshev: eigenvalues estimate via gmres min 0.236894, max 1.45893
+                        Chebyshev: eigenvalues estimated using gmres with translations  [0. 0.1; 0. 1.1]
+                        KSP Object: (ssc_sub_1_lo_telescope_mg_levels_1_esteig_) 2048 MPI processes
+                          type: gmres
+                            GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+                            GMRES: happy breakdown tolerance 1e-30
+                          maximum iterations=10, initial guess is zero
+                          tolerances:  relative=1e-12, absolute=1e-50, divergence=10000.
+                          left preconditioning
+                          using PRECONDITIONED norm type for convergence test
+                        Chebyshev: estimating eigenvalues using noisy right hand side
+                      maximum iterations=2
+                      tolerances:  relative=0., absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using nonzero initial guess
+                      using NONE norm type for convergence test
+                    PC Object: (ssc_sub_1_lo_telescope_mg_levels_1_) 2048 MPI processes
+                      type: sor
+                        SOR: type = local_symmetric, iterations = 1, local iterations = 1, omega = 1.
+                      linear system matrix = precond matrix:
+                      Mat Object: 2048 MPI processes
+                        type: mpiaij
+                        rows=1422, cols=1422
+                        total: nonzeros=243270, allocated nonzeros=243270
+                        total number of mallocs used during MatSetValues calls =0
+                          not using I-node (on process 0) routines
+                  Up solver (post-smoother) same as down solver (pre-smoother)
+                  Down solver (pre-smoother) on level 2 -------------------------------
+                    KSP Object: (ssc_sub_1_lo_telescope_mg_levels_2_) 2048 MPI processes
+                      type: chebyshev
+                        Chebyshev: eigenvalue estimates used:  min = 0.143173, max = 1.5749
+                        Chebyshev: eigenvalues estimate via gmres min 0.0513233, max 1.43173
+                        Chebyshev: eigenvalues estimated using gmres with translations  [0. 0.1; 0. 1.1]
+                        KSP Object: (ssc_sub_1_lo_telescope_mg_levels_2_esteig_) 2048 MPI processes
+                          type: gmres
+                            GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+                            GMRES: happy breakdown tolerance 1e-30
+                          maximum iterations=10, initial guess is zero
+                          tolerances:  relative=1e-12, absolute=1e-50, divergence=10000.
+                          left preconditioning
+                          using PRECONDITIONED norm type for convergence test
+                        Chebyshev: estimating eigenvalues using noisy right hand side
+                      maximum iterations=2
+                      tolerances:  relative=0., absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using nonzero initial guess
+                      using NONE norm type for convergence test
+                    PC Object: (ssc_sub_1_lo_telescope_mg_levels_2_) 2048 MPI processes
+                      type: sor
+                        SOR: type = local_symmetric, iterations = 1, local iterations = 1, omega = 1.
+                      linear system matrix = precond matrix:
+                      Mat Object: 2048 MPI processes
+                        type: mpiaij
+                        rows=59499, cols=59499
+                        total: nonzeros=9957933, allocated nonzeros=9957933
+                        total number of mallocs used during MatSetValues calls =0
+                          not using I-node (on process 0) routines
+                  Up solver (post-smoother) same as down solver (pre-smoother)
+                  Down solver (pre-smoother) on level 3 -------------------------------
+                    KSP Object: (ssc_sub_1_lo_telescope_mg_levels_3_) 2048 MPI processes
+                      type: chebyshev
+                        Chebyshev: eigenvalue estimates used:  min = 0.153739, max = 1.69113
+                        Chebyshev: eigenvalues estimate via gmres min 0.0366174, max 1.53739
+                        Chebyshev: eigenvalues estimated using gmres with translations  [0. 0.1; 0. 1.1]
+                        KSP Object: (ssc_sub_1_lo_telescope_mg_levels_3_esteig_) 2048 MPI processes
+                          type: gmres
+                            GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+                            GMRES: happy breakdown tolerance 1e-30
+                          maximum iterations=10, initial guess is zero
+                          tolerances:  relative=1e-12, absolute=1e-50, divergence=10000.
+                          left preconditioning
+                          using PRECONDITIONED norm type for convergence test
+                        Chebyshev: estimating eigenvalues using noisy right hand side
+                      maximum iterations=2
+                      tolerances:  relative=0., absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using nonzero initial guess
+                      using NONE norm type for convergence test
+                    PC Object: (ssc_sub_1_lo_telescope_mg_levels_3_) 2048 MPI processes
+                      type: sor
+                        SOR: type = local_symmetric, iterations = 1, local iterations = 1, omega = 1.
+                      linear system matrix = precond matrix:
+                      Mat Object: 2048 MPI processes
+                        type: mpiaij
+                        rows=1053764, cols=1053764
+                        total: nonzeros=56502900, allocated nonzeros=56502900
+                        total number of mallocs used during MatSetValues calls =0
+                          not using I-node (on process 0) routines
+                  Up solver (post-smoother) same as down solver (pre-smoother)
+                  Down solver (pre-smoother) on level 4 -------------------------------
+                    KSP Object: (ssc_sub_1_lo_telescope_mg_levels_4_) 2048 MPI processes
+                      type: chebyshev
+                        Chebyshev: eigenvalue estimates used:  min = 0.157396, max = 1.73136
+                        Chebyshev: eigenvalues estimate via gmres min 0.03381, max 1.57396
+                        Chebyshev: eigenvalues estimated using gmres with translations  [0. 0.1; 0. 1.1]
+                        KSP Object: (ssc_sub_1_lo_telescope_mg_levels_4_esteig_) 2048 MPI processes
+                          type: gmres
+                            GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+                            GMRES: happy breakdown tolerance 1e-30
+                          maximum iterations=10, initial guess is zero
+                          tolerances:  relative=1e-12, absolute=1e-50, divergence=10000.
+                          left preconditioning
+                          using PRECONDITIONED norm type for convergence test
+                        Chebyshev: estimating eigenvalues using noisy right hand side
+                      maximum iterations=2
+                      tolerances:  relative=0., absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using nonzero initial guess
+                      using NONE norm type for convergence test
+                    PC Object: (ssc_sub_1_lo_telescope_mg_levels_4_) 2048 MPI processes
+                      type: sor
+                        SOR: type = local_symmetric, iterations = 1, local iterations = 1, omega = 1.
+                      linear system matrix = precond matrix:
+                      Mat Object: 2048 MPI processes
+                        type: mpiaij
+                        rows=20346417, cols=20346417
+                        total: nonzeros=303410833, allocated nonzeros=303410833
+                        total number of mallocs used during MatSetValues calls =0
+                          not using I-node (on process 0) routines
+                  Up solver (post-smoother) same as down solver (pre-smoother)
+                  linear system matrix = precond matrix:
+                  Mat Object: 2048 MPI processes
+                    type: mpiaij
+                    rows=20346417, cols=20346417
+                    total: nonzeros=303410833, allocated nonzeros=303410833
+                    total number of mallocs used during MatSetValues calls =0
+                      not using I-node (on process 0) routines
+                                    KSP Object:               (ssc_sub_1_lo_telescope_mg_coarse_sub_)               1 MPI processes
+                                      type: preonly
+                                      maximum iterations=1, initial guess is zero
+                                      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                                      left preconditioning
+                                      using NONE norm type for convergence test
+                                    PC Object:               (ssc_sub_1_lo_telescope_mg_coarse_sub_)               1 MPI processes
+                                      type: lu
+                                        out-of-place factorization
+                                        tolerance for zero pivot 2.22045e-14
+                                        using diagonal shift on blocks to prevent zero pivot [INBLOCKS]
+                                        matrix ordering: nd
+                                        factor fill ratio given 5., needed 1.00174
+                                          Factored matrix follows:
+                                            Mat Object:               1 MPI processes
+                                              type: seqaij
+                                              rows=34, cols=34
+                                              package used to perform factorization: petsc
+                                              total: nonzeros=1150, allocated nonzeros=1150
+                                              total number of mallocs used during MatSetValues calls =0
+                                                using I-node routines: found 11 nodes, limit used is 5
+                                      linear system matrix = precond matrix:
+                                      Mat Object:               1 MPI processes
+                                        type: seqaij
+                                        rows=34, cols=34
+                                        total: nonzeros=1148, allocated nonzeros=1148
+                                        total number of mallocs used during MatSetValues calls =0
+                                          using I-node routines: found 13 nodes, limit used is 5
+              linear system matrix = precond matrix:
+              Mat Object: 12288 MPI processes
+                type: mpiaij
+                rows=20346417, cols=20346417
+                total: nonzeros=303410833, allocated nonzeros=303410833
+                total number of mallocs used during MatSetValues calls =0
+                  not using I-node (on process 0) routines
+          linear system matrix = precond matrix:
+          Mat Object: 12288 MPI processes
+            type: python
+            rows=1291467969, cols=1291467969
+                Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+              Firedrake matrix-free operator ImplicitMatrixContext
+      ---------------------------------
+      linear system matrix = precond matrix:
+      Mat Object: 12288 MPI processes
+        type: python
+        rows=1291467969, cols=1291467969
+            Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+          Firedrake matrix-free operator ImplicitMatrixContext
+  linear system matrix = precond matrix:
+  Mat Object: 12288 MPI processes
+    type: python
+    rows=1291467969, cols=1291467969
+        Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+      Firedrake matrix-free operator ImplicitMatrixContext
+Solving with parameter set schwarz_rich, 68, 4...done
+Application 25344223 resources: utime ~5428075s, stime ~47031s, Rss ~2639672, inblocks ~647603476, outblocks ~10265231

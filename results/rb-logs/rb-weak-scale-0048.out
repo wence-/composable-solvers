@@ -1,0 +1,857 @@
+Solving with parameter set pcd_mg, 19, 1...
+Warmup solve
+  0 SNES Function norm 1.451721199984e-01 
+    Residual norms for  solve.
+    0 KSP Residual norm 1.451721199984e-01 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 19
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 6
+    1 KSP Residual norm 3.381116010383e-02 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 19
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    2 KSP Residual norm 5.459634125430e-03 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 24
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 6
+    3 KSP Residual norm 2.589054569243e-04 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 24
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 6
+    4 KSP Residual norm 1.054924164906e-05 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 24
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    5 KSP Residual norm 9.075508393797e-08 
+  Linear  solve converged due to CONVERGED_RTOL iterations 5
+  1 SNES Function norm 1.820582545705e-04 
+    Residual norms for  solve.
+    0 KSP Residual norm 1.820582545705e-04 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 15
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    1 KSP Residual norm 1.803199202459e-04 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 15
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    2 KSP Residual norm 7.775190899386e-05 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 19
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    3 KSP Residual norm 1.306695896332e-06 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 27
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    4 KSP Residual norm 5.995420843471e-08 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 28
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    5 KSP Residual norm 2.036218589374e-09 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 28
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    6 KSP Residual norm 3.790630743793e-11 
+  Linear  solve converged due to CONVERGED_RTOL iterations 6
+  2 SNES Function norm 1.046814184798e-07 
+    Residual norms for  solve.
+    0 KSP Residual norm 1.046814184798e-07 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 15
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 8
+    1 KSP Residual norm 7.749587213609e-08 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 17
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    2 KSP Residual norm 1.273009906696e-08 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 18
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    3 KSP Residual norm 5.219511572442e-10 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 22
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    4 KSP Residual norm 1.328058860845e-11 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 24
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    5 KSP Residual norm 5.090109473254e-13 
+  Linear  solve converged due to CONVERGED_RTOL iterations 5
+  3 SNES Function norm 5.092877037397e-13 
+Nonlinear  solve converged due to CONVERGED_FNORM_RELATIVE iterations 3
+SNES Object: () 48 MPI processes
+  type: newtonls
+  maximum iterations=50, maximum function evaluations=10000
+  tolerances: relative=1e-08, absolute=1e-50, solution=1e-08
+  total number of linear solver iterations=16
+  total number of function evaluations=4
+  norm schedule ALWAYS
+  SNESLineSearch Object: () 48 MPI processes
+    type: basic
+    maxstep=1.000000e+08, minlambda=1.000000e-12
+    tolerances: relative=1.000000e-08, absolute=1.000000e-15, lambda=1.000000e-08
+    maximum iterations=40
+  KSP Object: () 48 MPI processes
+    type: fgmres
+      GMRES: restart=30, using Modified Gram-Schmidt Orthogonalization
+      GMRES: happy breakdown tolerance 1e-30
+    maximum iterations=10000, initial guess is zero
+    tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+    right preconditioning
+    using UNPRECONDITIONED norm type for convergence test
+  PC Object: () 48 MPI processes
+    type: fieldsplit
+      FieldSplit with MULTIPLICATIVE composition: total splits = 2
+      Solver info for each split is in the following KSP objects:
+      Split number 0 Defined by IS
+      KSP Object: (fieldsplit_0_) 48 MPI processes
+        type: gmres
+          GMRES: restart=30, using Modified Gram-Schmidt Orthogonalization
+          GMRES: happy breakdown tolerance 1e-30
+        maximum iterations=10000, initial guess is zero
+        tolerances:  relative=0.01, absolute=1e-50, divergence=10000.
+        left preconditioning
+        using PRECONDITIONED norm type for convergence test
+      PC Object: (fieldsplit_0_) 48 MPI processes
+        type: fieldsplit
+          FieldSplit with Schur preconditioner, factorization LOWER
+          Preconditioner for the Schur complement formed from A11
+          Split info:
+          Split number 0 Defined by IS
+          Split number 1 Defined by IS
+          KSP solver for A00 block
+            KSP Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+              type: preonly
+              maximum iterations=10000, initial guess is zero
+              tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+              left preconditioning
+              using NONE norm type for convergence test
+            PC Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+              type: python
+                Python: firedrake.AssembledPC
+              Firedrake matrix-free preconditioner AssembledPC
+                PC to apply inverse
+                PC Object: (fieldsplit_0_fieldsplit_0_assembled_) 48 MPI processes
+                  type: hypre
+                    HYPRE BoomerAMG preconditioning
+                    HYPRE BoomerAMG: Cycle type V
+                    HYPRE BoomerAMG: Maximum number of levels 25
+                    HYPRE BoomerAMG: Maximum number of iterations PER hypre call 1
+                    HYPRE BoomerAMG: Convergence tolerance PER hypre call 0.
+                    HYPRE BoomerAMG: Threshold for strong coupling 0.25
+                    HYPRE BoomerAMG: Interpolation truncation factor 0.
+                    HYPRE BoomerAMG: Interpolation: max elements per row 4
+                    HYPRE BoomerAMG: Number of levels of aggressive coarsening 1
+                    HYPRE BoomerAMG: Number of paths for aggressive coarsening 2
+                    HYPRE BoomerAMG: Maximum row sums 0.9
+                    HYPRE BoomerAMG: Sweeps down         1
+                    HYPRE BoomerAMG: Sweeps up           1
+                    HYPRE BoomerAMG: Sweeps on coarse    1
+                    HYPRE BoomerAMG: Relax down          symmetric-SOR/Jacobi
+                    HYPRE BoomerAMG: Relax up            symmetric-SOR/Jacobi
+                    HYPRE BoomerAMG: Relax on coarse     Gaussian-elimination
+                    HYPRE BoomerAMG: Relax weight  (all)      1.
+                    HYPRE BoomerAMG: Outer relax weight (all) 1.
+                    HYPRE BoomerAMG: Not using CF-relaxation
+                    HYPRE BoomerAMG: Not using more complex smoothers.
+                    HYPRE BoomerAMG: Measure type        local
+                    HYPRE BoomerAMG: Coarsen type        HMIS
+                    HYPRE BoomerAMG: Interpolation type  ext+i
+                  linear system matrix = precond matrix:
+                  Mat Object: 48 MPI processes
+                    type: mpiaij
+                    rows=1369599, cols=1369599, bs=3
+                    total: nonzeros=115386705, allocated nonzeros=115386705
+                    total number of mallocs used during MatSetValues calls =0
+                      using I-node (on process 0) routines: found 9254 nodes, limit used is 5
+              linear system matrix = precond matrix:
+              Mat Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+                type: python
+                rows=1369599, cols=1369599, bs=3
+                    Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                  Firedrake matrix-free operator ImplicitMatrixContext
+          KSP solver for S = A11 - A10 inv(A00) A01 
+            KSP Object: (fieldsplit_0_fieldsplit_1_) 48 MPI processes
+              type: preonly
+              maximum iterations=10000, initial guess is zero
+              tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+              left preconditioning
+              using NONE norm type for convergence test
+            PC Object: (fieldsplit_0_fieldsplit_1_) 48 MPI processes
+              type: python
+                Python: firedrake.PCDPC
+              Firedrake matrix-free preconditioner PCDPC
+              Pressure-Convection-Diffusion inverse K^-1 F_p M^-1:
+                Reynolds number in F_p (applied matrix-free) is 1.0
+                KSP solver for K^-1:
+                  KSP Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_) 48 MPI processes
+                    type: preonly
+                    maximum iterations=10000, initial guess is zero
+                    tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                    left preconditioning
+                    using NONE norm type for convergence test
+                  PC Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_) 48 MPI processes
+                    type: telescope
+                      Telescope: parent comm size reduction factor = 6
+                      Telescope: comm_size = 48 , subcomm_size = 8
+                      Telescope: subcomm type: interlaced
+                        Telescope: using default setup
+                      KSP Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_) 8 MPI processes
+                        type: preonly
+                        maximum iterations=10000, initial guess is zero
+                        tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                        left preconditioning
+                        using NONE norm type for convergence test
+                      PC Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_) 8 MPI processes
+                        type: ksp
+                        KSP and PC on KSP preconditioner follow
+                        ---------------------------------
+                          KSP Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_ksp_) 8 MPI processes
+                            type: richardson
+                              Richardson: damping factor=1.
+                            maximum iterations=3, initial guess is zero
+                            tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                            left preconditioning
+                            using PRECONDITIONED norm type for convergence test
+                          PC Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_ksp_) 8 MPI processes
+                            type: hypre
+                              HYPRE BoomerAMG preconditioning
+                              HYPRE BoomerAMG: Cycle type V
+                              HYPRE BoomerAMG: Maximum number of levels 25
+                              HYPRE BoomerAMG: Maximum number of iterations PER hypre call 1
+                              HYPRE BoomerAMG: Convergence tolerance PER hypre call 0.
+                              HYPRE BoomerAMG: Threshold for strong coupling 0.25
+                              HYPRE BoomerAMG: Interpolation truncation factor 0.
+                              HYPRE BoomerAMG: Interpolation: max elements per row 4
+                              HYPRE BoomerAMG: Number of levels of aggressive coarsening 1
+                              HYPRE BoomerAMG: Number of paths for aggressive coarsening 2
+                              HYPRE BoomerAMG: Maximum row sums 0.9
+                              HYPRE BoomerAMG: Sweeps down         1
+                              HYPRE BoomerAMG: Sweeps up           1
+                              HYPRE BoomerAMG: Sweeps on coarse    1
+                              HYPRE BoomerAMG: Relax down          symmetric-SOR/Jacobi
+                              HYPRE BoomerAMG: Relax up            symmetric-SOR/Jacobi
+                              HYPRE BoomerAMG: Relax on coarse     Gaussian-elimination
+                              HYPRE BoomerAMG: Relax weight  (all)      1.
+                              HYPRE BoomerAMG: Outer relax weight (all) 1.
+                              HYPRE BoomerAMG: Not using CF-relaxation
+                              HYPRE BoomerAMG: Not using more complex smoothers.
+                              HYPRE BoomerAMG: Measure type        local
+                              HYPRE BoomerAMG: Coarsen type        HMIS
+                              HYPRE BoomerAMG: Interpolation type  ext+i
+                            linear system matrix = precond matrix:
+                            Mat Object: 8 MPI processes
+                              type: mpiaij
+                              rows=59319, cols=59319
+                              total: nonzeros=853747, allocated nonzeros=853747
+                              total number of mallocs used during MatSetValues calls =0
+                                not using I-node (on process 0) routines
+                        ---------------------------------
+                        linear system matrix = precond matrix:
+                        Mat Object: 8 MPI processes
+                          type: mpiaij
+                          rows=59319, cols=59319
+                          total: nonzeros=853747, allocated nonzeros=853747
+                          total number of mallocs used during MatSetValues calls =0
+                            not using I-node (on process 0) routines
+                    linear system matrix = precond matrix:
+                    Mat Object: 48 MPI processes
+                      type: mpiaij
+                      rows=59319, cols=59319
+                      total: nonzeros=853747, allocated nonzeros=853747
+                      total number of mallocs used during MatSetValues calls =0
+                        not using I-node (on process 0) routines
+                KSP solver for M^-1:
+                  KSP Object: (fieldsplit_0_fieldsplit_1_pcd_Mp_) 48 MPI processes
+                    type: richardson
+                      Richardson: damping factor=1.
+                    maximum iterations=2, initial guess is zero
+                    tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                    left preconditioning
+                    using PRECONDITIONED norm type for convergence test
+                  PC Object: (fieldsplit_0_fieldsplit_1_pcd_Mp_) 48 MPI processes
+                    type: sor
+                      SOR: type = local_symmetric, iterations = 1, local iterations = 1, omega = 1.
+                    linear system matrix = precond matrix:
+                    Mat Object: 48 MPI processes
+                      type: mpiaij
+                      rows=59319, cols=59319
+                      total: nonzeros=853747, allocated nonzeros=853747
+                      total number of mallocs used during MatSetValues calls =0
+                        not using I-node (on process 0) routines
+              linear system matrix followed by preconditioner matrix:
+              Mat Object: (fieldsplit_0_fieldsplit_1_) 48 MPI processes
+                type: schurcomplement
+                rows=59319, cols=59319
+                  Schur complement A11 - A10 inv(A00) A01
+                  A11
+                    Mat Object: (fieldsplit_0_fieldsplit_1_) 48 MPI processes
+                      type: python
+                      rows=59319, cols=59319
+                          Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                        Firedrake matrix-free operator ImplicitMatrixContext
+                  A10
+                    Mat Object: 48 MPI processes
+                      type: python
+                      rows=59319, cols=1369599, rbs=1, cbs = 3
+                          Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                        Firedrake matrix-free operator ImplicitMatrixContext
+                  KSP of A00
+                    KSP Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+                      type: preonly
+                      maximum iterations=10000, initial guess is zero
+                      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using NONE norm type for convergence test
+                    PC Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+                      type: python
+                        Python: firedrake.AssembledPC
+                      Firedrake matrix-free preconditioner AssembledPC
+                        PC to apply inverse
+                        PC Object: (fieldsplit_0_fieldsplit_0_assembled_) 48 MPI processes
+                          type: hypre
+                            HYPRE BoomerAMG preconditioning
+                            HYPRE BoomerAMG: Cycle type V
+                            HYPRE BoomerAMG: Maximum number of levels 25
+                            HYPRE BoomerAMG: Maximum number of iterations PER hypre call 1
+                            HYPRE BoomerAMG: Convergence tolerance PER hypre call 0.
+                            HYPRE BoomerAMG: Threshold for strong coupling 0.25
+                            HYPRE BoomerAMG: Interpolation truncation factor 0.
+                            HYPRE BoomerAMG: Interpolation: max elements per row 4
+                            HYPRE BoomerAMG: Number of levels of aggressive coarsening 1
+                            HYPRE BoomerAMG: Number of paths for aggressive coarsening 2
+                            HYPRE BoomerAMG: Maximum row sums 0.9
+                            HYPRE BoomerAMG: Sweeps down         1
+                            HYPRE BoomerAMG: Sweeps up           1
+                            HYPRE BoomerAMG: Sweeps on coarse    1
+                            HYPRE BoomerAMG: Relax down          symmetric-SOR/Jacobi
+                            HYPRE BoomerAMG: Relax up            symmetric-SOR/Jacobi
+                            HYPRE BoomerAMG: Relax on coarse     Gaussian-elimination
+                            HYPRE BoomerAMG: Relax weight  (all)      1.
+                            HYPRE BoomerAMG: Outer relax weight (all) 1.
+                            HYPRE BoomerAMG: Not using CF-relaxation
+                            HYPRE BoomerAMG: Not using more complex smoothers.
+                            HYPRE BoomerAMG: Measure type        local
+                            HYPRE BoomerAMG: Coarsen type        HMIS
+                            HYPRE BoomerAMG: Interpolation type  ext+i
+                          linear system matrix = precond matrix:
+                          Mat Object: 48 MPI processes
+                            type: mpiaij
+                            rows=1369599, cols=1369599, bs=3
+                            total: nonzeros=115386705, allocated nonzeros=115386705
+                            total number of mallocs used during MatSetValues calls =0
+                              using I-node (on process 0) routines: found 9254 nodes, limit used is 5
+                      linear system matrix = precond matrix:
+                      Mat Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+                        type: python
+                        rows=1369599, cols=1369599, bs=3
+                            Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                          Firedrake matrix-free operator ImplicitMatrixContext
+                  A01
+                    Mat Object: 48 MPI processes
+                      type: python
+                      rows=1369599, cols=59319, rbs=3, cbs = 1
+                          Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                        Firedrake matrix-free operator ImplicitMatrixContext
+              Mat Object: (fieldsplit_0_fieldsplit_1_) 48 MPI processes
+                type: python
+                rows=59319, cols=59319
+                    Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                  Firedrake matrix-free operator ImplicitMatrixContext
+        linear system matrix = precond matrix:
+        Mat Object: (fieldsplit_0_) 48 MPI processes
+          type: python
+          rows=1428918, cols=1428918
+              Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+            Firedrake matrix-free operator ImplicitMatrixContext
+      Split number 1 Defined by IS
+      KSP Object: (fieldsplit_1_) 48 MPI processes
+        type: gmres
+          GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+          GMRES: happy breakdown tolerance 1e-30
+        maximum iterations=10000, initial guess is zero
+        tolerances:  relative=0.0001, absolute=1e-50, divergence=10000.
+        left preconditioning
+        using PRECONDITIONED norm type for convergence test
+      PC Object: (fieldsplit_1_) 48 MPI processes
+        type: python
+          Python: firedrake.AssembledPC
+        Firedrake matrix-free preconditioner AssembledPC
+          PC to apply inverse
+          PC Object: (fieldsplit_1_assembled_) 48 MPI processes
+            type: telescope
+              Telescope: parent comm size reduction factor = 6
+              Telescope: comm_size = 48 , subcomm_size = 8
+              Telescope: subcomm type: interlaced
+                Telescope: using default setup
+              KSP Object: (fieldsplit_1_assembled_telescope_) 8 MPI processes
+                type: preonly
+                maximum iterations=10000, initial guess is zero
+                tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                left preconditioning
+                using NONE norm type for convergence test
+              PC Object: (fieldsplit_1_assembled_telescope_) 8 MPI processes
+                type: hypre
+                  HYPRE BoomerAMG preconditioning
+                  HYPRE BoomerAMG: Cycle type V
+                  HYPRE BoomerAMG: Maximum number of levels 25
+                  HYPRE BoomerAMG: Maximum number of iterations PER hypre call 1
+                  HYPRE BoomerAMG: Convergence tolerance PER hypre call 0.
+                  HYPRE BoomerAMG: Threshold for strong coupling 0.25
+                  HYPRE BoomerAMG: Interpolation truncation factor 0.
+                  HYPRE BoomerAMG: Interpolation: max elements per row 4
+                  HYPRE BoomerAMG: Number of levels of aggressive coarsening 1
+                  HYPRE BoomerAMG: Number of paths for aggressive coarsening 2
+                  HYPRE BoomerAMG: Maximum row sums 0.9
+                  HYPRE BoomerAMG: Sweeps down         1
+                  HYPRE BoomerAMG: Sweeps up           1
+                  HYPRE BoomerAMG: Sweeps on coarse    1
+                  HYPRE BoomerAMG: Relax down          symmetric-SOR/Jacobi
+                  HYPRE BoomerAMG: Relax up            symmetric-SOR/Jacobi
+                  HYPRE BoomerAMG: Relax on coarse     Gaussian-elimination
+                  HYPRE BoomerAMG: Relax weight  (all)      1.
+                  HYPRE BoomerAMG: Outer relax weight (all) 1.
+                  HYPRE BoomerAMG: Not using CF-relaxation
+                  HYPRE BoomerAMG: Not using more complex smoothers.
+                  HYPRE BoomerAMG: Measure type        local
+                  HYPRE BoomerAMG: Coarsen type        HMIS
+                  HYPRE BoomerAMG: Interpolation type  ext+i
+                linear system matrix = precond matrix:
+                Mat Object: 8 MPI processes
+                  type: mpiaij
+                  rows=59319, cols=59319
+                  total: nonzeros=853747, allocated nonzeros=853747
+                  total number of mallocs used during MatSetValues calls =0
+                    not using I-node (on process 0) routines
+            linear system matrix = precond matrix:
+            Mat Object: 48 MPI processes
+              type: mpiaij
+              rows=59319, cols=59319
+              total: nonzeros=853747, allocated nonzeros=853747
+              total number of mallocs used during MatSetValues calls =0
+                not using I-node (on process 0) routines
+        linear system matrix = precond matrix:
+        Mat Object: (fieldsplit_1_) 48 MPI processes
+          type: python
+          rows=59319, cols=59319
+              Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+            Firedrake matrix-free operator ImplicitMatrixContext
+    linear system matrix = precond matrix:
+    Mat Object: 48 MPI processes
+      type: python
+      rows=1488237, cols=1488237
+        has attached null space
+          Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+        Firedrake matrix-free operator ImplicitMatrixContext
+Timed solve
+  0 SNES Function norm 1.451721199984e-01 
+    Residual norms for  solve.
+    0 KSP Residual norm 1.451721199984e-01 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 19
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 6
+    1 KSP Residual norm 3.381116010383e-02 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 19
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    2 KSP Residual norm 5.459634125430e-03 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 24
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 6
+    3 KSP Residual norm 2.589054569243e-04 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 24
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 6
+    4 KSP Residual norm 1.054924164906e-05 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 24
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    5 KSP Residual norm 9.075508393797e-08 
+  Linear  solve converged due to CONVERGED_RTOL iterations 5
+  1 SNES Function norm 1.820582545705e-04 
+    Residual norms for  solve.
+    0 KSP Residual norm 1.820582545705e-04 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 15
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    1 KSP Residual norm 1.803199202459e-04 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 15
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    2 KSP Residual norm 7.775190899386e-05 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 19
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    3 KSP Residual norm 1.306695896332e-06 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 27
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    4 KSP Residual norm 5.995420843471e-08 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 28
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    5 KSP Residual norm 2.036218589374e-09 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 28
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    6 KSP Residual norm 3.790630743793e-11 
+  Linear  solve converged due to CONVERGED_RTOL iterations 6
+  2 SNES Function norm 1.046814184798e-07 
+    Residual norms for  solve.
+    0 KSP Residual norm 1.046814184798e-07 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 15
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 8
+    1 KSP Residual norm 7.749587213609e-08 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 17
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    2 KSP Residual norm 1.273009906696e-08 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 18
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    3 KSP Residual norm 5.219511572442e-10 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 22
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    4 KSP Residual norm 1.328058860845e-11 
+    Linear fieldsplit_0_ solve converged due to CONVERGED_RTOL iterations 24
+    Linear fieldsplit_1_ solve converged due to CONVERGED_RTOL iterations 7
+    5 KSP Residual norm 5.090109473254e-13 
+  Linear  solve converged due to CONVERGED_RTOL iterations 5
+  3 SNES Function norm 5.092877037397e-13 
+Nonlinear  solve converged due to CONVERGED_FNORM_RELATIVE iterations 3
+SNES Object: () 48 MPI processes
+  type: newtonls
+  maximum iterations=50, maximum function evaluations=10000
+  tolerances: relative=1e-08, absolute=1e-50, solution=1e-08
+  total number of linear solver iterations=16
+  total number of function evaluations=4
+  norm schedule ALWAYS
+  SNESLineSearch Object: () 48 MPI processes
+    type: basic
+    maxstep=1.000000e+08, minlambda=1.000000e-12
+    tolerances: relative=1.000000e-08, absolute=1.000000e-15, lambda=1.000000e-08
+    maximum iterations=40
+  KSP Object: () 48 MPI processes
+    type: fgmres
+      GMRES: restart=30, using Modified Gram-Schmidt Orthogonalization
+      GMRES: happy breakdown tolerance 1e-30
+    maximum iterations=10000, initial guess is zero
+    tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+    right preconditioning
+    using UNPRECONDITIONED norm type for convergence test
+  PC Object: () 48 MPI processes
+    type: fieldsplit
+      FieldSplit with MULTIPLICATIVE composition: total splits = 2
+      Solver info for each split is in the following KSP objects:
+      Split number 0 Defined by IS
+      KSP Object: (fieldsplit_0_) 48 MPI processes
+        type: gmres
+          GMRES: restart=30, using Modified Gram-Schmidt Orthogonalization
+          GMRES: happy breakdown tolerance 1e-30
+        maximum iterations=10000, initial guess is zero
+        tolerances:  relative=0.01, absolute=1e-50, divergence=10000.
+        left preconditioning
+        using PRECONDITIONED norm type for convergence test
+      PC Object: (fieldsplit_0_) 48 MPI processes
+        type: fieldsplit
+          FieldSplit with Schur preconditioner, factorization LOWER
+          Preconditioner for the Schur complement formed from A11
+          Split info:
+          Split number 0 Defined by IS
+          Split number 1 Defined by IS
+          KSP solver for A00 block
+            KSP Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+              type: preonly
+              maximum iterations=10000, initial guess is zero
+              tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+              left preconditioning
+              using NONE norm type for convergence test
+            PC Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+              type: python
+                Python: firedrake.AssembledPC
+              Firedrake matrix-free preconditioner AssembledPC
+                PC to apply inverse
+                PC Object: (fieldsplit_0_fieldsplit_0_assembled_) 48 MPI processes
+                  type: hypre
+                    HYPRE BoomerAMG preconditioning
+                    HYPRE BoomerAMG: Cycle type V
+                    HYPRE BoomerAMG: Maximum number of levels 25
+                    HYPRE BoomerAMG: Maximum number of iterations PER hypre call 1
+                    HYPRE BoomerAMG: Convergence tolerance PER hypre call 0.
+                    HYPRE BoomerAMG: Threshold for strong coupling 0.25
+                    HYPRE BoomerAMG: Interpolation truncation factor 0.
+                    HYPRE BoomerAMG: Interpolation: max elements per row 4
+                    HYPRE BoomerAMG: Number of levels of aggressive coarsening 1
+                    HYPRE BoomerAMG: Number of paths for aggressive coarsening 2
+                    HYPRE BoomerAMG: Maximum row sums 0.9
+                    HYPRE BoomerAMG: Sweeps down         1
+                    HYPRE BoomerAMG: Sweeps up           1
+                    HYPRE BoomerAMG: Sweeps on coarse    1
+                    HYPRE BoomerAMG: Relax down          symmetric-SOR/Jacobi
+                    HYPRE BoomerAMG: Relax up            symmetric-SOR/Jacobi
+                    HYPRE BoomerAMG: Relax on coarse     Gaussian-elimination
+                    HYPRE BoomerAMG: Relax weight  (all)      1.
+                    HYPRE BoomerAMG: Outer relax weight (all) 1.
+                    HYPRE BoomerAMG: Not using CF-relaxation
+                    HYPRE BoomerAMG: Not using more complex smoothers.
+                    HYPRE BoomerAMG: Measure type        local
+                    HYPRE BoomerAMG: Coarsen type        HMIS
+                    HYPRE BoomerAMG: Interpolation type  ext+i
+                  linear system matrix = precond matrix:
+                  Mat Object: 48 MPI processes
+                    type: mpiaij
+                    rows=1369599, cols=1369599, bs=3
+                    total: nonzeros=115386705, allocated nonzeros=115386705
+                    total number of mallocs used during MatSetValues calls =0
+                      using I-node (on process 0) routines: found 9254 nodes, limit used is 5
+              linear system matrix = precond matrix:
+              Mat Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+                type: python
+                rows=1369599, cols=1369599, bs=3
+                    Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                  Firedrake matrix-free operator ImplicitMatrixContext
+          KSP solver for S = A11 - A10 inv(A00) A01 
+            KSP Object: (fieldsplit_0_fieldsplit_1_) 48 MPI processes
+              type: preonly
+              maximum iterations=10000, initial guess is zero
+              tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+              left preconditioning
+              using NONE norm type for convergence test
+            PC Object: (fieldsplit_0_fieldsplit_1_) 48 MPI processes
+              type: python
+                Python: firedrake.PCDPC
+              Firedrake matrix-free preconditioner PCDPC
+              Pressure-Convection-Diffusion inverse K^-1 F_p M^-1:
+                Reynolds number in F_p (applied matrix-free) is 1.0
+                KSP solver for K^-1:
+                  KSP Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_) 48 MPI processes
+                    type: preonly
+                    maximum iterations=10000, initial guess is zero
+                    tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                    left preconditioning
+                    using NONE norm type for convergence test
+                  PC Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_) 48 MPI processes
+                    type: telescope
+                      Telescope: parent comm size reduction factor = 6
+                      Telescope: comm_size = 48 , subcomm_size = 8
+                      Telescope: subcomm type: interlaced
+                        Telescope: using default setup
+                      KSP Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_) 8 MPI processes
+                        type: preonly
+                        maximum iterations=10000, initial guess is zero
+                        tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                        left preconditioning
+                        using NONE norm type for convergence test
+                      PC Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_) 8 MPI processes
+                        type: ksp
+                        KSP and PC on KSP preconditioner follow
+                        ---------------------------------
+                          KSP Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_ksp_) 8 MPI processes
+                            type: richardson
+                              Richardson: damping factor=1.
+                            maximum iterations=3, initial guess is zero
+                            tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                            left preconditioning
+                            using PRECONDITIONED norm type for convergence test
+                          PC Object: (fieldsplit_0_fieldsplit_1_pcd_Kp_telescope_ksp_) 8 MPI processes
+                            type: hypre
+                              HYPRE BoomerAMG preconditioning
+                              HYPRE BoomerAMG: Cycle type V
+                              HYPRE BoomerAMG: Maximum number of levels 25
+                              HYPRE BoomerAMG: Maximum number of iterations PER hypre call 1
+                              HYPRE BoomerAMG: Convergence tolerance PER hypre call 0.
+                              HYPRE BoomerAMG: Threshold for strong coupling 0.25
+                              HYPRE BoomerAMG: Interpolation truncation factor 0.
+                              HYPRE BoomerAMG: Interpolation: max elements per row 4
+                              HYPRE BoomerAMG: Number of levels of aggressive coarsening 1
+                              HYPRE BoomerAMG: Number of paths for aggressive coarsening 2
+                              HYPRE BoomerAMG: Maximum row sums 0.9
+                              HYPRE BoomerAMG: Sweeps down         1
+                              HYPRE BoomerAMG: Sweeps up           1
+                              HYPRE BoomerAMG: Sweeps on coarse    1
+                              HYPRE BoomerAMG: Relax down          symmetric-SOR/Jacobi
+                              HYPRE BoomerAMG: Relax up            symmetric-SOR/Jacobi
+                              HYPRE BoomerAMG: Relax on coarse     Gaussian-elimination
+                              HYPRE BoomerAMG: Relax weight  (all)      1.
+                              HYPRE BoomerAMG: Outer relax weight (all) 1.
+                              HYPRE BoomerAMG: Not using CF-relaxation
+                              HYPRE BoomerAMG: Not using more complex smoothers.
+                              HYPRE BoomerAMG: Measure type        local
+                              HYPRE BoomerAMG: Coarsen type        HMIS
+                              HYPRE BoomerAMG: Interpolation type  ext+i
+                            linear system matrix = precond matrix:
+                            Mat Object: 8 MPI processes
+                              type: mpiaij
+                              rows=59319, cols=59319
+                              total: nonzeros=853747, allocated nonzeros=853747
+                              total number of mallocs used during MatSetValues calls =0
+                                not using I-node (on process 0) routines
+                        ---------------------------------
+                        linear system matrix = precond matrix:
+                        Mat Object: 8 MPI processes
+                          type: mpiaij
+                          rows=59319, cols=59319
+                          total: nonzeros=853747, allocated nonzeros=853747
+                          total number of mallocs used during MatSetValues calls =0
+                            not using I-node (on process 0) routines
+                    linear system matrix = precond matrix:
+                    Mat Object: 48 MPI processes
+                      type: mpiaij
+                      rows=59319, cols=59319
+                      total: nonzeros=853747, allocated nonzeros=853747
+                      total number of mallocs used during MatSetValues calls =0
+                        not using I-node (on process 0) routines
+                KSP solver for M^-1:
+                  KSP Object: (fieldsplit_0_fieldsplit_1_pcd_Mp_) 48 MPI processes
+                    type: richardson
+                      Richardson: damping factor=1.
+                    maximum iterations=2, initial guess is zero
+                    tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                    left preconditioning
+                    using PRECONDITIONED norm type for convergence test
+                  PC Object: (fieldsplit_0_fieldsplit_1_pcd_Mp_) 48 MPI processes
+                    type: sor
+                      SOR: type = local_symmetric, iterations = 1, local iterations = 1, omega = 1.
+                    linear system matrix = precond matrix:
+                    Mat Object: 48 MPI processes
+                      type: mpiaij
+                      rows=59319, cols=59319
+                      total: nonzeros=853747, allocated nonzeros=853747
+                      total number of mallocs used during MatSetValues calls =0
+                        not using I-node (on process 0) routines
+              linear system matrix followed by preconditioner matrix:
+              Mat Object: (fieldsplit_0_fieldsplit_1_) 48 MPI processes
+                type: schurcomplement
+                rows=59319, cols=59319
+                  Schur complement A11 - A10 inv(A00) A01
+                  A11
+                    Mat Object: (fieldsplit_0_fieldsplit_1_) 48 MPI processes
+                      type: python
+                      rows=59319, cols=59319
+                          Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                        Firedrake matrix-free operator ImplicitMatrixContext
+                  A10
+                    Mat Object: 48 MPI processes
+                      type: python
+                      rows=59319, cols=1369599, rbs=1, cbs = 3
+                          Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                        Firedrake matrix-free operator ImplicitMatrixContext
+                  KSP of A00
+                    KSP Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+                      type: preonly
+                      maximum iterations=10000, initial guess is zero
+                      tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                      left preconditioning
+                      using NONE norm type for convergence test
+                    PC Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+                      type: python
+                        Python: firedrake.AssembledPC
+                      Firedrake matrix-free preconditioner AssembledPC
+                        PC to apply inverse
+                        PC Object: (fieldsplit_0_fieldsplit_0_assembled_) 48 MPI processes
+                          type: hypre
+                            HYPRE BoomerAMG preconditioning
+                            HYPRE BoomerAMG: Cycle type V
+                            HYPRE BoomerAMG: Maximum number of levels 25
+                            HYPRE BoomerAMG: Maximum number of iterations PER hypre call 1
+                            HYPRE BoomerAMG: Convergence tolerance PER hypre call 0.
+                            HYPRE BoomerAMG: Threshold for strong coupling 0.25
+                            HYPRE BoomerAMG: Interpolation truncation factor 0.
+                            HYPRE BoomerAMG: Interpolation: max elements per row 4
+                            HYPRE BoomerAMG: Number of levels of aggressive coarsening 1
+                            HYPRE BoomerAMG: Number of paths for aggressive coarsening 2
+                            HYPRE BoomerAMG: Maximum row sums 0.9
+                            HYPRE BoomerAMG: Sweeps down         1
+                            HYPRE BoomerAMG: Sweeps up           1
+                            HYPRE BoomerAMG: Sweeps on coarse    1
+                            HYPRE BoomerAMG: Relax down          symmetric-SOR/Jacobi
+                            HYPRE BoomerAMG: Relax up            symmetric-SOR/Jacobi
+                            HYPRE BoomerAMG: Relax on coarse     Gaussian-elimination
+                            HYPRE BoomerAMG: Relax weight  (all)      1.
+                            HYPRE BoomerAMG: Outer relax weight (all) 1.
+                            HYPRE BoomerAMG: Not using CF-relaxation
+                            HYPRE BoomerAMG: Not using more complex smoothers.
+                            HYPRE BoomerAMG: Measure type        local
+                            HYPRE BoomerAMG: Coarsen type        HMIS
+                            HYPRE BoomerAMG: Interpolation type  ext+i
+                          linear system matrix = precond matrix:
+                          Mat Object: 48 MPI processes
+                            type: mpiaij
+                            rows=1369599, cols=1369599, bs=3
+                            total: nonzeros=115386705, allocated nonzeros=115386705
+                            total number of mallocs used during MatSetValues calls =0
+                              using I-node (on process 0) routines: found 9254 nodes, limit used is 5
+                      linear system matrix = precond matrix:
+                      Mat Object: (fieldsplit_0_fieldsplit_0_) 48 MPI processes
+                        type: python
+                        rows=1369599, cols=1369599, bs=3
+                            Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                          Firedrake matrix-free operator ImplicitMatrixContext
+                  A01
+                    Mat Object: 48 MPI processes
+                      type: python
+                      rows=1369599, cols=59319, rbs=3, cbs = 1
+                          Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                        Firedrake matrix-free operator ImplicitMatrixContext
+              Mat Object: (fieldsplit_0_fieldsplit_1_) 48 MPI processes
+                type: python
+                rows=59319, cols=59319
+                    Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+                  Firedrake matrix-free operator ImplicitMatrixContext
+        linear system matrix = precond matrix:
+        Mat Object: (fieldsplit_0_) 48 MPI processes
+          type: python
+          rows=1428918, cols=1428918
+              Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+            Firedrake matrix-free operator ImplicitMatrixContext
+      Split number 1 Defined by IS
+      KSP Object: (fieldsplit_1_) 48 MPI processes
+        type: gmres
+          GMRES: restart=30, using Classical (unmodified) Gram-Schmidt Orthogonalization with no iterative refinement
+          GMRES: happy breakdown tolerance 1e-30
+        maximum iterations=10000, initial guess is zero
+        tolerances:  relative=0.0001, absolute=1e-50, divergence=10000.
+        left preconditioning
+        using PRECONDITIONED norm type for convergence test
+      PC Object: (fieldsplit_1_) 48 MPI processes
+        type: python
+          Python: firedrake.AssembledPC
+        Firedrake matrix-free preconditioner AssembledPC
+          PC to apply inverse
+          PC Object: (fieldsplit_1_assembled_) 48 MPI processes
+            type: telescope
+              Telescope: parent comm size reduction factor = 6
+              Telescope: comm_size = 48 , subcomm_size = 8
+              Telescope: subcomm type: interlaced
+                Telescope: using default setup
+              KSP Object: (fieldsplit_1_assembled_telescope_) 8 MPI processes
+                type: preonly
+                maximum iterations=10000, initial guess is zero
+                tolerances:  relative=1e-05, absolute=1e-50, divergence=10000.
+                left preconditioning
+                using NONE norm type for convergence test
+              PC Object: (fieldsplit_1_assembled_telescope_) 8 MPI processes
+                type: hypre
+                  HYPRE BoomerAMG preconditioning
+                  HYPRE BoomerAMG: Cycle type V
+                  HYPRE BoomerAMG: Maximum number of levels 25
+                  HYPRE BoomerAMG: Maximum number of iterations PER hypre call 1
+                  HYPRE BoomerAMG: Convergence tolerance PER hypre call 0.
+                  HYPRE BoomerAMG: Threshold for strong coupling 0.25
+                  HYPRE BoomerAMG: Interpolation truncation factor 0.
+                  HYPRE BoomerAMG: Interpolation: max elements per row 4
+                  HYPRE BoomerAMG: Number of levels of aggressive coarsening 1
+                  HYPRE BoomerAMG: Number of paths for aggressive coarsening 2
+                  HYPRE BoomerAMG: Maximum row sums 0.9
+                  HYPRE BoomerAMG: Sweeps down         1
+                  HYPRE BoomerAMG: Sweeps up           1
+                  HYPRE BoomerAMG: Sweeps on coarse    1
+                  HYPRE BoomerAMG: Relax down          symmetric-SOR/Jacobi
+                  HYPRE BoomerAMG: Relax up            symmetric-SOR/Jacobi
+                  HYPRE BoomerAMG: Relax on coarse     Gaussian-elimination
+                  HYPRE BoomerAMG: Relax weight  (all)      1.
+                  HYPRE BoomerAMG: Outer relax weight (all) 1.
+                  HYPRE BoomerAMG: Not using CF-relaxation
+                  HYPRE BoomerAMG: Not using more complex smoothers.
+                  HYPRE BoomerAMG: Measure type        local
+                  HYPRE BoomerAMG: Coarsen type        HMIS
+                  HYPRE BoomerAMG: Interpolation type  ext+i
+                linear system matrix = precond matrix:
+                Mat Object: 8 MPI processes
+                  type: mpiaij
+                  rows=59319, cols=59319
+                  total: nonzeros=853747, allocated nonzeros=853747
+                  total number of mallocs used during MatSetValues calls =0
+                    not using I-node (on process 0) routines
+            linear system matrix = precond matrix:
+            Mat Object: 48 MPI processes
+              type: mpiaij
+              rows=59319, cols=59319
+              total: nonzeros=853747, allocated nonzeros=853747
+              total number of mallocs used during MatSetValues calls =0
+                not using I-node (on process 0) routines
+        linear system matrix = precond matrix:
+        Mat Object: (fieldsplit_1_) 48 MPI processes
+          type: python
+          rows=59319, cols=59319
+              Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+            Firedrake matrix-free operator ImplicitMatrixContext
+    linear system matrix = precond matrix:
+    Mat Object: 48 MPI processes
+      type: python
+      rows=1488237, cols=1488237
+        has attached null space
+          Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+        Firedrake matrix-free operator ImplicitMatrixContext
+Solving with parameter set pcd_mg, 19, 1...done
+Application 25483891 resources: utime ~5231s, stime ~161s, Rss ~319832, inblocks ~2907286, outblocks ~54005
