@@ -50,31 +50,30 @@ prob_args, _ = module.Problem.argparser().parse_known_args()
 
 if args.problem == "rayleigh_benard":
     if prob_args.dimension == 2:
-        size = 200
+        sizes = (150, 200, 250, 200)
         degrees = range(1, 5)
         refinements = (3, 2, 1, 1)
     elif prob_args.dimension == 3:
-        size = 40
+        sizes = (40, 50, 29)
         degrees = range(1, 4)
         refinements = (1, 0, 0)
     else:
         raise ValueError("Unhandled dimension")
 elif args.problem == "poisson":
     if prob_args.dimension == 2:
-        size = 200
+        sizes =       (200, 200, 150, 200, 160, 130, 250)
         degrees =     (1, 2, 3, 4, 5, 6, 7)
-        refinements = (4, 3, 2, 2, 1, 1, 1)
+        refinements = (4, 3, 3, 2, 2, 2, 1)
     elif prob_args.dimension == 3:
-        size = 30
+        sizes =       (50, 50, 40, 30, 50)
         degrees =     (1, 2, 3, 4, 5)
-        refinements = (3, 2, 1, 1, 0)
+        refinements = (2, 1, 1, 1, 0)
     else:
         raise ValueError("Unhandled dimension")
 else:
     raise ValueError("Unhandled problem %s" % args.problem)
 
 problem = module.Problem(quadrilateral=args.tensor)
-problem.N = size
 results = os.path.abspath(args.output_file)
 
 
@@ -111,11 +110,20 @@ sizeof_int = PETSc.IntType().dtype.itemsize
 sizeof_double = PETSc.ScalarType().dtype.itemsize
 
 
-def aij_matvec_bytes(rows, cols, nz):
+PETSc.Sys.Print("Int Type has %d bytes, Scalar Type has %d bytes" %
+                (sizeof_int, sizeof_double))
+
+def aij_matvec_bytes(rows, cols, nz, rbs=1, cbs=1):
     # Gropp et al. 2000
-    return ((cols + rows)*sizeof_double         # Vec read/write
-            + rows*sizeof_int                   # Row pointer
-            + nz*(sizeof_int + sizeof_double))  # col idx + nonzeros
+    if rbs == cbs and rbs != 1:
+        pass
+    else:
+        rbs = 1
+        cbs = 1
+    return ((cols + rows)*sizeof_double  # Vec read/write
+            + (rows / rbs)*sizeof_int    # Row pointer
+            + (nz / rbs**2)*sizeof_int   # col idx
+            + nz*sizeof_double)          # nonzeros
 
 
 def aij_matvec_flops(nz):
@@ -124,6 +132,21 @@ def aij_matvec_flops(nz):
 
 def aij_matvec_ai(rows, cols, nz):
     return aij_matvec_flops(nz) / aij_matvec_bytes(rows, cols, nz)
+
+
+def nest_matvec_bytes(mat):
+    nbyte = 0
+    for m in mat.M:
+        m = m.handle
+        rbs, cbs = m.getBlockSizes()
+        rows, cols = m.getSize()
+        nz = m.getInfo()["nz_used"]
+        nbyte += aij_matvec_bytes(rows, cols, nz, rbs, cbs)
+    return nbyte
+
+
+def nest_matvec_ai(mat, nz):
+    return aij_matvec_flops(nz) / nest_matvec_bytes(mat)
 
 
 def aij_assemble_ai(rows, row_dof_per_cell,
@@ -164,9 +187,9 @@ def matfree_matvec_ai(rows, row_dof_per_cell,
                                                               coords, coord_dof_per_cell,
                                                               ncell)
 
-for degree, refinement in zip(degrees, refinements):
-    PETSc.Sys.Print("Running degree %d, ref %d" % (degree, refinement))
-    problem.reinit(degree=degree, refinements=refinement)
+for size, degree, refinement in zip(sizes, degrees, refinements):
+    PETSc.Sys.Print("Running degree %d, size %d, ref %d" % (degree, size, refinement))
+    problem.reinit(size=size, degree=degree, refinements=refinement)
 
     J = problem.J
 
@@ -185,7 +208,9 @@ for degree, refinement in zip(degrees, refinements):
         A.force_evaluation()
         Ap = A.petscmat
         x, y = Ap.createVecs()
+        x.setRandom()
         Ap.mult(x, y)
+
         stage = PETSc.Log.Stage("P(%d) %s matrix" % (degree, typ))
         with stage:
             with assemble_event:
@@ -193,16 +218,18 @@ for degree, refinement in zip(degrees, refinements):
                 A.force_evaluation()
                 Ap = A.petscmat
             for _ in range(args.num_matvecs):
+                x.set(_)
+                y.set(_)
                 Ap.mult(x, y)
 
             matmult = matmult_event.getPerfInfo()
             assembly = assemble_event.getPerfInfo()
-            matmult_time = problem.comm.allreduce(matmult["time"], op=MPI.SUM) / (problem.comm.size * args.num_matvecs)
+            matmult_time = problem.comm.allreduce(matmult["time"], op=MPI.MAX) / (args.num_matvecs)
             if typ == "matfree":
                 matmult_flops = problem.comm.allreduce(matmult["flops"], op=MPI.SUM) / (args.num_matvecs * scaling)
             else:
                 matmult_flops = problem.comm.allreduce(matmult["flops"], op=MPI.SUM) / args.num_matvecs
-            assemble_time = problem.comm.allreduce(assembly["time"], op=MPI.SUM) / (problem.comm.size * scaling)
+            assemble_time = problem.comm.allreduce(assembly["time"], op=MPI.MAX)
             assemble_flops = problem.comm.allreduce(assembly["flops"], op=MPI.SUM) / scaling
 
         rows, cols, bytes, nz = mat_info(A, typ)
@@ -217,8 +244,17 @@ for degree, refinement in zip(degrees, refinements):
                                    num_cells,
                                    matmult_flops)
             assemble_ai = 0
-        else:
+        elif typ == "aij":
             ai = aij_matvec_ai(rows, cols, nz)
+            assemble_ai = aij_assemble_ai(rows, V.cell_node_map().arity,
+                                          cols, V.cell_node_map().arity,
+                                          Vc.dof_dset.layout_vec.getSizes()[-1],
+                                          Vc.cell_node_map().arity,
+                                          num_cells,
+                                          nz,
+                                          assemble_flops)
+        elif typ == "nest":
+            ai = nest_matvec_ai(A, nz)
             assemble_ai = aij_assemble_ai(rows, V.cell_node_map().arity,
                                           cols, V.cell_node_map().arity,
                                           Vc.dof_dset.layout_vec.getSizes()[-1],
