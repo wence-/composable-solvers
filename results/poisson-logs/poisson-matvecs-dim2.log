@@ -1,0 +1,817 @@
+Int Type has 8 bytes, Scalar Type has 8 bytes
+Running degree 1, size 200, ref 4
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=71699201, allocated nonzeros=71699201
+  total number of mallocs used during MatSetValues calls =0
+    not using I-node (on process 0) routines
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=71699201, allocated nonzeros=71699201
+  total number of mallocs used during MatSetValues calls =0
+    not using I-node (on process 0) routines
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=71699201, allocated nonzeros=71699201
+  total number of mallocs used during MatSetValues calls =0
+    not using I-node (on process 0) routines
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=71699201, allocated nonzeros=71699201
+  total number of mallocs used during MatSetValues calls =0
+    not using I-node (on process 0) routines
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=71699201, allocated nonzeros=71699201
+  total number of mallocs used during MatSetValues calls =0
+    not using I-node (on process 0) routines
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Running degree 2, size 200, ref 3
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=117785601, allocated nonzeros=117785601
+  total number of mallocs used during MatSetValues calls =0
+    not using I-node (on process 0) routines
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=117785601, allocated nonzeros=117785601
+  total number of mallocs used during MatSetValues calls =0
+    not using I-node (on process 0) routines
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=117785601, allocated nonzeros=117785601
+  total number of mallocs used during MatSetValues calls =0
+    not using I-node (on process 0) routines
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=117785601, allocated nonzeros=117785601
+  total number of mallocs used during MatSetValues calls =0
+    not using I-node (on process 0) routines
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=117785601, allocated nonzeros=117785601
+  total number of mallocs used during MatSetValues calls =0
+    not using I-node (on process 0) routines
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Running degree 3, size 150, ref 3
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=12967201, cols=12967201
+  total: nonzeros=220356001, allocated nonzeros=220356001
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 182775 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=12967201, cols=12967201
+  total: nonzeros=220356001, allocated nonzeros=220356001
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 182775 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=12967201, cols=12967201
+  total: nonzeros=220356001, allocated nonzeros=220356001
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 182775 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=12967201, cols=12967201
+  total: nonzeros=220356001, allocated nonzeros=220356001
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 182775 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=12967201, cols=12967201
+  total: nonzeros=220356001, allocated nonzeros=220356001
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 182775 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: python
+  rows=12967201, cols=12967201
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=12967201, cols=12967201
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=12967201, cols=12967201
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=12967201, cols=12967201
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Running degree 4, size 200, ref 2
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=240678401, allocated nonzeros=240678401
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 79105 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=240678401, allocated nonzeros=240678401
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 79105 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=240678401, allocated nonzeros=240678401
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 79105 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=240678401, allocated nonzeros=240678401
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 79105 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=240678401, allocated nonzeros=240678401
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 79105 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Running degree 5, size 160, ref 2
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=317484801, allocated nonzeros=317484801
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 66777 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=317484801, allocated nonzeros=317484801
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 66777 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=317484801, allocated nonzeros=317484801
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 66777 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=317484801, allocated nonzeros=317484801
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 66777 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=10246401, cols=10246401
+  total: nonzeros=317484801, allocated nonzeros=317484801
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 66777 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=10246401, cols=10246401
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Running degree 6, size 130, ref 2
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=9740641, cols=9740641
+  total: nonzeros=384558721, allocated nonzeros=384558721
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 43852 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=9740641, cols=9740641
+  total: nonzeros=384558721, allocated nonzeros=384558721
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 43852 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=9740641, cols=9740641
+  total: nonzeros=384558721, allocated nonzeros=384558721
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 43852 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=9740641, cols=9740641
+  total: nonzeros=384558721, allocated nonzeros=384558721
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 43852 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=9740641, cols=9740641
+  total: nonzeros=384558721, allocated nonzeros=384558721
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 43852 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: python
+  rows=9740641, cols=9740641
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=9740641, cols=9740641
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=9740641, cols=9740641
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=9740641, cols=9740641
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Running degree 7, size 250, ref 1
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=12257001, cols=12257001
+  total: nonzeros=600313001, allocated nonzeros=600313001
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 67895 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=12257001, cols=12257001
+  total: nonzeros=600313001, allocated nonzeros=600313001
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 67895 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=12257001, cols=12257001
+  total: nonzeros=600313001, allocated nonzeros=600313001
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 67895 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=12257001, cols=12257001
+  total: nonzeros=600313001, allocated nonzeros=600313001
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 67895 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: mpiaij
+  rows=12257001, cols=12257001
+  total: nonzeros=600313001, allocated nonzeros=600313001
+  total number of mallocs used during MatSetValues calls =0
+    using I-node (on process 0) routines: found 67895 nodes, limit used is 5
+Mat Object: 48 MPI processes
+  type: python
+  rows=12257001, cols=12257001
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=12257001, cols=12257001
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=12257001, cols=12257001
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+Mat Object: 48 MPI processes
+  type: python
+  rows=12257001, cols=12257001
+      Python: firedrake.matrix_free.operators.ImplicitMatrixContext
+    Firedrake matrix-free operator ImplicitMatrixContext
+************************************************************************************************************************
+***             WIDEN YOUR WINDOW TO 120 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document            ***
+************************************************************************************************************************
+
+---------------------------------------------- PETSc Performance Summary: ----------------------------------------------
+
+profile-matvec.py on a petsc-gnu51-ivybridge-int64 named nid00006 with 48 processors, by lmn01 Mon Oct  2 13:47:51 2017
+Using Petsc Development GIT revision: v3.7.5-3014-g413f72f  GIT Date: 2017-02-05 17:50:57 -0600
+
+                         Max       Max/Min        Avg      Total 
+Time (sec):           7.874e+01      1.00000   7.874e+01
+Objects:              3.849e+03      1.48955   2.666e+03
+Flops:                9.801e+10      1.04082   9.639e+10  4.627e+12
+Flops/sec:            1.245e+09      1.04082   1.224e+09  5.876e+10
+MPI Messages:         2.036e+04      2.61946   1.005e+04  4.824e+05
+MPI Message Lengths:  8.596e+08      1.44287   6.160e+04  2.971e+10
+MPI Reductions:       6.980e+02      1.00000
+
+Flop counting convention: 1 flop = 1 real number operation of type (multiply/divide/add/subtract)
+                            e.g., VecAXPY() for real vectors of length N --> 2N flops
+                            and VecAXPY() for complex vectors of length N --> 8N flops
+
+Summary of Stages:   ----- Time ------  ----- Flops -----  --- Messages ---  -- Message Lengths --  -- Reductions --
+                        Avg     %Total     Avg     %Total   counts   %Total     Avg         %Total   counts   %Total 
+ 0:      Main Stage: 6.3551e+01  80.7%  9.0457e+11  19.6%  3.524e+05  73.1%  5.881e+04       95.5%  6.830e+02  97.9% 
+ 1: P(1) aij matrix: 4.7798e-01   0.6%  1.1210e+10   0.2%  9.360e+03   1.9%  5.498e+01        0.1%  2.000e+00   0.3% 
+ 2: P(1) matfree matrix: 5.1964e-01   0.7%  1.1892e+11   2.6%  9.360e+03   1.9%  8.253e+01        0.1%  0.000e+00   0.0% 
+ 3: P(2) aij matrix: 6.1600e-01   0.8%  1.8425e+10   0.4%  9.360e+03   1.9%  8.252e+01        0.1%  2.000e+00   0.3% 
+ 4: P(2) matfree matrix: 5.0588e-01   0.6%  1.3174e+11   2.8%  9.360e+03   1.9%  1.377e+02        0.2%  0.000e+00   0.0% 
+ 5: P(3) aij matrix: 1.0621e+00   1.3%  4.2376e+10   0.9%  9.360e+03   1.9%  1.247e+02        0.2%  2.000e+00   0.3% 
+ 6: P(3) matfree matrix: 8.3991e-01   1.1%  2.1117e+11   4.6%  9.360e+03   1.9%  2.187e+02        0.4%  0.000e+00   0.0% 
+ 7: P(4) aij matrix: 1.1008e+00   1.4%  6.6659e+10   1.4%  9.360e+03   1.9%  1.377e+02        0.2%  2.000e+00   0.3% 
+ 8: P(4) matfree matrix: 8.0906e-01   1.0%  2.6326e+11   5.7%  9.360e+03   1.9%  2.485e+02        0.4%  0.000e+00   0.0% 
+ 9: P(5) aij matrix: 1.3882e+00   1.8%  1.4672e+11   3.2%  9.280e+03   1.9%  1.653e+02        0.3%  2.000e+00   0.3% 
+10: P(5) matfree matrix: 1.0791e+00   1.4%  4.7478e+11  10.3%  9.280e+03   1.9%  3.041e+02        0.5%  0.000e+00   0.0% 
+11: P(6) aij matrix: 1.5080e+00   1.9%  2.3371e+11   5.1%  9.120e+03   1.9%  1.852e+02        0.3%  2.000e+00   0.3% 
+12: P(6) matfree matrix: 1.1692e+00   1.5%  5.9192e+11  12.8%  9.120e+03   1.9%  3.457e+02        0.6%  0.000e+00   0.0% 
+13: P(7) aij matrix: 2.3805e+00   3.0%  4.6640e+11  10.1%  9.120e+03   1.9%  2.438e+02        0.4%  2.000e+00   0.3% 
+14: P(7) matfree matrix: 1.7265e+00   2.2%  9.4499e+11  20.4%  9.120e+03   1.9%  4.595e+02        0.7%  0.000e+00   0.0% 
+
+------------------------------------------------------------------------------------------------------------------------
+See the 'Profiling' chapter of the users' manual for details on interpreting output.
+Phase summary info:
+   Count: number of times phase was executed
+   Time and Flops: Max - maximum over all processors
+                   Ratio - ratio of maximum to minimum over all processors
+   Mess: number of messages sent
+   Avg. len: average message length (bytes)
+   Reduct: number of global reductions
+   Global: entire computation
+   Stage: stages of a computation. Set stages with PetscLogStagePush() and PetscLogStagePop().
+      %T - percent time in this phase         %F - percent flops in this phase
+      %M - percent messages in this phase     %L - percent message lengths in this phase
+      %R - percent reductions in this phase
+   Total Mflop/s: 10e-6 * (sum of flops over all processors)/(max time over all processors)
+------------------------------------------------------------------------------------------------------------------------
+Event                Count      Time (sec)     Flops                             --- Global ---  --- Stage ---   Total
+                   Max Ratio  Max     Ratio   Max  Ratio  Mess   Avg len Reduct  %T %F %M %L %R  %T %F %M %L %R Mflop/s
+------------------------------------------------------------------------------------------------------------------------
+
+--- Event Stage 0: Main Stage
+
+PetscBarrier          17 1.0 7.5872e-01 1.0 0.00e+00 0.0 8.9e+03 1.9e+01 8.5e+01  1  0  2  0 12   1  0  3  0 12     0
+BuildTwoSided        304 1.0 9.7745e-01 4.6 0.00e+00 0.0 5.2e+04 8.0e+00 0.0e+00  1  0 11  0  0   1  0 15  0  0     0
+VecCopy               21 1.0 2.2771e-02 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSet                45 1.0 6.0997e-03 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecScatterBegin        7 1.0 2.2042e-0271.5 0.00e+00 0.0 1.6e+03 7.4e+03 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecScatterEnd          7 1.0 1.6241e-0211.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSetRandom          14 1.0 1.9904e-01 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatMult               14 1.0 6.4510e-01 1.0 1.53e+09 1.0 5.7e+03 9.7e+03 2.1e+01  1  2  1  0  3   1  8  2  0  3 111997
+MatAssemblyBegin      42 1.0 8.7190e-0413.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd        42 1.0 6.1038e-01 1.2 0.00e+00 0.0 3.2e+03 3.7e+03 5.6e+01  1  0  1  0  8   1  0  1  0  8     0
+MatView               35 1.0 2.7021e-01 8.4 0.00e+00 0.0 0.0e+00 0.0e+00 2.1e+01  0  0  0  0  3   0  0  0  0  3     0
+Mesh Partition        14 1.0 1.9093e+00 1.0 0.00e+00 0.0 2.2e+05 7.7e+03 7.7e+01  2  0 45  6 11   3  0 62  6 11     0
+Mesh Migration        14 1.0 4.5653e+00 1.0 0.00e+00 0.0 1.0e+05 2.4e+05 1.4e+02  6  0 21 84 20   7  0 29 88 20     0
+DMPlexInterp           7 1.0 1.5763e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 7.0e+00  2  0  0  0  1   2  0  0  0  1     0
+DMPlexDistribute       7 1.0 1.5144e+00 1.0 0.00e+00 0.0 1.1e+05 4.4e+03 6.3e+01  2  0 24  2  9   2  0 32  2  9     0
+DMPlexDistCones       14 1.0 1.4116e+00 1.3 0.00e+00 0.0 1.8e+04 4.3e+05 0.0e+00  2  0  4 26  0   2  0  5 28  0     0
+DMPlexDistLabels      14 1.0 2.2211e+00 1.0 0.00e+00 0.0 5.2e+04 2.6e+05 1.4e+01  3  0 11 45  2   3  0 15 47  2     0
+DMPlexDistribOL        7 1.0 5.1457e+00 1.0 0.00e+00 0.0 2.1e+05 1.3e+05 1.5e+02  7  0 43 93 22   8  0 59 98 23     0
+DMPlexDistField       21 1.0 2.6951e-01 1.1 0.00e+00 0.0 2.4e+04 7.7e+04 1.4e+01  0  0  5  6  2   0  0  7  7  2     0
+DMPlexDistData        14 1.0 7.1346e-01 4.9 0.00e+00 0.0 2.0e+05 4.1e+02 0.0e+00  1  0 41  0  0   1  0 56  0  0     0
+DMPlexStratify        45 1.0 2.6873e+00 2.5 0.00e+00 0.0 0.0e+00 0.0e+00 4.5e+01  3  0  0  0  6   4  0  0  0  7     0
+SFSetGraph           347 1.0 6.5520e-01 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   1  0  0  0  0     0
+SFBcastBegin         651 1.0 1.9894e+00 1.4 0.00e+00 0.0 3.4e+05 8.3e+04 0.0e+00  2  0 70 95  0   3  0 96100  0     0
+SFBcastEnd           651 1.0 1.4226e+00 1.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   2  0  0  0  0     0
+SFReduceBegin         28 1.0 4.0293e-02 5.6 0.00e+00 0.0 6.4e+03 5.4e+03 0.0e+00  0  0  1  0  0   0  0  2  0  0     0
+SFReduceEnd           28 1.0 4.2905e-02 7.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFFetchOpBegin         7 1.0 2.2101e-04 3.1 0.00e+00 0.0 8.1e+02 2.2e+03 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFFetchOpEnd           7 1.0 1.1482e-0212.9 0.00e+00 0.0 8.1e+02 2.2e+03 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+CreateMesh            35 1.0 8.5993e+00 1.0 0.00e+00 0.0 3.2e+05 8.7e+04 2.4e+02 11  0 67 95 35  13  0 92 99 36     0
+CreateFunctionSpace       7 1.0 1.7551e+01 1.0 0.00e+00 0.0 2.2e+05 1.3e+05 2.5e+02 22  0 46 94 36  28  0 63 98 36     0
+Mesh: reorder          7 1.0 3.6667e-01 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 1.4e+01  0  0  0  0  2   1  0  0  0  2     0
+Mesh: numbering        7 1.0 9.4323e-01 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 1.4e+01  1  0  0  0  2   1  0  0  0  2     0
+CreateSparsity         7 1.0 2.0891e+00 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  3  0  0  0  0   3  0  0  0  0     0
+MatZeroInitial         7 1.0 1.9388e+00 1.0 0.00e+00 0.0 3.2e+03 3.7e+03 6.3e+01  2  0  1  0  9   3  0  1  0  9     0
+ParLoopExecute        42 1.0 2.8898e+00 1.1 1.91e+10 1.0 4.1e+03 1.1e+04 0.0e+00  3 19  1  0  0   4100  1  0  0 311699
+ParLoopset_4           2 1.0 9.9683e-04 2.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopHaloEnd        42 1.0 7.0930e-04 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin      42 1.0 2.6703e-04 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd        42 1.0 2.5058e-04 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells          42 1.0 2.0717e+00 1.1 1.91e+10 1.0 0.0e+00 0.0e+00 0.0e+00  3 19  0  0  0   3100  0  0  0 434789
+ParLoopset_0           6 1.0 1.0705e-03 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_10          2 1.0 6.2513e-04 1.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_9           6 1.0 5.6362e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_16          2 1.0 5.3716e-04 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_15          6 1.0 6.9237e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_22          2 1.0 4.5395e-04 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_21          6 1.0 5.6219e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_28          2 1.0 4.6682e-04 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_27          6 1.0 5.5766e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_34          2 1.0 3.9005e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_33          6 1.0 5.4216e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_40          2 1.0 4.8399e-04 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopset_39          6 1.0 6.6376e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+
+--- Event Stage 1: P(1) aij matrix
+
+VecSet                80 1.0 5.5902e-02 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  10  0  0  0  0     0
+VecScatterBegin       40 1.0 4.5865e-03 3.4 0.00e+00 0.0 9.4e+03 2.8e+03 0.0e+00  0  0  2  0  0   1  0100100  0     0
+VecScatterEnd         40 1.0 2.5669e-0219.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatMult               40 1.0 3.0637e-01 1.0 1.15e+08 1.1 9.4e+03 2.8e+03 0.0e+00  0  0  2  0  0  63 48100100  0 17384
+MatAssemblyBegin       3 1.0 4.0531e-06 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         3 1.0 2.5483e-02 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   5  0  0  0  0     0
+MatZeroEntries         1 1.0 3.1569e-03 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatView                2 1.0 9.5072e-0324.2 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  0   1  0  0  0100     0
+AssembleMat            1 1.0 1.2439e-01 1.0 1.28e+08 1.1 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  0  26 52  0  0100 47301
+ParLoopExecute         1 1.0 9.7973e-02 1.1 1.28e+08 1.1 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  19 52  0  0  0 60058
+ParLoopHaloEnd         1 1.0 3.0994e-05 4.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin       1 1.0 2.5988e-05 5.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd         1 1.0 4.2200e-05 7.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells           3 1.0 9.7730e-02 1.1 1.28e+08 1.1 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  19 52  0  0  0 60207
+
+--- Event Stage 2: P(1) matfree matrix
+
+VecCopy              120 1.0 8.6817e-02 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  14  0  0  0  0     0
+VecSet                80 1.0 3.9973e-02 2.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   5  0  0  0  0     0
+MatMult               40 1.0 4.8622e-01 1.0 2.58e+09 1.1 9.4e+03 4.3e+03 0.0e+00  1  3  2  0  0  92100100100  0 244578
+MatAssemblyBegin       2 1.0 9.0599e-06 1.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         2 1.0 8.1062e-06 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                2 1.0 1.6212e-04 8.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFBcastBegin          40 1.0 3.2794e-03 4.7 0.00e+00 0.0 9.4e+03 4.3e+03 0.0e+00  0  0  2  0  0   0  0100100  0     0
+SFBcastEnd            40 1.0 4.4952e-0243.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+AssembleMat            1 1.0 3.1495e-04 2.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopExecute       160 1.0 4.0664e-01 1.1 2.58e+09 1.1 9.4e+03 4.3e+03 0.0e+00  0  3  2  0  0  74100100100  0 292442
+ParLoopHaloEnd       160 1.0 4.8280e-0213.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   3  0  0  0  0     0
+ParLoopRednBegin     160 1.0 4.7898e-04 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd       160 1.0 6.9308e-04 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells         120 1.0 3.5551e-01 1.1 2.58e+09 1.1 0.0e+00 0.0e+00 0.0e+00  0  3  0  0  0  65100  0  0  0 334501
+ParLoopset_0         240 1.0 2.1086e-02 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   4  0  0  0  0     0
+
+--- Event Stage 3: P(2) aij matrix
+
+VecSet                80 1.0 5.0259e-02 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   7  0  0  0  0     0
+VecScatterBegin       40 1.0 5.5680e-03 3.9 0.00e+00 0.0 9.4e+03 4.3e+03 0.0e+00  0  0  2  0  0   1  0100100  0     0
+VecScatterEnd         40 1.0 2.5451e-0214.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatMult               40 1.0 4.4500e-01 1.0 1.95e+08 1.1 9.4e+03 4.3e+03 0.0e+00  1  0  2  0  0  71 49100100  0 20254
+MatAssemblyBegin       3 1.0 2.8610e-06 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         3 1.0 2.8628e-02 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   4  0  0  0  0     0
+MatZeroEntries         1 1.0 5.0480e-03 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatView                2 1.0 1.1578e-0230.3 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  0   0  0  0  0100     0
+AssembleMat            1 1.0 1.2868e-01 1.0 2.04e+08 1.1 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  0  21 51  0  0100 73145
+ParLoopExecute         1 1.0 9.6805e-02 1.1 2.04e+08 1.1 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  15 51  0  0  0 97228
+ParLoopHaloEnd         1 1.0 1.9073e-05 2.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin       1 1.0 3.0041e-05 6.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd         1 1.0 2.4080e-05 4.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells           3 1.0 9.6529e-02 1.1 2.04e+08 1.1 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  15 51  0  0  0 97506
+
+--- Event Stage 4: P(2) matfree matrix
+
+VecCopy              120 1.0 1.0391e-01 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  16  0  0  0  0     0
+VecSet                80 1.0 5.2748e-02 2.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   6  0  0  0  0     0
+MatMult               40 1.0 4.7893e-01 1.1 2.86e+09 1.1 9.4e+03 7.1e+03 0.0e+00  1  3  2  0  0  92100100100  0 275070
+MatAssemblyBegin       2 1.0 7.8678e-06 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         2 1.0 7.1526e-06 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                2 1.0 1.4901e-04 7.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFBcastBegin          40 1.0 3.6676e-03 3.3 0.00e+00 0.0 9.4e+03 7.1e+03 0.0e+00  0  0  2  0  0   0  0100100  0     0
+SFBcastEnd            40 1.0 6.8722e-0233.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   7  0  0  0  0     0
+AssembleMat            1 1.0 2.9802e-04 1.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopExecute       160 1.0 3.9146e-01 1.2 2.86e+09 1.1 9.4e+03 7.1e+03 0.0e+00  0  3  2  0  0  72100100100  0 336529
+ParLoopHaloEnd       160 1.0 7.2092e-0216.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   8  0  0  0  0     0
+ParLoopRednBegin     160 1.0 4.7541e-04 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd       160 1.0 7.1454e-04 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells         120 1.0 3.0212e-01 1.1 2.86e+09 1.1 0.0e+00 0.0e+00 0.0e+00  0  3  0  0  0  58100  0  0  0 436043
+ParLoopset_9         240 1.0 2.5442e-02 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   4  0  0  0  0     0
+
+--- Event Stage 5: P(3) aij matrix
+
+VecSet                80 1.0 6.4326e-02 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   5  0  0  0  0     0
+VecScatterBegin       40 1.0 7.3190e-03 3.0 0.00e+00 0.0 9.4e+03 6.4e+03 0.0e+00  0  0  2  0  0   0  0100100  0     0
+VecScatterEnd         40 1.0 6.3970e-0220.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+MatMult               40 1.0 7.8800e-01 1.1 3.72e+08 1.1 9.4e+03 6.4e+03 0.0e+00  1  0  2  0  0  73 40100100  0 21713
+MatAssemblyBegin       3 1.0 2.1458e-06 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         3 1.0 3.9236e-02 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   3  0  0  0  0     0
+MatZeroEntries         1 1.0 9.3849e-03 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatView                2 1.0 2.0917e-0284.3 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  0   1  0  0  0100     0
+AssembleMat            1 1.0 2.2590e-01 1.0 5.49e+08 1.1 0.0e+00 0.0e+00 2.0e+00  0  1  0  0  0  21 60  0  0100 111846
+ParLoopExecute         1 1.0 1.8034e-01 1.1 5.49e+08 1.1 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0  16 60  0  0  0 140105
+ParLoopHaloEnd         1 1.0 2.9087e-05 3.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin       1 1.0 4.2915e-05 7.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd         1 1.0 3.1948e-05 4.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells           3 1.0 1.8007e-01 1.1 5.49e+08 1.1 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0  16 60  0  0  0 140313
+
+--- Event Stage 6: P(3) matfree matrix
+
+VecCopy              120 1.0 1.5339e-01 1.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  15  0  0  0  0     0
+VecSet                80 1.0 7.6886e-02 3.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   6  0  0  0  0     0
+MatMult               40 1.0 8.1139e-01 1.1 4.59e+09 1.1 9.4e+03 1.1e+04 0.0e+00  1  5  2  0  0  93100100100  0 260258
+MatAssemblyBegin       2 1.0 8.1062e-06 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         2 1.0 8.1062e-06 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                2 1.0 1.4997e-04 8.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFBcastBegin          40 1.0 5.2714e-03 3.8 0.00e+00 0.0 9.4e+03 1.1e+04 0.0e+00  0  0  2  0  0   0  0100100  0     0
+SFBcastEnd            40 1.0 1.4549e-0138.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   6  0  0  0  0     0
+AssembleMat            1 1.0 3.0208e-04 1.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopExecute       160 1.0 7.1454e-01 1.2 4.59e+09 1.1 9.4e+03 1.1e+04 0.0e+00  1  5  2  0  0  74100100100  0 295534
+ParLoopHaloEnd       160 1.0 1.4813e-0123.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   6  0  0  0  0     0
+ParLoopRednBegin     160 1.0 5.2881e-04 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd       160 1.0 8.0800e-04 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells         120 1.0 5.6559e-01 1.1 4.59e+09 1.1 0.0e+00 0.0e+00 0.0e+00  1  5  0  0  0  64100  0  0  0 373363
+ParLoopset_15        240 1.0 3.9670e-02 2.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   3  0  0  0  0     0
+
+--- Event Stage 7: P(4) aij matrix
+
+VecSet                80 1.0 4.9856e-02 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   4  0  0  0  0     0
+VecScatterBegin       40 1.0 7.2134e-03 5.2 0.00e+00 0.0 9.4e+03 7.1e+03 0.0e+00  0  0  2  0  0   0  0100100  0     0
+VecScatterEnd         40 1.0 6.1030e-0239.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+MatMult               40 1.0 8.0938e-01 1.0 4.08e+08 1.1 9.4e+03 7.1e+03 0.0e+00  1  0  2  0  0  72 28100100  0 23282
+MatAssemblyBegin       3 1.0 2.3842e-06 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         3 1.0 3.4618e-02 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   3  0  0  0  0     0
+MatZeroEntries         1 1.0 1.0254e-02 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatView                2 1.0 2.2043e-0296.6 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  0   1  0  0  0100     0
+AssembleMat            1 1.0 2.5943e-01 1.0 1.04e+09 1.1 0.0e+00 0.0e+00 2.0e+00  0  1  0  0  0  23 72  0  0100 184310
+ParLoopExecute         1 1.0 2.1914e-01 1.1 1.04e+09 1.1 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0  19 72  0  0  0 218199
+ParLoopHaloEnd         1 1.0 1.7881e-05 2.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin       1 1.0 2.0027e-05 2.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd         1 1.0 2.5988e-05 4.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells           3 1.0 2.1892e-01 1.1 1.04e+09 1.1 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0  19 72  0  0  0 218414
+
+--- Event Stage 8: P(4) matfree matrix
+
+VecCopy              120 1.0 1.1334e-01 2.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  10  0  0  0  0     0
+VecSet                80 1.0 6.0839e-02 3.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   4  0  0  0  0     0
+MatMult               40 1.0 7.8828e-01 1.1 5.72e+09 1.1 9.4e+03 1.3e+04 0.0e+00  1  6  2  0  0  95100100100  0 333969
+MatAssemblyBegin       2 1.0 8.1062e-06 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         2 1.0 8.1062e-06 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                2 1.0 1.3924e-04 7.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFBcastBegin          40 1.0 4.0970e-03 2.6 0.00e+00 0.0 9.4e+03 1.3e+04 0.0e+00  0  0  2  0  0   0  0100100  0     0
+SFBcastEnd            40 1.0 1.2817e-0142.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   8  0  0  0  0     0
+AssembleMat            1 1.0 2.9302e-04 1.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopExecute       160 1.0 7.0997e-01 1.2 5.72e+09 1.1 9.4e+03 1.3e+04 0.0e+00  1  6  2  0  0  82100100100  0 370806
+ParLoopHaloEnd       160 1.0 1.3031e-0124.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   8  0  0  0  0     0
+ParLoopRednBegin     160 1.0 5.2738e-04 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd       160 1.0 8.3065e-04 1.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells         120 1.0 5.9325e-01 1.1 5.72e+09 1.1 0.0e+00 0.0e+00 0.0e+00  1  6  0  0  0  70100  0  0  0 443756
+ParLoopset_21        240 1.0 3.4313e-02 2.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+
+--- Event Stage 9: P(5) aij matrix
+
+VecSet                80 1.0 4.8308e-02 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   3  0  0  0  0     0
+VecScatterBegin       40 1.0 7.2622e-03 3.7 0.00e+00 0.0 9.3e+03 8.6e+03 0.0e+00  0  0  2  0  0   0  0100100  0     0
+VecScatterEnd         40 1.0 6.3859e-0222.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+MatMult               40 1.0 9.5826e-01 1.1 5.40e+08 1.1 9.3e+03 8.6e+03 0.0e+00  1  1  2  0  0  68 17100100  0 26078
+MatAssemblyBegin       3 1.0 3.0994e-06 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         3 1.0 3.7660e-02 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+MatZeroEntries         1 1.0 1.3792e-02 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatView                2 1.0 4.8088e-02353.9 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  0   1  0  0  0100     0
+AssembleMat            1 1.0 3.9949e-01 1.0 2.66e+09 1.1 0.0e+00 0.0e+00 2.0e+00  1  3  0  0  0  29 83  0  0100 304729
+ParLoopExecute         1 1.0 3.4954e-01 1.1 2.66e+09 1.1 0.0e+00 0.0e+00 0.0e+00  0  3  0  0  0  24 83  0  0  0 348274
+ParLoopHaloEnd         1 1.0 1.3113e-05 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin       1 1.0 2.2173e-05 3.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd         1 1.0 2.4080e-05 3.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells           3 1.0 3.4931e-01 1.1 2.66e+09 1.1 0.0e+00 0.0e+00 0.0e+00  0  3  0  0  0  24 83  0  0  0 348502
+
+--- Event Stage 10: P(5) matfree matrix
+
+VecCopy              120 1.0 1.0702e-01 2.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   6  0  0  0  0     0
+VecSet                80 1.0 5.1573e-02 3.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+MatMult               40 1.0 1.0607e+00 1.1 1.04e+10 1.1 9.3e+03 1.6e+04 0.0e+00  1 10  2  0  0  97100100100  0 447590
+MatAssemblyBegin       2 1.0 6.9141e-06 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         2 1.0 1.3828e-05 2.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                2 1.0 1.5593e-04 7.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFBcastBegin          40 1.0 6.8953e-03 4.5 0.00e+00 0.0 9.3e+03 1.6e+04 0.0e+00  0  0  2  0  0   0  0100100  0     0
+SFBcastEnd            40 1.0 1.7053e-0127.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   9  0  0  0  0     0
+AssembleMat            1 1.0 3.1805e-04 2.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopExecute       160 1.0 9.8762e-01 1.1 1.04e+10 1.1 9.3e+03 1.6e+04 0.0e+00  1 10  2  0  0  88100100100  0 480734
+ParLoopHaloEnd       160 1.0 1.7325e-0120.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   9  0  0  0  0     0
+ParLoopRednBegin     160 1.0 4.8232e-04 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd       160 1.0 7.1096e-04 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells         120 1.0 8.5964e-01 1.1 1.04e+10 1.1 0.0e+00 0.0e+00 0.0e+00  1 10  0  0  0  76100  0  0  0 552303
+ParLoopset_27        240 1.0 3.4333e-02 2.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+
+--- Event Stage 11: P(6) aij matrix
+
+VecSet                80 1.0 4.5014e-02 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+VecScatterBegin       40 1.0 7.8051e-03 5.1 0.00e+00 0.0 9.1e+03 9.8e+03 0.0e+00  0  0  2  0  0   0  0100100  0     0
+VecScatterEnd         40 1.0 7.1252e-0228.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+MatMult               40 1.0 1.0410e+00 1.0 6.63e+08 1.1 9.1e+03 9.8e+03 0.0e+00  1  1  2  0  0  68 13100100  0 29180
+MatAssemblyBegin       3 1.0 2.1458e-06 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         3 1.0 3.6105e-02 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+MatZeroEntries         1 1.0 1.6442e-02 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatView                2 1.0 5.1038e-02524.7 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  0   1  0  0  0100     0
+AssembleMat            1 1.0 4.3540e-01 1.0 4.43e+09 1.1 0.0e+00 0.0e+00 2.0e+00  1  4  0  0  0  29 87  0  0100 467012
+ParLoopExecute         1 1.0 3.7981e-01 1.1 4.43e+09 1.1 0.0e+00 0.0e+00 0.0e+00  0  4  0  0  0  24 87  0  0  0 535368
+ParLoopHaloEnd         1 1.0 1.1921e-05 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin       1 1.0 2.0981e-05 2.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd         1 1.0 1.8835e-05 2.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells           3 1.0 3.7962e-01 1.1 4.43e+09 1.1 0.0e+00 0.0e+00 0.0e+00  0  4  0  0  0  24 87  0  0  0 535639
+
+--- Event Stage 12: P(6) matfree matrix
+
+VecCopy              120 1.0 9.5816e-02 2.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   5  0  0  0  0     0
+VecSet                80 1.0 5.2054e-02 3.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+MatMult               40 1.0 1.1522e+00 1.0 1.29e+10 1.1 9.1e+03 1.8e+04 0.0e+00  1 13  2  1  0  97100100100  0 513738
+MatAssemblyBegin       2 1.0 8.1062e-06 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         2 1.0 1.0014e-05 2.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                2 1.0 2.0695e-0411.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFBcastBegin          40 1.0 5.6527e-03 4.4 0.00e+00 0.0 9.1e+03 1.8e+04 0.0e+00  0  0  2  1  0   0  0100100  0     0
+SFBcastEnd            40 1.0 1.9300e-0174.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   9  0  0  0  0     0
+AssembleMat            1 1.0 3.6311e-04 2.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopExecute       160 1.0 1.0868e+00 1.1 1.29e+10 1.1 9.1e+03 1.8e+04 0.0e+00  1 13  2  1  0  90100100100  0 544630
+ParLoopHaloEnd       160 1.0 1.9523e-0140.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   9  0  0  0  0     0
+ParLoopRednBegin     160 1.0 5.2691e-04 1.6 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd       160 1.0 1.0622e-03 2.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells         120 1.0 9.6282e-01 1.1 1.29e+10 1.1 0.0e+00 0.0e+00 0.0e+00  1 13  0  0  0  78100  0  0  0 614779
+ParLoopset_33        240 1.0 3.3134e-02 2.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+
+--- Event Stage 13: P(7) aij matrix
+
+VecSet                80 1.0 5.6409e-02 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+VecScatterBegin       40 1.0 7.5808e-03 3.2 0.00e+00 0.0 9.1e+03 1.3e+04 0.0e+00  0  0  2  0  0   0  0100100  0     0
+VecScatterEnd         40 1.0 1.3011e-0137.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatMult               40 1.0 1.6004e+00 1.0 1.02e+09 1.1 9.1e+03 1.3e+04 0.0e+00  2  1  2  0  0  66 10100100  0 29701
+MatAssemblyBegin       3 1.0 2.1458e-06 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         3 1.0 5.7968e-02 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+MatZeroEntries         1 1.0 2.6456e-02 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+MatView                2 1.0 6.4158e-02329.0 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  0  0  0  0  0   1  0  0  0100     0
+AssembleMat            1 1.0 7.4040e-01 1.0 9.01e+09 1.1 0.0e+00 0.0e+00 2.0e+00  1  9  0  0  0  31 90  0  0100 565730
+ParLoopExecute         1 1.0 6.5652e-01 1.1 9.01e+09 1.1 0.0e+00 0.0e+00 0.0e+00  1  9  0  0  0  26 90  0  0  0 638013
+ParLoopHaloEnd         1 1.0 1.2159e-05 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednBegin       1 1.0 2.6941e-05 3.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd         1 1.0 2.0981e-05 3.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells           3 1.0 6.5630e-01 1.1 9.01e+09 1.1 0.0e+00 0.0e+00 0.0e+00  1  9  0  0  0  26 90  0  0  0 638226
+
+--- Event Stage 14: P(7) matfree matrix
+
+VecCopy              120 1.0 1.2339e-01 1.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   5  0  0  0  0     0
+VecSet                80 1.0 5.5824e-02 3.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+MatMult               40 1.0 1.7042e+00 1.0 2.03e+10 1.1 9.1e+03 2.4e+04 0.0e+00  2 20  2  1  0  98100100100  0 554506
+MatAssemblyBegin       2 1.0 7.1526e-06 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatAssemblyEnd         2 1.0 8.1062e-06 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatView                2 1.0 1.4067e-04 7.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFBcastBegin          40 1.0 9.1677e-03 5.0 0.00e+00 0.0 9.1e+03 2.4e+04 0.0e+00  0  0  2  1  0   0  0100100  0     0
+SFBcastEnd            40 1.0 1.9404e-0140.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   7  0  0  0  0     0
+AssembleMat            1 1.0 2.9707e-04 1.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopExecute       160 1.0 1.6140e+00 1.1 2.03e+10 1.1 9.1e+03 2.4e+04 0.0e+00  2 20  2  1  0  92100100100  0 585508
+ParLoopHaloEnd       160 1.0 1.9664e-0127.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   7  0  0  0  0     0
+ParLoopRednBegin     160 1.0 5.4121e-04 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopRednEnd       160 1.0 9.0480e-04 1.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+ParLoopCells         120 1.0 1.4880e+00 1.1 2.03e+10 1.1 0.0e+00 0.0e+00 0.0e+00  2 20  0  0  0  83100  0  0  0 635088
+ParLoopset_39        240 1.0 3.9164e-02 2.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  0  0  0  0     0
+------------------------------------------------------------------------------------------------------------------------
+
+Memory usage is given in bytes:
+
+Object Type          Creations   Destructions     Memory  Descendants' Mem.
+Reports information only for process 0.
+
+--- Event Stage 0: Main Stage
+
+           Container    37             36        22176     0.
+              Viewer     8              0            0     0.
+         PetscRandom    14             14         9604     0.
+           Index Set  2260           2251      1992912     0.
+   IS L to G Mapping    35             34     93936920     0.
+             Section   540            527       400520     0.
+              Vector   122            116     86573688     0.
+      Vector Scatter     7              7         8456     0.
+              Matrix    66             65    745649576     0.
+    Distributed Mesh   103            100       489176     0.
+    GraphPartitioner    45             44        28864     0.
+Star Forest Bipartite Graph   509            503       447760     0.
+     Discrete System   103            100        92800     0.
+
+--- Event Stage 1: P(1) aij matrix
+
+
+--- Event Stage 2: P(1) matfree matrix
+
+
+--- Event Stage 3: P(2) aij matrix
+
+
+--- Event Stage 4: P(2) matfree matrix
+
+
+--- Event Stage 5: P(3) aij matrix
+
+
+--- Event Stage 6: P(3) matfree matrix
+
+
+--- Event Stage 7: P(4) aij matrix
+
+
+--- Event Stage 8: P(4) matfree matrix
+
+
+--- Event Stage 9: P(5) aij matrix
+
+
+--- Event Stage 10: P(5) matfree matrix
+
+
+--- Event Stage 11: P(6) aij matrix
+
+
+--- Event Stage 12: P(6) matfree matrix
+
+
+--- Event Stage 13: P(7) aij matrix
+
+
+--- Event Stage 14: P(7) matfree matrix
+
+========================================================================================================================
+Average time to get PetscTime(): 0.
+Average time for MPI_Barrier(): 8.2016e-06
+Average time for zero size MPI_Send(): 1.42058e-06
+#PETSc Option Table entries:
+--dimension 2
+--output-file poisson-matvecs.csv
+--problem poisson
+-log_view
+-mat_view ::ascii_info
+#End of PETSc Option Table entries
+Compiled without FORTRAN kernels
+Compiled with full precision matrices (default)
+sizeof(short) 2 sizeof(int) 4 sizeof(long) 8 sizeof(void*) 8 sizeof(PetscScalar) 8 sizeof(PetscInt) 8
+Configure options: --COPTFLAGS="-march=ivybridge -O3" --CXXOPTFLAGS="-march=ivybridge -O3" --FOPTFLAGS="-march=ivybridge -O3" --PETSC_ARCH=petsc-gnu51-ivybridge-int64 --download-exodusii --download-hypre --download-metis --download-netcdf --download-parmetis --download-sowing=1 --known-bits-per-byte=8 --known-has-attribute-aligned=1 --known-level1-dcache-assoc=8 --known-level1-dcache-linesize=64 --known-level1-dcache-size=32768 --known-memcmp-ok=1 --known-mpi-c-double-complex=1 --known-mpi-int64_t=1 --known-mpi-long-double=1 --known-mpi-shared-libraries=1 --known-sdot-returns-double=0 --known-sizeof-MPI_Comm=4 --known-sizeof-MPI_Fint=4 --known-sizeof-char=1 --known-sizeof-double=8 --known-sizeof-float=4 --known-sizeof-int=4 --known-sizeof-long-long=8 --known-sizeof-long=8 --known-sizeof-short=2 --known-sizeof-size_t=8 --known-sizeof-void-p=8 --known-snrm2-returns-double=0 --prefix=/work/n01/n01/lmn01/petsc-gnu51-ivybridge-int64 --with-64-bit-indices=1 --with-batch=1 --with-blas-lapack-lib="-L/opt/cray/libsci/16.03.1/GNU/5.1/x86_64/lib -lsci_gnu_mp" --with-cc=cc --with-clib-autodetect=0 --with-cxx=CC --with-cxxlib-autodetect=0 --with-debugging=0 --with-fc=ftn --with-fortranlib-autodetect=0 --with-hdf5-dir=/opt/cray/hdf5-parallel/1.8.14/GNU/5.1 --with-hdf5=1 --with-make-np=4 --with-pic=1 --with-shared-libraries=1 --with-x=0 --download-eigen
+-----------------------------------------
+Libraries compiled on Tue Feb 14 12:07:09 2017 on eslogin003 
+Machine characteristics: Linux-3.0.101-0.47.86.1.11753.0.PTF-default-x86_64-with-SuSE-11-x86_64
+Using PETSc directory: /home2/n01/n01/lmn01/src/petsc
+Using PETSc arch: petsc-gnu51-ivybridge-int64
+-----------------------------------------
+
+Using C compiler: cc  -fPIC  -march=ivybridge -O3  ${COPTFLAGS} ${CFLAGS}
+Using Fortran compiler: ftn  -fPIC -march=ivybridge -O3   ${FOPTFLAGS} ${FFLAGS} 
+-----------------------------------------
+
+Using include paths: -I/home2/n01/n01/lmn01/src/petsc/petsc-gnu51-ivybridge-int64/include -I/home2/n01/n01/lmn01/src/petsc/include -I/home2/n01/n01/lmn01/src/petsc/include -I/home2/n01/n01/lmn01/src/petsc/petsc-gnu51-ivybridge-int64/include -I/work/n01/n01/lmn01/petsc-gnu51-ivybridge-int64/include -I/work/n01/n01/lmn01/petsc-gnu51-ivybridge-int64/include/eigen3 -I/opt/cray/hdf5-parallel/1.8.14/GNU/5.1/include
+-----------------------------------------
+
+Using C linker: cc
+Using Fortran linker: ftn
+Using libraries: -Wl,-rpath,/home2/n01/n01/lmn01/src/petsc/petsc-gnu51-ivybridge-int64/lib -L/home2/n01/n01/lmn01/src/petsc/petsc-gnu51-ivybridge-int64/lib -lpetsc -Wl,-rpath,/work/n01/n01/lmn01/petsc-gnu51-ivybridge-int64/lib -L/work/n01/n01/lmn01/petsc-gnu51-ivybridge-int64/lib -lHYPRE -lparmetis -lmetis -lexoIIv2for -lexodus -lnetcdf -Wl,-rpath,/opt/cray/hdf5-parallel/1.8.14/GNU/5.1/lib -L/opt/cray/hdf5-parallel/1.8.14/GNU/5.1/lib -lhdf5hl_fortran -lhdf5_fortran -lhdf5_hl -lhdf5 -lssl -lcrypto -ldl 
+-----------------------------------------
+
+Application 28644521 resources: utime ~2210s, stime ~168s, Rss ~1103888, inblocks ~2520166, outblocks ~40374

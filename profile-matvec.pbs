@@ -55,10 +55,10 @@ export OMP_NUM_THREADS=1
 
 NPROC=48
 
-aprun -n ${NPROC} -N 24 python profile-matvec.py --problem poisson --output-file poisson-matvecs.csv --dimension 2
+aprun -n ${NPROC} -N 24 python profile-matvec.py --problem poisson --output-file poisson-matvecs.csv --dimension 2 -log_view > poisson-matvecs-dim2.log
 
-aprun -n ${NPROC} -N 24 python profile-matvec.py --problem poisson --output-file poisson-matvecs.csv --dimension 3
+aprun -n ${NPROC} -N 24 python profile-matvec.py --problem poisson --output-file poisson-matvecs.csv --dimension 3 -log_view > poisson-matvecs-dim3.log
 
-aprun -n ${NPROC} -N 24 python profile-matvec.py --problem rayleigh_benard --output-file rb-matvecs.csv --dimension 2
+aprun -n ${NPROC} -N 24 python profile-matvec.py --problem rayleigh_benard --output-file rb-matvecs.csv --dimension 2 -log_view > rb-matvecs-dim2.log
 
-aprun -n ${NPROC} -N 24 python profile-matvec.py --problem rayleigh_benard --output-file rb-matvecs.csv --dimension 3
+aprun -n ${NPROC} -N 24 python profile-matvec.py --problem rayleigh_benard --output-file rb-matvecs.csv --dimension 3 -log_view > rb-matvecs-dim3.log
