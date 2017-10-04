@@ -1,5 +1,11 @@
 import pandas
-from cPickle import loads
+import pickle
+import sys
+
+if sys.version_info[0] > 2:
+    loads = lambda s: pickle.loads(s.encode(), encoding="bytes")
+else:
+    loads = pickle.loads
 
 data = pandas.read_csv("rb-weak-scale.csv")
 data = data.sort_values("num_processes")
@@ -21,4 +27,4 @@ for np in data.num_processes:
                             tits=tits.sum(),
                             atits=tits.mean())
 
-print table
+print(table)

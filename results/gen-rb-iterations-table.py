@@ -18,4 +18,4 @@ for np in data.num_processes:
                             kits=sliced.ksp_its.values[0],
                             time=sliced.SNESSolve.values[0])
 
-print table
+print(table)

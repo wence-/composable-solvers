@@ -24,4 +24,4 @@ for np in data_hypre.num_processes:
                             htime=hypre.KSPSolve.values[0],
                             stime=schwarz.KSPSolve.values[0])
 
-print table
+print(table)
