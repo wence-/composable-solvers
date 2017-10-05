@@ -21,7 +21,10 @@ matching PBS job submission scripts.
 
 The `results` directory contains data for the results in the paper.
 The python scripts in that directory can be used to recreate the
-plots, and the tables from the paper.
+plots, and the tables from the paper.  The file `rb-solution.tgz`
+contains VTU files and a Paraview state file that can be used to
+recreate the picture of the solution presented in the paper.
+
 In addition to the processed data, this directory also contains the
 output and log files (from PETSc's -log_view) for each of the runs.
 Note that the FLOP-counting routine used in PyOP2 for some of the
