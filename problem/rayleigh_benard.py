@@ -171,7 +171,7 @@ class Problem(baseproblem.Problem):
             inner(grad(u), grad(v))*dx
             + inner(dot(grad(u), u), v)*dx
             - inner(p, div(v))*dx
-            - (self.Ra/self.Pr)*inner(T*g, v)*dx
+            + (self.Ra/self.Pr)*inner(T*g, v)*dx
             + inner(div(u), q)*dx
             + inner(dot(grad(T), u), S)*dx
             + 1/self.Pr * inner(grad(T), grad(S))*dx
